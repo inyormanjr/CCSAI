@@ -23,19 +23,23 @@
                                     <th>ACTIONS</th>
                                 </tr>
                             </thead>
-                            <tbody *ngIf="terms.length > 0">
-                                <tr *ngFor="let term of terms">
-                                    <td>{{term.termName}}</td>
-                                    <td><button type="button" (click)="updateTerm(term._id)" routerLinkActive="router-link-active" class="btn btn-outline-primary fa fa-pencil" data-bs-toggle="tooltip" data-bs-placement="top" title="View/Edit"></button></td>
-                                </tr>
-                            </tbody>
-                            <tbody *ngIf="terms?.length === 0">
-                                <tr>
-                                    <td colspan="2" class="no-data-available" style="text-align: center;">
-                                        No Data To Display
-                                    </td>
-                                </tr>
-                            </tbody>
+                            <ng-container *ngIf="terms;else elseTemplate">
+                                <tbody>
+                                    <tr *ngFor="let term of terms">
+                                        <td>{{term.termName}}</td>
+                                        <td><button type="button" (click)="updateTerm(term._id)" routerLinkActive="router-link-active" class="btn btn-outline-primary fa fa-pencil" data-bs-toggle="tooltip" data-bs-placement="top" title="View/Edit"></button></td>
+                                    </tr>
+                                </tbody>
+                            </ng-container>
+                            <ng-template #elseTemplate>
+                                <tbody>
+                                    <tr>
+                                        <td colspan="2" class="no-data-available" style="text-align: center;">
+                                            No Data To Display
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </ng-template>
                         </table>
                     </div>
                 </div>

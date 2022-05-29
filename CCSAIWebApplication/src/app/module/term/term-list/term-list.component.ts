@@ -1,11 +1,11 @@
+import { Term } from './../../../shared/models/Term';
 import { UpdateTermComponent } from './../update-term/update-term.component';
-import { TermsService } from './../../../core/http/terms.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
-import { AlertifyjsService } from 'src/app/core/services/alertifyjs.service';
 import { TokenStorageService } from 'src/app/core/services/token-storage.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NewTermComponent } from '../new-term/new-term.component';
+import { TermsService } from 'src/app/core/http/terms/terms.service';
 
 
 @Component({
@@ -15,12 +15,11 @@ import { NewTermComponent } from '../new-term/new-term.component';
 })
 export class TermListComponent implements OnInit,OnDestroy {
 
-  terms: Array<any> = [];
+  terms: Term[] | undefined;
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject<any>();
   currentUser: any = {};
   constructor(private termsService: TermsService,
-    private alertify: AlertifyjsService,
     private tokenStorage: TokenStorageService,
     private modalService: NgbModal) { }
 
@@ -50,7 +49,7 @@ export class TermListComponent implements OnInit,OnDestroy {
 
   getTerms() {
 
-    this.termsService.getTerms().subscribe(res => {
+    this.termsService.Get(0,0).subscribe(res => {
       this.terms = res.data;
       this.dtTrigger.next();
     });

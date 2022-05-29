@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
-export class EnrollmentService extends BaseService<ResponseResult<Enrollment[]>> {
+export class EnrollmentService extends BaseService<Enrollment> {
 
   constructor(public httpClient : HttpClient) {
     super(httpClient);

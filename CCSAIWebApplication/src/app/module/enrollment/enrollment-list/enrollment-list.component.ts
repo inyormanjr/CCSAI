@@ -15,7 +15,7 @@ import { ResponseResult } from 'src/app/shared/models/response.interface';
 export class EnrollmentListComponent implements OnInit,OnDestroy {
 
 
-  enrollmentList : Enrollment | undefined;
+  enrollmentList : Enrollment[] | undefined;
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject<any>();
   currentUser: any = {};
@@ -47,7 +47,6 @@ export class EnrollmentListComponent implements OnInit,OnDestroy {
 
   getEnrollment(){
     this.eService.Get(0,0).subscribe(responseResult => {
-      console.log(responseResult.data);
       this.enrollmentList = responseResult.data;
       this.dtTrigger.next();
     });
