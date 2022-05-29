@@ -1,3 +1,5 @@
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
 import { DataTablesModule } from 'angular-datatables';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -10,15 +12,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './core/interceptors/auth.interceptor';
+import { mainReducerFeatureKey, reducer } from './reducer/main-reducer.reducer';
+import { environment } from 'src/environments/environment';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    PageNotFoundComponent,
-    LoginComponent,
-  ],
+  declarations: [AppComponent, PageNotFoundComponent, LoginComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -26,9 +27,19 @@ import { AuthInterceptor } from './core/interceptors/auth.interceptor';
     ReactiveFormsModule,
     NgbModule,
     HttpClientModule,
-    DataTablesModule
+    DataTablesModule,
+    StoreModule.forRoot({}),
+    StoreModule.forFeature(mainReducerFeatureKey, reducer),
+    !environment.production
+      ? StoreDevtoolsModule.instrument({
+          maxAge: 25,
+          logOnly: environment.production,
+        })
+      : [],
   ],
-  providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
-  bootstrap: [AppComponent]
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+  ],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

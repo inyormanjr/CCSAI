@@ -1,11 +1,15 @@
 
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { EmptyError, Subject } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { EmptyError, Subject, Observable } from 'rxjs';
 import { EnrollmentService } from 'src/app/core/http/enrollment/enrollment.service';
 import { TokenStorageService } from 'src/app/core/services/token-storage.service';
 import { Enrollment } from 'src/app/shared/models/Enrollment';
 import { ResponseResult } from 'src/app/shared/models/response.interface';
+import { EnrollmentActionTypes } from '../action/enrollment.action.types';
+import { EnrollmentState } from '../reducer/enrollment.reducer';
+import { EnrollmentSelectorTypes } from '../selector/enrollment.selector.types';
 
 @Component({
   selector: 'app-enrollment-list',
@@ -15,14 +19,19 @@ import { ResponseResult } from 'src/app/shared/models/response.interface';
 export class EnrollmentListComponent implements OnInit,OnDestroy {
 
 
-  enrollmentList : Enrollment[] | undefined;
+  enrollmentList: Enrollment[] | undefined;
+  enrollments$: Observable<Enrollment[]> | undefined;
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject<any>();
   currentUser: any = {};
 
   constructor(
     private tokenStorage: TokenStorageService,
-    private eService : EnrollmentService) { }
+    private enrollmentStore: Store<EnrollmentState>,
+    private eService: EnrollmentService) {
+    this.enrollmentStore.dispatch(EnrollmentActionTypes.loadEnrollments());
+    this.enrollments$ = this.enrollmentStore.select(EnrollmentSelectorTypes.selectEnrollmentsList);
+    }
 
   ngOnInit(): void {
     if (this.tokenStorage.getDecodedUserToken() !== null) {

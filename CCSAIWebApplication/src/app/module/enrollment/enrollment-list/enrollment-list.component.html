@@ -26,9 +26,9 @@
                                     <th>ACTION</th>
                                 </tr>
                             </thead>
-                            <ng-container *ngIf="enrollmentList; else elseTemplate">
+                            <ng-container *ngIf="enrollments$ | async as enrollments; else elseTemplate">
                                 <tbody>
-                                    <tr *ngFor="let enrollment of enrollmentList">
+                                    <tr *ngFor="let enrollment of enrollments">
                                         <td>{{enrollment.termId.termName}}</td>
                                         <td>{{enrollment.courseId.course | uppercase}}</td>
                                         <td>{{enrollment.instructorId.fullName | uppercase}}</td>
