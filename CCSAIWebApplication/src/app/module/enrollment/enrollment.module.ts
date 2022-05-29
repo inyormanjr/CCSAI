@@ -1,3 +1,4 @@
+
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -8,6 +9,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DataTablesModule } from 'angular-datatables';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NewEnrollmentComponent } from './new-enrollment/new-enrollment.component';
+import { EnrollmentEffects } from './effect/enrollment.effects';
 
 
 
@@ -22,7 +24,8 @@ import { NewEnrollmentComponent } from './new-enrollment/new-enrollment.componen
     EnrollmentRoutingModule,
     NgbModule,
     DataTablesModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    // EffectsModule.forFeature([EnrollmentEffects])
   ]
 })
 export class EnrollmentModule { }

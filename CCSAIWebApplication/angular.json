@@ -114,6 +114,7 @@
   },
   "defaultProject": "CCSAIWebApplication",
   "cli": {
+    "analytics": "123cc8ad-5e1b-42a0-aa9a-a9f24357c33e",
     "defaultCollection": "@ngrx/schematics"
   }
 }

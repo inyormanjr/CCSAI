@@ -31,7 +31,7 @@ app.use('/api/v1/courses', courses);
 app.use('/api/v1/terms', terms);
 app.use('/api/v1/enrollment', enrollment);
 
-const PORT = 5000;
+const PORT = 5001;
 
 const server = app.listen(PORT, console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`
     .yellow.bold));
