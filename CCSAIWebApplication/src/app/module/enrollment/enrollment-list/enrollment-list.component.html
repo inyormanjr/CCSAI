@@ -26,7 +26,7 @@
                                     <th>ACTION</th>
                                 </tr>
                             </thead>
-                            <ng-container *ngIf="enrollments$ | async as enrollments; else elseTemplate">
+                            <ng-container *ngIf="(enrollments$ | async) as enrollments; else elseTemplate">
                                 <tbody>
                                     <tr *ngFor="let enrollment of enrollments">
                                         <td>{{enrollment.termId.termName}}</td>

@@ -8,6 +8,7 @@ import { EnrollmentService } from 'src/app/core/http/enrollment/enrollment.servi
 import { EnrollmentActionTypes } from '../action/enrollment.action.types';
 import { Store } from '@ngrx/store';
 import { EnrollmentState } from '../reducer/enrollment.reducer';
+import { noop } from 'jquery';
 
 
 
@@ -18,8 +19,9 @@ export class EnrollmentEffects {
     this.actions$.pipe(ofType(EnrollmentActionTypes.loadEnrollments),
       tap((action) => {
         this.enrollmentService.Get(0, 0).pipe(map((response: ResponseResult<Enrollment[]>) => {
+          console.log(response);
               this.enrollmentStore.dispatch(EnrollmentActionTypes.loadEnrollmentsSuccess({data: response.data}))
-        }))
+        })).subscribe(noop, error => console.log(error))
       })
     ), {dispatch: false}
   );
