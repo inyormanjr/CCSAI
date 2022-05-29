@@ -1,0 +1,31 @@
+.login,
+.image {
+    min-height: 100vh;
+}
+
+.bg-image {
+    background-image: url('../../../assets/login_test.jpg');
+    background-size: cover;
+    background-position: center center;
+    background-color: black;
+}
+
+.btn-color {
+    background: #fd961a;
+    color: white !important;
+}
+
+h3 {
+    color: #fd961a;
+}
+
+input:focus,
+input {
+    color: black;
+    background-color: gainsboro;
+}
+
+.bg-color-black {
+    background-color: black;
+    color: white;
+}

@@ -1,0 +1,33 @@
+<app-main-nav-bar>
+</app-main-nav-bar>
+
+
+<div class="container-fluid">
+    <div class="row no-gutter">
+        <div class="col-md-2 p-0">
+            <ul class="list-group list-group-flush btn-group mt-4 mb-4">
+                <button [routerLink]="['./dashboard']" type="button" class="list-group-item list-group-item-action" style="height: 100px;font-size: larger;">
+                    <i class="fa fa-home"></i>  <strong> Home</strong>
+                </button>
+                <button [routerLink]="['./users']" *ngIf="currentUser.role==='admin'" type="button" class="list-group-item list-group-item-action">
+                    <i class="fa fa-users"></i>  Users
+                </button>
+                <button [routerLink]="['./course']" routerLinkActive="router-link-active" type="button" class="list-group-item list-group-item-action">
+                    <i class="fa fa-book"></i>  Course
+                </button>
+                <button [routerLink]="['./term']" routerLinkActive="router-link-active" type="button" class="list-group-item list-group-item-action">
+                    <i class="fa fa-calendar"></i>  Term
+                </button>
+                <button [routerLink]="['./enrollment']" routerLinkActive="router-link-active" type="button" class="list-group-item list-group-item-action">
+                    <i class="fa fa-address-card"></i>  Enrollment
+                </button>
+            </ul>
+
+        </div>
+        <div class="col-md-10">
+            <router-outlet></router-outlet>
+        </div>
+
+    </div>
+
+</div>

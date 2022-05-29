@@ -1,0 +1,45 @@
+<div class="container-fluid mt-4">
+    <div class="row">
+        <div class="col-12 d-flex justify-content-start">
+            <h2>Term Management</h2>
+        </div>
+    </div>
+    <hr>
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 d-flex justify-content-end">
+                        <button type="button" class="btn btn-primary" (click)="newTerm()" *ngIf="currentUser.role==='admin'">New Term</button>
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-12">
+
+                        <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover" style="width: 100%">
+                            <thead>
+                                <tr>
+                                    <th>TERM</th>
+                                    <th>ACTIONS</th>
+                                </tr>
+                            </thead>
+                            <tbody *ngIf="terms.length > 0">
+                                <tr *ngFor="let term of terms">
+                                    <td>{{term.termName}}</td>
+                                    <td><button type="button" (click)="updateTerm(term._id)" routerLinkActive="router-link-active" class="btn btn-outline-primary fa fa-pencil" data-bs-toggle="tooltip" data-bs-placement="top" title="View/Edit"></button></td>
+                                </tr>
+                            </tbody>
+                            <tbody *ngIf="terms?.length === 0">
+                                <tr>
+                                    <td colspan="2" class="no-data-available" style="text-align: center;">
+                                        No Data To Display
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

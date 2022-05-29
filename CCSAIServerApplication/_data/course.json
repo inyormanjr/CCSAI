@@ -1,0 +1,19 @@
+[{
+        "_id": "6281250bb39739f986bf9167",
+        "courseCode": "ICT-01",
+        "course": "Basic programming",
+        "course_status": "active"
+    },
+    {
+        "_id": "6281251bb39739f986bf916d",
+        "courseCode": "ICT-02",
+        "course": "Intermediate programming",
+        "course_status": "active"
+    },
+    {
+        "_id": "6281251bb39739f986bf917d",
+        "courseCode": "ICT-03",
+        "course": "Intermediate programming 2",
+        "course_status": "deactivated"
+    }
+]

@@ -1,0 +1,63 @@
+<div class="container-fluid mt-4">
+    <div class="row">
+        <div class="col-12 d-flex justify-content-start">
+            <h2>User Update</h2>
+        </div>
+    </div>
+    <hr>
+    <div class="row mt-4">
+        <div class="container">
+            <form [formGroup]="userForm" (ngSubmit)="updateUser()" class="row g-3 mt-4">
+                <div class="col-12 d-flex justify-content-start">
+                    <h3>User Information</h3>
+                </div>
+                <div class="col-md-6">
+                    <label for="firstName" class="form-label">First Name</label>
+                    <input type="text" class="form-control" formControlName="firstName" id="firstName">
+                </div>
+                <div class="col-md-6">
+                    <label for="lastName" class="form-label">Last name</label>
+                    <input type="text" class="form-control" formControlName="lastName" id="lastName">
+                </div>
+                <div class="col-md-12">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="text" class="form-control" formControlName="email" id="email" readonly>
+                </div>
+                <div class="col-md-6 mt-2">
+                    <label for="role" class="form-label">Role</label>
+                    <select class="form-control" id="role" formControlName="role">
+                        <option [ngValue]="null" selected>-----Select Role-----</option>
+                        <option *ngFor="let role of eRoles | keyvalue" [ngValue]="role.value">{{role.value | uppercase}}</option>
+                      </select>
+                </div>
+                <div class="col-md-6 mt-2">
+                    <label for="user_status" class="form-label">Status</label>
+                    <input type="text" class="form-control" formControlName="user_status" id="user_status" readonly>
+                </div>
+                <div class="col-12 mt-4">
+
+                    <button type="submit" class="btn btn-primary">Update User</button>
+                </div>
+            </form>
+            <hr>
+            <form [formGroup]="passwordForm" (ngSubmit)="changePassword()" class="row g-3">
+                <div class="col-12 d-flex justify-content-start">
+                    <h3>Change Password</h3>
+                </div>
+                <div class="col-md-6 mt-2">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" class="form-control" formControlName="newPassword" id="password">
+                </div>
+                <div class="col-md-6 mt-2">
+                    <label for="confirmPassword" class="form-label">Confirm Password</label>
+                    <input type="password" class="form-control" formControlName="confirmPassword" id="confirmPassword">
+                </div>
+                <div class="col-12 mt-4">
+                    <button [routerLink]="['../../userlist']" routerLinkActive="router-link-active" class="btn btn-primary mr-2">Back</button>
+                    <button type="submit" class="btn btn-primary">Change Password</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,46 @@
+<div class="container-fluid mt-4">
+    <div class="row">
+        <div class="col-12 d-flex justify-content-start">
+            <h2>User Registration</h2>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="container">
+            <form [formGroup]="userForm" (ngSubmit)="register()" class="row g-3">
+                <div class="col-6">
+                    <label for="firstName" class="form-label">First Name</label>
+                    <input type="text" class="form-control" id="firstName" formControlName="firstName">
+                </div>
+                <div class="col-6">
+                    <label for="lastName" class="form-label">Last Name</label>
+                    <input type="text" class="form-control" id="lastName" formControlName="lastName">
+                </div>
+                <div class="col-12 mt-2">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="text" class="form-control" id="email" formControlName="email">
+                </div>
+                <div class="col-md-6 mt-2">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="password" formControlName="password">
+                </div>
+                <div class="col-md-6 mt-2">
+                    <label for="confirmPassword" class="form-label">Confirm Password</label>
+                    <input type="password" class="form-control" id="confirmPassword" formControlName="confirmPassword">
+                </div>
+
+                <div class="col-12 mt-2">
+                    <label for="userRole" class="form-label">Role</label>
+                    <select class="form-control" id="userRole" formControlName="role">
+                        <option [ngValue]="null" selected>-----Select Role-----</option>
+                        <option *ngFor="let role of eRoles | keyvalue" [ngValue]="role.value">{{role.value | uppercase}}</option>
+                      </select>
+                </div>
+                <div class="col-12 mt-4">
+                    <button type="button" [routerLink]="['../userlist']" routerLinkActive="router-link-active" class="btn btn-primary mr-2">Back</button>
+                    <button type="submit" class="btn btn-primary">Register</button>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
