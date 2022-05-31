@@ -19,7 +19,7 @@ import { EnrollmentSelectorTypes } from '../selector/enrollment.selector.types';
 export class EnrollmentListComponent implements OnInit,OnDestroy {
 
 
-  enrollmentList: Enrollment[] | undefined;
+  
   enrollments$: Observable<Enrollment[]> | undefined;
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject<any>();
@@ -29,8 +29,8 @@ export class EnrollmentListComponent implements OnInit,OnDestroy {
     private tokenStorage: TokenStorageService,
     private enrollmentStore: Store<EnrollmentState>,
     private eService: EnrollmentService) {
-    this.enrollmentStore.dispatch(EnrollmentActionTypes.loadEnrollments());
-    this.enrollments$ = this.enrollmentStore.select(EnrollmentSelectorTypes.selectEnrollmentsList);
+      this.enrollmentStore.dispatch(EnrollmentActionTypes.loadEnrollments());
+      this.enrollments$ = this.enrollmentStore.select(EnrollmentSelectorTypes.selectEnrollmentsList);
     }
 
   ngOnInit(): void {
@@ -56,7 +56,7 @@ export class EnrollmentListComponent implements OnInit,OnDestroy {
 
   getEnrollment(){
     this.eService.Get(0,0).subscribe(responseResult => {
-      this.enrollmentList = responseResult.data;
+     
       this.dtTrigger.next();
     });
   }

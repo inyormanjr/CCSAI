@@ -1,4 +1,3 @@
-test
 <div class="container-fluid mt-4">
     <div class="row">
         <div class="col-12 d-flex justify-content-start">
@@ -27,25 +26,30 @@ test
                                     <th>ACTIONS</th>
                                 </tr>
                             </thead>
-                            <tbody *ngIf="users.length > 0">
-                                <tr *ngFor="let user of users">
-                                    <td>{{user.lastName | uppercase}}</td>
-                                    <td>{{user.firstName | uppercase}}</td>
-                                    <td>{{user.role | uppercase}}</td>
-                                    <td>{{user.user_status | uppercase}}</td>
-                                    <td><button type="button" [routerLink]="['../updateuser',user._id]" routerLinkActive="router-link-active" class="btn btn-outline-primary fa fa-pencil" data-bs-toggle="tooltip" data-bs-placement="top" title="View/Edit"></button>
-                                        <button type="button" (click)="deactivate(user)" routerLinkActive="router-link-active" class="btn btn-outline-danger fa fa-ban" *ngIf="user.user_status === 'active'" data-bs-toggle="tooltip" data-bs-placement="top" title="Deactivate"></button>
-                                        <button type="button" (click)="activate(user)" routerLinkActive="router-link-active" class="btn btn-outline-success fa fa-check" *ngIf="user.user_status === 'inactive' || user.user_status === 'deactivated'" data-bs-toggle="tooltip" data-bs-placement="top"
-                                            title="Activate"></button></td>
-                                </tr>
-                            </tbody>
-                            <tbody *ngIf="users?.length === 0">
-                                <tr>
-                                    <td colspan="4" class="no-data-available" style="text-align: center;">
-                                        No Data To Display
-                                    </td>
-                                </tr>
-                            </tbody>
+                            <ng-container *ngIf="(users$ | async) as users; else elseTemplate">
+                                <tbody>
+                                    <tr *ngFor="let user of users">
+                                        <td>{{user.lastName | uppercase}}</td>
+                                        <td>{{user.firstName | uppercase}}</td>
+                                        <td>{{user.role | uppercase}}</td>
+                                        <td>{{user.user_status | uppercase}}</td>
+                                        <td><button type="button" [routerLink]="['../updateuser',user._id]" routerLinkActive="router-link-active" class="btn btn-outline-primary fa fa-pencil" data-bs-toggle="tooltip" data-bs-placement="top" title="View/Edit"></button>
+                                            <button type="button" (click)="deactivate(user)" routerLinkActive="router-link-active" class="btn btn-outline-danger fa fa-ban" *ngIf="user.user_status === 'active'" data-bs-toggle="tooltip" data-bs-placement="top" title="Deactivate"></button>
+                                            <button type="button" (click)="activate(user)" routerLinkActive="router-link-active" class="btn btn-outline-success fa fa-check" *ngIf="user.user_status === 'inactive' || user.user_status === 'deactivated'" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                title="Activate"></button></td>
+                                    </tr>
+                                </tbody>
+                            </ng-container>
+                            <ng-template #elseTemplate>
+                                <tbody>
+                                    <tr>
+                                        <td colspan="5" class="no-data-available" style="text-align: center;">
+                                            No Data To Display
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </ng-template>
+
                         </table>
                     </div>
                 </div>
