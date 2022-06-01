@@ -7,10 +7,14 @@ export const userFeatureKey = 'user';
 
 export interface UserState {
   userList : UserModel[];
+  updateSuccess : Boolean;
+  errorActivate : any;
 }
 
 export const initialUserState: UserState = {
-  userList : []
+  userList : [],
+  updateSuccess : false,
+  errorActivate : undefined
 };
 
 export const userReducer = createReducer(
@@ -20,6 +24,18 @@ export const userReducer = createReducer(
       ...state,
       userList : action.data
     }
-  })
-
+  }),
+  on(UserActionTypes.activateUserSuccess,(state,action)=>{
+    return {
+      ...state,
+      updateSuccess : true
+    }
+  }),
+  on(UserActionTypes.activateUserFailure,(state,action)=>{
+    return {
+      ...state,
+      updateSuccess : false,
+      errorActivate : action.errorActivate
+    }
+  }),
 );
