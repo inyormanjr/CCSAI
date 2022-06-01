@@ -1,3 +1,4 @@
+import { ErrorInterceptor } from './core/interceptors/error.interceptor';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { DataTablesModule } from 'angular-datatables';
@@ -40,6 +41,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
   ],
   bootstrap: [AppComponent],
 })
