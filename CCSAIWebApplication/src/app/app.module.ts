@@ -16,6 +16,7 @@ import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 import { mainReducerFeatureKey, reducer } from './reducer/main-reducer.reducer';
 import { environment } from 'src/environments/environment';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { ChatbotBoxComponent } from './shared/components/chatbot-box/chatbot-box.component';
 
 
 

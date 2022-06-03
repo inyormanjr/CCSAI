@@ -8,13 +8,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
 import { MainNavBarComponent } from 'src/app/shared/components/main-nav-bar/main-nav-bar.component';
+import { ChatbotBoxComponent } from 'src/app/shared/components/chatbot-box/chatbot-box.component';
 
 
 @NgModule({
   declarations: [
     MainViewComponent,
     MainNavBarComponent,
-    ChangeUserPasswordComponent
+    ChangeUserPasswordComponent,
+    ChatbotBoxComponent,
   ],
   imports: [
     CommonModule,
@@ -22,7 +24,7 @@ import { MainNavBarComponent } from 'src/app/shared/components/main-nav-bar/main
     FormsModule,
     ReactiveFormsModule,
     NgbModule,
-    HttpClientModule
-  ]
+    HttpClientModule,
+  ],
 })
-export class MainViewModule { }
+export class MainViewModule {}
