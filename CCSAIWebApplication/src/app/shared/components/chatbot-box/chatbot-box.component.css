@@ -1,0 +1,20 @@
+#chatboxbot-area {
+   position: absolute;
+   bottom: 0;
+   right: 5%;
+}
+#chatboxbot-container .card {
+
+    width: 460px;
+}
+#chatboxbot-icon-head {
+  border-radius: 40px;
+}
+#chatboxbot-icon-head:hover {
+ background-color: rgb(11, 94, 166);
+}
+
+#chatboxbot-container .card .card-content {
+  height: 500px;
+  overflow-y: auto;
+}
