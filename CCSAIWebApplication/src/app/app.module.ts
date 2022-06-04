@@ -17,6 +17,7 @@ import { mainReducerFeatureKey, reducer } from './reducer/main-reducer.reducer';
 import { environment } from 'src/environments/environment';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { ChatbotBoxComponent } from './shared/components/chatbot-box/chatbot-box.component';
+import { BotSocketService } from './core/services/socketservice/bot-socket.service';
 
 
 
@@ -42,7 +43,8 @@ import { ChatbotBoxComponent } from './shared/components/chatbot-box/chatbot-box
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    BotSocketService
   ],
   bootstrap: [AppComponent],
 })

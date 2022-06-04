@@ -1,6 +1,6 @@
 const express = require('express');
 const dotenv = require('dotenv');
-
+const { setSocketInstance } = require('./utils/chatbotsocket');
 //dev utils
 const morgan = require('morgan');
 const colors = require('colors');
@@ -35,6 +35,8 @@ const PORT = 5001;
 
 const server = app.listen(PORT, console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`
     .yellow.bold));
+
+setSocketInstance(server);
 
 if (process.env.NODE_ENV === 'development') {
     app.use(morgan('dev'));
