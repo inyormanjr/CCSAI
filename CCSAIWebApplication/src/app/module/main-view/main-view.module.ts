@@ -1,3 +1,4 @@
+import { BotChatLoadingComponent } from './../../shared/components/bot-chat-loading/bot-chat-loading.component';
 import { ChangeUserPasswordComponent } from './../user/change-user-password/change-user-password.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -9,6 +10,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
 import { MainNavBarComponent } from 'src/app/shared/components/main-nav-bar/main-nav-bar.component';
 import { ChatbotBoxComponent } from 'src/app/shared/components/chatbot-box/chatbot-box.component';
+import { ChatIconMessageComponent } from 'src/app/shared/components/chat-icon-message/chat-icon-message.component';
 
 
 @NgModule({
@@ -17,6 +19,8 @@ import { ChatbotBoxComponent } from 'src/app/shared/components/chatbot-box/chatb
     MainNavBarComponent,
     ChangeUserPasswordComponent,
     ChatbotBoxComponent,
+    ChatIconMessageComponent,
+    BotChatLoadingComponent
   ],
   imports: [
     CommonModule,

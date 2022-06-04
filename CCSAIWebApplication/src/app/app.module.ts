@@ -16,13 +16,12 @@ import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 import { mainReducerFeatureKey, reducer } from './reducer/main-reducer.reducer';
 import { environment } from 'src/environments/environment';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { ChatbotBoxComponent } from './shared/components/chatbot-box/chatbot-box.component';
 import { BotSocketService } from './core/services/socketservice/bot-socket.service';
 
 
 
 @NgModule({
-  declarations: [AppComponent, PageNotFoundComponent, LoginComponent],
+  declarations: [AppComponent, PageNotFoundComponent, LoginComponent, ],
   imports: [
     BrowserModule,
     AppRoutingModule,

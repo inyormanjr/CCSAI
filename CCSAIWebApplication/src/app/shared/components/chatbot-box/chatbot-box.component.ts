@@ -11,23 +11,34 @@ import { delay } from 'rxjs/operators';
 export class ChatbotBoxComponent implements OnInit {
   gotStarted: boolean;
   hidden: boolean;
-  message: string | undefined;
+  message: string;
   messages: Message[] = [];
+  isFetching: boolean;
   constructor(private botSocketServce: BotSocketService) {
+    this.message = '';
     this.gotStarted = false;
     this.hidden = false;
+    this.isFetching = false;
     botSocketServce.receivedReply().subscribe(x => {
       if (x) {
+        this.botIsLoading();
            var newMessage: Message = {
              SenderMessage: x.outputMessage,
              ReceiverMessage: '',
            };
         setTimeout(() => {
-       this.messages.push(newMessage);
+          this.messages.push(newMessage);
+          this.isFetching = false;
         }, 3000);
        }
 
     })
+  }
+
+  botIsLoading() {
+    setTimeout(() => {
+         this.isFetching = true;
+     }, 800);
   }
 
   ngOnInit(): void {
@@ -46,10 +57,11 @@ export class ChatbotBoxComponent implements OnInit {
   }
 
   getStarted() {
-    this.message = 'Get started';
     this.gotStarted = true;
-    this.sendMessage();
-  }
+      this.botSocketServce.sendMessage('Get started');
+      this.message = '';
+    }
+
 
   showHideBotChat() {
     if (this.hidden == false) {

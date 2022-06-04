@@ -44,7 +44,10 @@ function compare(triggerArray, replyArray, string) {
 
 function setSocketInstance(server) {
     console.log(server);
-  const io = SocketIO(server,{cors: 'http://localhost:4200'});
+    const io = SocketIO(server, {
+        cors: {
+      origin: '*'
+  }});
   io.on('connection', (socket) => {
       socket.on('message', (data) => {
       const output = proccessMessage(data);
