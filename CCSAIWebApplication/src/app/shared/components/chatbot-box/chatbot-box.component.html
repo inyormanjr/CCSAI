@@ -10,18 +10,44 @@
           <i class="fa fa-window-minimize"></i>
         </a>
       </div>
-      <div class="card-content flex flex-fill bg-white p-3" >
+      <div class="card-content flex flex-fill bg-white p-3 pl-1 pr-1" >
           <div class="greetings text-center">
             <h5>Welcome to CCSAI Bot Chat</h5>
-            <p>To continue click the "Get Started" Button</p>
-            <a href="#" class="btn btn-white btn-lg shadow active"
-            style="border-radius: 25px;"
-            role="button" aria-pressed="true">Get Started</a>
+            <div [hidden]="gotStarted">
+                <p>To continue click the "Get Started" Button</p>
+                <a class="btn btn-white btn-lg shadow active" style="border-radius: 25px;" role="button"
+                (click)="getStarted()" 
+                  aria-pressed="true">Get Started</a>
+            </div>
+
+          </div>
+          <div class="messages mt-5">
+            <div *ngFor="let message of messages">
+              <ng-container *ngIf="message.ReceiverMessage.length > 0; else elseTemplate">
+                  <div class="bot-message-container d-flex flex-row  justify-content-end align-items-start p-2">
+                    <div class="message-bubble bg-light p-3" style="max-width: 70%; border-radius: 25px;">
+                      <pre class="align-self-end p-0 m-0 text-wrap ">{{message.ReceiverMessage}}</pre>
+                    </div>
+                    <img class="rounded-circle border mr-2" src="../../../../assets/201818.png" height="44" width="44" alt="" srcset="">
+                  </div>
+              </ng-container>
+              <ng-template #elseTemplate>
+                <div class="bot-message-container d-flex flex-row  align-items-start p-2">
+                  <img class="rounded-circle border mr-2" src="../../../../assets/bot-icon.png" height="44" width="44" alt="" srcset="">
+                  <div class="message-bubble bg-light p-3" style="max-width: 70%; border-radius: 25px;">
+                    <pre class="align-self-end p-0 m-0 text-wrap ">{{message.SenderMessage}}</pre>
+                  </div>
+                </div>
+              </ng-template>
+
+
+
+            </div>
           </div>
       </div>
       <div class="chat-area p-1 d-flex flex-row" >
-        <textarea name=""  class="form-control mr-1" id="" cols="30" rows="3"></textarea>
-        <button type="button"  class="btn btn-outline-primary">Submit</button>
+        <textarea name=""  class="form-control mr-1" id="" [(ngModel)]="message" cols="30" rows="3"></textarea>
+        <button type="button" (click)="sendMessage()" class="btn btn-outline-primary">Submit</button>
       </div>
     </div>
   </div>
