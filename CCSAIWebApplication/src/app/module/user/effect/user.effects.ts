@@ -26,6 +26,18 @@ export class UserEffects {
     ), { dispatch: false }
   );
 
+  getUserById$ = createEffect(() =>
+    this.actions$.pipe(ofType(UserActionTypes.getUserById),
+      tap((action) => {
+        this.userService.GetById(action._id).pipe(map((response: ResponseResult<UserModel>) => {
+          this.userStore.dispatch(UserActionTypes.getUserByIdSuccess({ user: response.data }))
+        })).subscribe(noop, error => {
+          this.alertify.error(error.error.error);
+        })
+      })
+    ), { dispatch: false }
+  );
+
   activateUser$ = createEffect(() =>
     this.actions$.pipe(ofType(UserActionTypes.activateUser),
       tap((action) => {     
@@ -33,7 +45,21 @@ export class UserEffects {
           this.userStore.dispatch(UserActionTypes.loadUser());
           this.alertify.success("User Activated");
         })).subscribe(noop, error => {
-            this.alertify.error(error);
+            this.alertify.error(error.error.error);
+        });
+      })
+    ), {dispatch: false}
+  );
+
+  
+  deactivateUser$ = createEffect(() =>
+    this.actions$.pipe(ofType(UserActionTypes.deactivateUser),
+      tap((action) => {     
+        this.userService.deactivateUser(action.user).pipe(map((response: ResponseResult<UserModel>) => {
+          this.userStore.dispatch(UserActionTypes.loadUser());
+          this.alertify.success("User Deactivated");
+        })).subscribe(noop, error => {
+            this.alertify.error(error.error.error);
         });
       })
     ), {dispatch: false}

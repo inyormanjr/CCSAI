@@ -6,5 +6,4 @@ export const selectUserAppFeature =
 
 
 export const selectUserList = createSelector(selectUserAppFeature, x => x.userList);
-export const updateSuccess = createSelector(selectUserAppFeature, x => x.updateSuccess);
-export const errorActivate = createSelector(selectUserAppFeature, x => x.errorActivate)
+export const selectUser = createSelector(selectUserAppFeature, x=>x.user);

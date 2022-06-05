@@ -1,4 +1,4 @@
-import { UserModel } from './../../../shared/models/UserModel';
+import { UserModel } from 'src/app/shared/models/UserModel';
 import { createAction, props } from '@ngrx/store';
 
 export const loadUser = createAction(
@@ -15,17 +15,35 @@ export const loadUsersFailure = createAction(
   props<{ error: any }>()
 );
 
+export const getUserById = createAction(
+  '[User] Get user by Id',
+  props<{_id : string}>()
+);
+
+export const getUserByIdSuccess = createAction(
+  '[User] Get user by Id Success',
+  props<{user : UserModel}>()
+);
+
+export const getUserByIdFailure = createAction(
+  '[User] Get user by Id Failure',
+  props<{ error: any }>()
+);
+
+export const createUser = createAction(
+  '[User] Create User',
+  props<{data: UserModel}>()
+)
+
 export const activateUser = createAction(
   '[User] Activate User',
    props<{user : UserModel}>()
 );
 
-export const activateUserFailure = createAction(
-  '[User] Activate User Failure',
-  props<{errorActivate : any}>()
+export const deactivateUser = createAction(
+  '[User] Deactivate User',
+  props<{user : UserModel}>()
 );
 
-export const activateUserSuccess = createAction(
-  '[User] Activate User Success',
-);
+
 

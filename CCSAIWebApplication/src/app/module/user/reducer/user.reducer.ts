@@ -1,41 +1,41 @@
+import { UserModel } from 'src/app/shared/models/UserModel';
 
 import { Action, createReducer, on } from '@ngrx/store';
 import { UserActionTypes } from '../action/user.action.types';
-import { UserModel } from './../../../shared/models/UserModel';
+
 
 export const userFeatureKey = 'user';
 
 export interface UserState {
-  userList : UserModel[];
-  updateSuccess : Boolean;
-  errorActivate : any;
+  userList: UserModel[];
+  user: UserModel;
 }
 
 export const initialUserState: UserState = {
-  userList : [],
-  updateSuccess : false,
-  errorActivate : undefined
+  userList: [],
+  user: {
+    _id: '',
+    firstName: '',
+    lastName: '',
+    fullName: '',
+    email: '',
+    role: '',
+    user_status: ''
+  }
 };
 
 export const userReducer = createReducer(
   initialUserState,
-  on(UserActionTypes.loadUsersSuccess,(state,action)=>{
+  on(UserActionTypes.loadUsersSuccess, (state, action) => {
     return {
       ...state,
-      userList : action.data
+      userList: action.data
     }
   }),
-  on(UserActionTypes.activateUserSuccess,(state,action)=>{
+  on(UserActionTypes.getUserByIdSuccess,(state,action)=>{
     return {
       ...state,
-      updateSuccess : true
+      user : action.user
     }
-  }),
-  on(UserActionTypes.activateUserFailure,(state,action)=>{
-    return {
-      ...state,
-      updateSuccess : false,
-      errorActivate : action.errorActivate
-    }
-  }),
+  })
 );

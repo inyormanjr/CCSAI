@@ -62,24 +62,15 @@ export class UserListComponent implements OnInit, OnDestroy {
 
 
   deactivate(user: any) {
-    // this.alertify.confirm('User Deactivation','Deactivate selected user?',()=>{
-    //   this.userService.deactivateUser(user).subscribe(res=>{
-    //     if(res.success){
-    //       this.alertify.success('User deactivated.');
-
-    //     }
-    //   }, error => {
-
-    //     this.alertify.error(error.error.error);
-    //   });
-    // });
+    this.alertify.confirm('User Activation', 'Activate selected user?', () => {
+      this.userStore.dispatch(UserActionTypes.deactivateUser({user}));  
+    });
   }
 
   activate(user: any) {
     
     this.alertify.confirm('User Activation', 'Activate selected user?', () => {
-      this.userStore.dispatch(UserActionTypes.activateUser({user}));
-      
+      this.userStore.dispatch(UserActionTypes.activateUser({user}));  
     });
   }
 
