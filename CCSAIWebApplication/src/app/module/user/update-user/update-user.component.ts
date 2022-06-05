@@ -52,8 +52,6 @@ export class UpdateUserComponent implements OnInit {
     this.user$.subscribe(res => {
       if(res._id){
         this.initializeValues(res);
-      }else{
-        this.router.navigate(['mainview/users/userlist/']);
       }
     });
 

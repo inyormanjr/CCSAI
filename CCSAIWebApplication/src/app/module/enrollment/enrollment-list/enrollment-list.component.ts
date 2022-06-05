@@ -31,6 +31,10 @@ export class EnrollmentListComponent implements OnInit,OnDestroy {
     private eService: EnrollmentService) {
       this.enrollmentStore.dispatch(EnrollmentActionTypes.loadEnrollments());
       this.enrollments$ = this.enrollmentStore.select(EnrollmentSelectorTypes.selectEnrollmentsList);
+
+      this.enrollments$.subscribe(()=>{
+        this.dtTrigger.next();
+      });
     }
 
   ngOnInit(): void {
@@ -47,7 +51,7 @@ export class EnrollmentListComponent implements OnInit,OnDestroy {
       retrieve: true,
     };
 
-    this.getEnrollment();
+    //this.getEnrollment();
   }
 
   ngOnDestroy(): void {
@@ -57,7 +61,7 @@ export class EnrollmentListComponent implements OnInit,OnDestroy {
   getEnrollment(){
     this.eService.Get(0,0).subscribe(responseResult => {
      
-      this.dtTrigger.next();
+      
     });
   }
 

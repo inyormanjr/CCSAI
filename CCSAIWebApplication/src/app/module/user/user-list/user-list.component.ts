@@ -1,6 +1,6 @@
 
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subject, Observable } from 'rxjs';
+import { Subject, Observable, Subscription } from 'rxjs';
 import { AlertifyjsService } from 'src/app/core/services/alertifyjs.service';
 import { TokenStorageService } from 'src/app/core/services/token-storage.service';
 import { UserModel } from 'src/app/shared/models/UserModel';
@@ -17,15 +17,17 @@ import { UsersService } from 'src/app/core/http/user/users.service';
 })
 export class UserListComponent implements OnInit, OnDestroy {
 
-
+  limit : number = 10;
   users$: Observable<UserModel[]> | undefined;
-  dtOptions: DataTables.Settings = {};
-  dtTrigger: Subject<any> = new Subject<any>();
   currentUser: any = {};
   userList: UserModel[] = [];
 
-  constructor(private userService: UsersService,
-    private alertify: AlertifyjsService,
+  
+  totalSize:number = 0;
+  pageSize:number = 0;
+  currentPage:number = 0; // 1 based paging for ng-bootstrap
+
+  constructor(private alertify: AlertifyjsService,
     private tokenStorage: TokenStorageService,
     private userStore: Store<UserState>) {
 
@@ -35,42 +37,34 @@ export class UserListComponent implements OnInit, OnDestroy {
       this.currentUser = {};
     }
 
-    this.dtOptions = {
-      pagingType: 'full_numbers',
-      pageLength: 10,
-      processing: true,
-      retrieve: true
-    };
-
     this.userStore.dispatch(UserActionTypes.loadUser());
     this.users$ = this.userStore.select(UserSelectorType.selectUserList);
 
     this.users$.subscribe(res => {
-      this.userList = res;
-      this.dtTrigger.next();
+      this.userList = res;  
     });
 
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void {  
 
   }
 
   ngOnDestroy(): void {
-    this.dtTrigger.unsubscribe();
+   
   }
 
 
   deactivate(user: any) {
     this.alertify.confirm('User Activation', 'Activate selected user?', () => {
-      this.userStore.dispatch(UserActionTypes.deactivateUser({user}));  
+      this.userStore.dispatch(UserActionTypes.deactivateUser({ user }));
     });
   }
 
   activate(user: any) {
-    
+
     this.alertify.confirm('User Activation', 'Activate selected user?', () => {
-      this.userStore.dispatch(UserActionTypes.activateUser({user}));  
+      this.userStore.dispatch(UserActionTypes.activateUser({ user }));
     });
   }
 

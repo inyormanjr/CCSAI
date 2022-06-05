@@ -13,44 +13,52 @@
                         <button type="button" class="btn btn-primary" [routerLink]="['../register']" routerLinkActive="router-link-active" *ngIf="currentUser.role==='admin'">Register User</button>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-2">
+                        <select name="limit" id="limit" [(ngModel)]="limit">
+                            <option [ngValue]="10">10</option>
+                            <option [ngValue]="25">25</option>
+                            <option [ngValue]="50">50</option>
+                            <option [ngValue]="100">100</option>
+                          </select>
+                    </div>
+                </div>
                 <div class="row mt-4">
                     <div class="col-12">
+                        <ngx-datatable class='bootstrap' [columnMode]="'force'" [footerHeight]="50" [rowHeight]="'auto'" [rows]='userList' [limit]="limit">
 
-                        <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover" style="width: 100%">
-                            <thead>
-                                <tr>
-                                    <th>LAST NAME</th>
-                                    <th>FIRST NAME</th>
-                                    <th>ROLE</th>
-                                    <th>STATUS</th>
-                                    <th>ACTIONS</th>
-                                </tr>
-                            </thead>
-                            <ng-container *ngIf="userList.length > 0; else elseTemplate">
-                                <tbody>
-                                    <tr *ngFor="let user of userList">
-                                        <td>{{user.lastName | uppercase}}</td>
-                                        <td>{{user.firstName | uppercase}}</td>
-                                        <td>{{user.role | uppercase}}</td>
-                                        <td>{{user.user_status | uppercase}}</td>
-                                        <td><button type="button" [routerLink]="['../updateuser',user._id]" routerLinkActive="router-link-active" class="btn btn-outline-primary fa fa-pencil" data-bs-toggle="tooltip" data-bs-placement="top" title="View/Edit"></button>
-                                            <button type="button" (click)="deactivate(user)" routerLinkActive="router-link-active" class="btn btn-outline-danger fa fa-ban" *ngIf="user.user_status === 'active'" data-bs-toggle="tooltip" data-bs-placement="top" title="Deactivate"></button>
-                                            <button type="button" (click)="activate(user)" routerLinkActive="router-link-active" class="btn btn-outline-success fa fa-check" *ngIf="user.user_status === 'inactive' || user.user_status === 'deactivated'" data-bs-toggle="tooltip" data-bs-placement="top"
-                                                title="Activate"></button></td>
-                                    </tr>
-                                </tbody>
-                            </ng-container>
-                            <ng-template #elseTemplate>
-                                <tbody>
-                                    <tr>
-                                        <td colspan="5" class="no-data-available" style="text-align: center;">
-                                            No Data To Display
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </ng-template>
+                            <ngx-datatable-column name="FIRST NAME" prop="firstName">
+                                <ng-template let-row="row" ngx-datatable-cell-template>
+                                    {{row.firstName | uppercase}}
+                                </ng-template>
+                            </ngx-datatable-column>
 
-                        </table>
+                            <ngx-datatable-column name="LAST NAME" prop="lastName">
+                                <ng-template let-row="row" ngx-datatable-cell-template>
+                                    {{row.lastName | uppercase}}
+                                </ng-template>
+                            </ngx-datatable-column>
+
+                            <ngx-datatable-column name="ROLE" prop="role">
+                                <ng-template let-row="row" ngx-datatable-cell-template>
+                                    {{row.role | uppercase}}
+                                </ng-template>
+                            </ngx-datatable-column>
+
+                            <ngx-datatable-column name="STATUS" prop="user_status">
+                                <ng-template let-row="row" ngx-datatable-cell-template>
+                                    {{row.user_status | uppercase}}
+                                </ng-template>
+                            </ngx-datatable-column>
+
+                            <ngx-datatable-column name="ACTIONS" prop="action">
+                                <ng-template let-row="row" ngx-datatable-cell-template>
+                                    <button type="button" [routerLink]="['../updateuser',row._id]" routerLinkActive="router-link-active" class="btn btn-outline-primary fa fa-pencil" data-bs-toggle="tooltip" data-bs-placement="top" title="View/Edit"></button>
+                                    <button type="button" (click)="deactivate(row)" routerLinkActive="router-link-active" class="btn btn-outline-danger fa fa-ban" *ngIf="row.user_status === 'active'" data-bs-toggle="tooltip" data-bs-placement="top" title="Deactivate"></button>
+                                    <button type="button" (click)="activate(row)" routerLinkActive="router-link-active" class="btn btn-outline-success fa fa-check" *ngIf="row.user_status === 'deactivated'" data-bs-toggle="tooltip" data-bs-placement="top" title="Activate"></button>
+                                </ng-template>
+                            </ngx-datatable-column>
+                        </ngx-datatable>
                     </div>
                 </div>
             </div>
