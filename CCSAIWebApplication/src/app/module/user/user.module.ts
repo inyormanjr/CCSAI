@@ -13,6 +13,7 @@ import { RegisterComponent } from './register/register.component';
 import { UpdateUserComponent } from './update-user/update-user.component';
 import { UserEffects } from './effect/user.effects';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { GetUserByIdResolver } from './resolvers/get-user-by-id.resolver';
 
 
 
@@ -32,6 +33,7 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
     FormsModule,
     StoreModule.forFeature(userFeatureKey,userReducer),
     EffectsModule.forFeature([UserEffects])
-  ]
+  ],
+  providers : [GetUserByIdResolver]
 })
 export class UserModule { }

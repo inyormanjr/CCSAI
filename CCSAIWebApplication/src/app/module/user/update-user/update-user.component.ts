@@ -43,17 +43,20 @@ export class UpdateUserComponent implements OnInit {
     private alertifyService: AlertifyjsService,
     private formBuilder: FormBuilder,
     private activatedRoute: ActivatedRoute,
-    private router: Router,
-    private userStore: Store<UserState>) {
+    private router: Router) {
 
-    this.userStore.dispatch(UserActionTypes.getUserById({ _id: this.id }));
-    this.user$ = this.userStore.select(UserSelectorType.selectUser);
+      this.activatedRoute.data.subscribe(data => {
+        console.log(data.routeResolver.data);
+        this.initializeValues(data.routeResolver.data);
+      });
+    
+    // this.user$ = this.userStore.select(UserSelectorType.selectUser);
 
-    this.user$.subscribe(res => {
-      if(res._id){
-        this.initializeValues(res);
-      }
-    });
+    // this.user$.subscribe(res => {
+    //   if(res._id){
+    //     this.initializeValues(res);
+    //   }
+    // });
 
   }
 

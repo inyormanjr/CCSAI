@@ -4,6 +4,7 @@ import { RegisterComponent } from './register/register.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { UserListComponent } from './user-list/user-list.component';
+import { GetUserByIdResolver } from './resolvers/get-user-by-id.resolver';
 
 
 const routes: Routes = [
@@ -18,7 +19,10 @@ const routes: Routes = [
   },
   {
     path : 'updateuser/:id',
-    component : UpdateUserComponent
+    component : UpdateUserComponent,
+    resolve: {
+      routeResolver: GetUserByIdResolver
+    }
   },
   {
     path : 'register',
