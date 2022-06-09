@@ -1,0 +1,60 @@
+<div id="chatboxbot-area">
+  <div id="chatboxbot-container" [hidden]="hidden">
+    <div class="card d-flex flex-column bg-light">
+      <div class="card-header d-flex flex-row justify-content-between align-items-center">
+        <div class="leading d-flex flex-row justify-content-center align-items-end">
+        <img class="rounded-circle border mr-2" src="../../../../assets/bot-icon.png" height="44" width="44" alt="" srcset="">
+        <h5>CCSAI Chatbot</h5>
+        </div>
+        <a (click)="showHideBotChat()">
+          <i class="fa fa-window-minimize"></i>
+        </a>
+      </div>
+      <div class="card-content flex flex-fill bg-white p-3 pl-1 pr-1" >
+          <div class="greetings text-center">
+            <h5>Welcome to CCSAI Bot Chat</h5>
+            <div [hidden]="gotStarted">
+                <p>To continue click the "Get Started" Button</p>
+                <a class="btn btn-white btn-lg shadow active" style="border-radius: 25px;" role="button"
+                (click)="getStarted()"
+                  aria-pressed="true">Get Started</a>
+            </div>
+
+          </div>
+          <div class="messages mt-5">
+            <div *ngFor="let message of messages">
+              <ng-container *ngIf="message.ReceiverMessage.length > 0; else elseTemplate">
+                  <app-chat-icon-message
+                  [isUser]="true"
+                  [message]="message.ReceiverMessage"
+                  [iconUrl]="'../../../../assets/201818.png'">
+                  </app-chat-icon-message>
+              </ng-container>
+              <ng-template #elseTemplate>
+                <app-chat-icon-message
+                [isUser]="false"
+                [message]="message.SenderMessage"
+                [iconUrl]="'../../../../assets/bot-icon.png'">
+                </app-chat-icon-message>
+              </ng-template>
+            </div>
+            <app-bot-chat-loading *ngIf="isFetching"></app-bot-chat-loading>
+          </div>
+      </div>
+      <div class="chat-area p-1 d-flex flex-row bg-light" >
+        <textarea
+        style="border: 0;"
+         name=""  class="form-control mr-1" id="" [(ngModel)]="message" cols="30" rows="1"></textarea>
+        <a type="button" [ngClass]="['disabled', this.message.length == 0]" (click)="sendMessage()" class="btn btn-outline-primary align-text-center">
+          <i class="fa fa-paper-plane" aria-hidden="true"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div id="chatboxbot-icon-head" [hidden]="!hidden">
+    <a (click)="showHideBotChat()">
+      <img class="rounded-circle border" src="../../../../assets/bot-icon.png" height="80" width="80" alt="" srcset="">
+    </a>
+  </div>
+</div>

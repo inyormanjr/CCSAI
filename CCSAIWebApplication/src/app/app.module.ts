@@ -1,3 +1,4 @@
+import { ErrorInterceptor } from './core/interceptors/error.interceptor';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { DataTablesModule } from 'angular-datatables';
@@ -15,11 +16,12 @@ import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 import { mainReducerFeatureKey, reducer } from './reducer/main-reducer.reducer';
 import { environment } from 'src/environments/environment';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { BotSocketService } from './core/services/socketservice/bot-socket.service';
 
 
 
 @NgModule({
-  declarations: [AppComponent, PageNotFoundComponent, LoginComponent],
+  declarations: [AppComponent, PageNotFoundComponent, LoginComponent, ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -40,6 +42,8 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    BotSocketService
   ],
   bootstrap: [AppComponent],
 })
