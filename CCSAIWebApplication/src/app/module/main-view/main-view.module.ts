@@ -13,8 +13,7 @@ import { MainNavBarComponent } from 'src/app/shared/components/main-nav-bar/main
 @NgModule({
   declarations: [
     MainViewComponent,
-    MainNavBarComponent,
-    ChangeUserPasswordComponent
+    MainNavBarComponent
   ],
   imports: [
     CommonModule,

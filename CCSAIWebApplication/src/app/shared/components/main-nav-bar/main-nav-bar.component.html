@@ -5,12 +5,12 @@
         </a>
         <div class="d-flex" *ngIf="currentUser">
             <div class="btn-group mr-3">
-                <button type="button" class="btn btn-outline-success" [routerLink]="['./userprofile']" routerLinkActive="router-link-active">{{currentUser.firstName | uppercase}} {{currentUser.lastName | uppercase}}</button>
+                <button type="button" class="btn btn-outline-success" [routerLink]="['./users/userprofile']" routerLinkActive="router-link-active">{{currentUser.firstName | uppercase}} {{currentUser.lastName | uppercase}}</button>
                 <div class="btn-group" ngbDropdown role="group" aria-label="Button group with nested dropdown">
                     <button class="btn btn-outline-primary" ngbDropdownToggle> <img src="https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/fox.jpg" width="20" height="20" class="rounded-circle"></button>
                     <div class="dropdown-menu" ngbDropdownMenu>
                         <button ngbDropdownItem class="disabled">{{currentUser.role | uppercase}}</button>
-                        <button ngbDropdownItem [routerLink]="['./changeuserpassword']" routerLinkActive="router-link-active">Password</button>
+                        <button ngbDropdownItem [routerLink]="['./users/changeuserpassword']" routerLinkActive="router-link-active">Password</button>
                         <button ngbDropdownItem (click)="logout()"> Logout</button>
                     </div>
                 </div>

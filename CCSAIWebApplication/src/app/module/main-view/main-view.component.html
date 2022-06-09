@@ -12,10 +12,10 @@
                 <button [routerLink]="['./users']" *ngIf="currentUser.role==='admin'" type="button" class="list-group-item list-group-item-action">
                     <i class="fa fa-users"></i>  Users
                 </button>
-                <button [routerLink]="['./course']" routerLinkActive="router-link-active" type="button" class="list-group-item list-group-item-action">
+                <button [routerLink]="['./course']" *ngIf="currentUser.role==='admin'" routerLinkActive="router-link-active" type="button" class="list-group-item list-group-item-action">
                     <i class="fa fa-book"></i>  Course
                 </button>
-                <button [routerLink]="['./term']" routerLinkActive="router-link-active" type="button" class="list-group-item list-group-item-action">
+                <button [routerLink]="['./term']" *ngIf="currentUser.role==='admin'" routerLinkActive="router-link-active" type="button" class="list-group-item list-group-item-action">
                     <i class="fa fa-calendar"></i>  Term
                 </button>
                 <button [routerLink]="['./enrollment']" routerLinkActive="router-link-active" type="button" class="list-group-item list-group-item-action">

@@ -1,3 +1,6 @@
+import { UserProfileResolver } from './resolvers/user-profile.resolver';
+import { UserProfileComponent } from './user-profile/user-profile.component';
+import { ChangeUserPasswordComponent } from './change-user-password/change-user-password.component';
 import { UpdateUserComponent } from './update-user/update-user.component';
 import { RegisterComponent } from './register/register.component';
 
@@ -23,6 +26,17 @@ const routes: Routes = [
     resolve: {
       routeResolver: GetUserByIdResolver
     }
+  },
+  {
+    path : 'userprofile',
+    component : UserProfileComponent,
+    resolve: {
+      routeResolver: UserProfileResolver
+    }
+  },
+  {
+    path : 'changeuserpassword',
+    component : ChangeUserPasswordComponent
   },
   {
     path : 'register',

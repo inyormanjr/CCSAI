@@ -7,3 +7,14 @@ export interface UserModel {
     role : any;
     user_status : any;
 }
+
+export interface ChangeUserPassword { 
+    _id : any,
+    currentPassword : any,
+    newPassword : any
+}
+
+export interface ChangeUserPasswordAdmin { 
+    _id : any,
+    newPassword : string
+}

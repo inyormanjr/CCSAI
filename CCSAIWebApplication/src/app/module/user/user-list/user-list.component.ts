@@ -21,6 +21,7 @@ export class UserListComponent implements OnInit, OnDestroy {
   users$: Observable<UserModel[]> | undefined;
   currentUser: any = {};
   userList: UserModel[] = [];
+  temp : UserModel[] = [];
 
   
   totalSize:number = 0;
@@ -39,9 +40,9 @@ export class UserListComponent implements OnInit, OnDestroy {
 
     this.userStore.dispatch(UserActionTypes.loadUser());
     this.users$ = this.userStore.select(UserSelectorType.selectUserList);
-
     this.users$.subscribe(res => {
       this.userList = res;  
+      this.temp = res;
     });
 
   }
@@ -53,6 +54,22 @@ export class UserListComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
    
   }
+
+  updateFilter(event : any) {
+  
+    const val = event.target.value.toLowerCase();
+
+    // filter our data
+    const temp = this.temp.filter(function (d) {
+      return d.firstName.toLowerCase().indexOf(val) !== -1 || !val;
+    });
+
+    // update the rows
+    this.userList = temp;
+ 
+  }
+ 
+  
 
 
   deactivate(user: any) {

@@ -13,8 +13,12 @@
                         <button type="button" class="btn btn-primary" [routerLink]="['../register']" routerLinkActive="router-link-active" *ngIf="currentUser.role==='admin'">Register User</button>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-2">
+
+                <div class="d-flex mt-4 ">
+                    <div class="p-0">
+                        <input type="text" class="form-control" placeholder="Name" id="search" (keyup)="updateFilter($event)">
+                    </div>
+                    <div class="ml-auto mt-3">
                         <select name="limit" id="limit" [(ngModel)]="limit">
                             <option [ngValue]="10">10</option>
                             <option [ngValue]="25">25</option>
@@ -23,7 +27,7 @@
                           </select>
                     </div>
                 </div>
-                <div class="row mt-4">
+                <div class="row mt-1">
                     <div class="col-12">
                         <ngx-datatable class='bootstrap' [columnMode]="'force'" [footerHeight]="50" [rowHeight]="'auto'" [rows]='userList' [limit]="limit">
 

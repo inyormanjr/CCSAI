@@ -1,3 +1,4 @@
+import { ChangeUserPasswordComponent } from './change-user-password/change-user-password.component';
 import { EffectsModule } from '@ngrx/effects';
 import { userFeatureKey, userReducer } from './reducer/user.reducer';
 import { StoreModule } from '@ngrx/store';
@@ -14,6 +15,7 @@ import { UpdateUserComponent } from './update-user/update-user.component';
 import { UserEffects } from './effect/user.effects';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { GetUserByIdResolver } from './resolvers/get-user-by-id.resolver';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 
 
@@ -22,7 +24,9 @@ import { GetUserByIdResolver } from './resolvers/get-user-by-id.resolver';
     UserComponent,
     UserListComponent,
     RegisterComponent,
-    UpdateUserComponent
+    UpdateUserComponent,
+    ChangeUserPasswordComponent,
+    UserProfileComponent
   ],
   imports: [
     CommonModule,

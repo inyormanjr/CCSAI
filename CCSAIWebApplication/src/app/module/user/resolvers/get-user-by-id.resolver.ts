@@ -7,9 +7,7 @@ import {
   RouterStateSnapshot,
   ActivatedRouteSnapshot,
 } from '@angular/router';
-import { Store } from '@ngrx/store';
 import { EMPTY, Observable, of } from 'rxjs';
-import { UserState } from '../reducer/user.reducer';
 import { UsersService } from 'src/app/core/http/user/users.service';
 import { catchError, map } from 'rxjs/operators';
 
@@ -18,14 +16,13 @@ import { catchError, map } from 'rxjs/operators';
 })
 export class GetUserByIdResolver implements Resolve<any> {
 
-  constructor(private userStore: Store<UserState>,
+  constructor(
     private alertify : AlertifyjsService,
     private userService : UsersService,
     private router: Router) { }
 
   resolve(route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot,
-    
   ): Observable<any> {
     return this.userService.GetById(route.params['id']).pipe(
       map((user) => user),
