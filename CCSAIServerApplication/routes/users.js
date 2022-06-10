@@ -6,7 +6,8 @@ const {
     getAllUsers,
     activateUser,
     deactivateUser,
-    getUserById
+    getUserById,
+    register
 } = require('../controllers/users');
 const User = require('../models/User');
 const router = express.Router();
@@ -15,7 +16,10 @@ const { protectUser, authorize } = require('../middleware/auth');
 router.route('/')
     .get(protectUser,
         authorize('admin'),
-        getAllUsers);
+        getAllUsers)
+    .post(protectUser,
+        authorize('admin'),
+        register);
 
 router.route('/activate/:id')
     .put(protectUser,

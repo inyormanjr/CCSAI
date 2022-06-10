@@ -38,37 +38,92 @@ export class UserEffects {
     ), { dispatch: false }
   );
 
+  createUser$ = createEffect(() =>
+  this.actions$.pipe(ofType(UserActionTypes.createUser),
+    tap((action) => {
+      this.userService.Create(action.data).pipe(map((response: ResponseResult<UserModel>) => {
+        this.userStore.dispatch(UserActionTypes.loadUser());
+        this.userStore.dispatch(UserActionTypes.createUserSucess({data : response.data}));
+        this.alertify.success("User Registered.");
+      })).subscribe(noop, error => {
+        this.userStore.dispatch(UserActionTypes.createUserFailure());
+        this.alertify.error(error.error.error);
+      })
+    })
+  ), { dispatch: false }
+);
+
+  updateUser$ = createEffect(() =>
+    this.actions$.pipe(ofType(UserActionTypes.updateUser),
+      tap((action) => {
+
+        this.userService.updateUser(action.id, action.user).pipe(map((response: ResponseResult<UserModel>) => {
+          this.userStore.dispatch(UserActionTypes.getUserById({ _id: response.data._id }));
+          this.alertify.success("User Info Saved.");
+        })).subscribe(noop, error => {
+          this.alertify.error(error.error.error);
+        })
+      })
+    ), { dispatch: false }
+  );
+
+  changeUserPassword$ = createEffect(() =>
+    this.actions$.pipe(ofType(UserActionTypes.changeUserPassword),
+      tap((action) => {
+        this.userService.changePassword(action.userPassword).pipe(map((response: ResponseResult<UserModel>) => {
+          this.userStore.dispatch(UserActionTypes.getUserByIdSuccess({ user: response.data }));
+          this.alertify.success("Password changed successfully.");
+        })).subscribe(noop, error => {
+          this.alertify.error(error.error.error);
+        })
+      })
+    ), { dispatch: false }
+  );
+
+  changeUserPasswordAdmin$ = createEffect(() =>
+  this.actions$.pipe(ofType(UserActionTypes.changeUserPasswordAdmin),
+    tap((action) => {
+      this.userService.changePasswordAdmin(action.id,action.userPassword).pipe(map((response: ResponseResult<UserModel>) => {
+        this.userStore.dispatch(UserActionTypes.getUserByIdSuccess({ user: response.data }));
+        this.alertify.success("Password changed successfully.");
+      })).subscribe(noop, error => {
+        this.alertify.error(error.error.error);
+      })
+    })
+  ), { dispatch: false }
+);
+
   activateUser$ = createEffect(() =>
     this.actions$.pipe(ofType(UserActionTypes.activateUser),
-      tap((action) => {     
+      tap((action) => {
         this.userService.activateUser(action.user).pipe(map((response: ResponseResult<UserModel>) => {
           this.userStore.dispatch(UserActionTypes.loadUser());
           this.alertify.success("User Activated");
         })).subscribe(noop, error => {
-            this.alertify.error(error.error.error);
+          this.alertify.error(error.error.error);
         });
       })
-    ), {dispatch: false}
+    ), { dispatch: false }
   );
 
-  
+
   deactivateUser$ = createEffect(() =>
     this.actions$.pipe(ofType(UserActionTypes.deactivateUser),
-      tap((action) => {     
+      tap((action) => {
         this.userService.deactivateUser(action.user).pipe(map((response: ResponseResult<UserModel>) => {
           this.userStore.dispatch(UserActionTypes.loadUser());
           this.alertify.success("User Deactivated");
         })).subscribe(noop, error => {
-            this.alertify.error(error.error.error);
+          this.alertify.error(error.error.error);
         });
       })
-    ), {dispatch: false}
+    ), { dispatch: false }
   );
 
 
   constructor(private actions$: Actions,
     private userStore: Store<UserState>,
     private userService: UsersService,
-    private alertify : AlertifyjsService) { }
+    private alertify: AlertifyjsService) { }
 
 }

@@ -1,5 +1,5 @@
 import { BotChatLoadingComponent } from './../../shared/components/bot-chat-loading/bot-chat-loading.component';
-import { ChangeUserPasswordComponent } from './../user/change-user-password/change-user-password.component';
+
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -17,7 +17,7 @@ import { ChatIconMessageComponent } from 'src/app/shared/components/chat-icon-me
   declarations: [
     MainViewComponent,
     MainNavBarComponent,
-    ChangeUserPasswordComponent,
+
     ChatbotBoxComponent,
     ChatIconMessageComponent,
     BotChatLoadingComponent
@@ -28,7 +28,7 @@ import { ChatIconMessageComponent } from 'src/app/shared/components/chat-icon-me
     FormsModule,
     ReactiveFormsModule,
     NgbModule,
-    HttpClientModule,
-  ],
+    HttpClientModule
+  ]
 })
-export class MainViewModule {}
+export class MainViewModule { }

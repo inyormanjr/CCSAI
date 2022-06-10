@@ -14,11 +14,6 @@ const routes: Routes = [
         loadChildren: () => import('../dashboard/dashboard.module').then(m => m.DashboardModule)
       },
       { path: 'users', loadChildren: () => import('../user/user.module').then(m => m.UserModule) },
-      {
-        path: 'changeuserpassword',
-        canActivate: [UserAuthGuard],
-        component: ChangeUserPasswordComponent
-      },
       { path: 'term', loadChildren: () => import('../term/term.module').then(m => m.TermModule) },
       { path: 'course', loadChildren: () => import('../course/course.module').then(m => m.CourseModule) },
       { path: 'enrollment', loadChildren: () => import('../enrollment/enrollment.module').then(m => m.EnrollmentModule) },

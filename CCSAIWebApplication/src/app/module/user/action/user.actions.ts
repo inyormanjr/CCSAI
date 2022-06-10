@@ -1,4 +1,5 @@
-import { UserModel } from 'src/app/shared/models/UserModel';
+import { ChangeUserPasswordAdmin } from './../../../shared/models/UserModel';
+import { UserModel , ChangeUserPassword } from 'src/app/shared/models/UserModel';
 import { createAction, props } from '@ngrx/store';
 
 export const loadUser = createAction(
@@ -33,7 +34,31 @@ export const getUserByIdFailure = createAction(
 export const createUser = createAction(
   '[User] Create User',
   props<{data: UserModel}>()
-)
+);
+
+export const createUserSucess = createAction(
+  '[User] Create User Success',
+  props<{data: UserModel}>()
+);
+
+export const createUserFailure = createAction(
+  '[User] Create User Failure'
+);
+
+export const updateUser = createAction(
+  '[User] Update User',
+  props<{user : UserModel , id : string}>()
+);
+
+export const changeUserPassword = createAction(
+  '[User] Change User Password',
+  props<{userPassword : ChangeUserPassword}>()
+);
+
+export const changeUserPasswordAdmin = createAction(
+  '[User] Change User Password by Admin',
+  props<{userPassword : ChangeUserPasswordAdmin, id : string}>()
+);
 
 export const activateUser = createAction(
   '[User] Activate User',

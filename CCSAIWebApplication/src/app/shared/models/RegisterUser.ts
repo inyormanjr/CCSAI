@@ -1,7 +1,7 @@
 export interface RegisterUser{
-    firstName : String,
-    lastName : String,
-    email : String,
-    role : String,
-    password : String
+    firstName : string,
+    lastName : string,
+    email : string,
+    role : string,
+    password : string
 }

@@ -1,3 +1,4 @@
+import { updateUser } from './../../../module/user/action/user.actions';
 import { ResponseResult } from './../../../shared/models/response.interface';
 import { BaseService } from './../../services/base.service';
 import { Injectable } from '@angular/core';
@@ -14,6 +15,19 @@ export class UsersService extends BaseService<UserModel> {
   constructor(public httpClient : HttpClient) { 
     super(httpClient);
     this.baseURL = this.baseURL + '/users/'
+  }
+
+  updateUser(id : string ,user : any ) : Observable<ResponseResult<any>>{
+   
+    return this.httpClient.put<any>(`${this.baseURL}updateuser/${id}`,user);
+  }
+
+  changePassword(userChangePassword : any) : Observable<ResponseResult<any>>{
+    return this.httpClient.put<any>(`${this.baseURL}changeuserpassword/`,userChangePassword);
+  }
+
+  changePasswordAdmin(id : string, userChangePassword : any) : Observable<ResponseResult<any>>{
+    return this.httpClient.put<any>(`${this.baseURL}changeuserpassword/${id}`,userChangePassword);
   }
 
   activateUser(user : any) : Observable<ResponseResult<any>>{

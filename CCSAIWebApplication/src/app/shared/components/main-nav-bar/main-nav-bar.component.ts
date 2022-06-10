@@ -12,13 +12,13 @@ export class MainNavBarComponent implements OnInit {
 
   currentUser : any;
 
-  constructor(private authService : AuthenticationService,
-    private alertify: AlertifyjsService,
-    private tokenStorage: TokenStorageService) { }
+  constructor(private tokenStorage: TokenStorageService) { }
 
   ngOnInit(): void {
     this.currentUser = this.tokenStorage.getDecodedUserToken(); 
   }
+
+
 
   logout(){
     this.tokenStorage.signOut();

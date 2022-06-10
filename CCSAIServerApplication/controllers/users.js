@@ -4,12 +4,37 @@ const User = require('../models/User');
 var ObjectId = require('mongoose').Types.ObjectId;
 
 
+//  @desc   create user 
+//  @route  POST /api/v1/users/register
+//  @access Private
+exports.register = asyncHandler(async(req, res, next) => {
+    const { firstName, lastName, email, role, password } = req.body;
+
+
+    let fullName = `${firstName} ${lastName}`;
+
+    let user = await User.create({
+        "firstName": firstName.toLowerCase(),
+        "lastName": lastName.toLowerCase(),
+        fullName,
+        email,
+        password,
+        role,
+    });
+
+    res.status(200).json({
+        success: true,
+        data: user
+    });
+
+});
+
 //  @desc   update user password
 //  @route  PUT /api/v1/users/updateuserpassword
 //  @access Private
 exports.changeUserPassword = asyncHandler(async(req, res, next) => {
     const user = await User.findById(req.loggedUser.id).select('+password');
-
+    console.log(user);
     // Check current password
     if (!(await user.matchPassword(req.body.currentPassword))) {
         return next(new ErrorResponse('Password is incorrect', 401));

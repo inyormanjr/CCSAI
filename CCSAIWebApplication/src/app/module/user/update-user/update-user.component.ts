@@ -1,3 +1,4 @@
+import { ChangeUserPasswordAdmin } from './../../../shared/models/UserModel';
 import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
@@ -21,6 +22,8 @@ export class UpdateUserComponent implements OnInit {
 
   eRoles = Roles;
   user$: Observable<UserModel> | undefined;
+  id = "";
+
 
   userForm = this.formBuilder.group({
     firstName: ['', Validators.required],
@@ -37,23 +40,24 @@ export class UpdateUserComponent implements OnInit {
     validator: MustMatch('newPassword', 'confirmPassword')
   });
 
-  id = this.activatedRoute.snapshot.paramMap.get('id') || "";
-
   constructor(private userService: UsersService,
     private alertifyService: AlertifyjsService,
     private formBuilder: FormBuilder,
     private activatedRoute: ActivatedRoute,
-    private router: Router,
     private userStore: Store<UserState>) {
 
-    this.userStore.dispatch(UserActionTypes.getUserById({ _id: this.id }));
-    this.user$ = this.userStore.select(UserSelectorType.selectUser);
+      this.activatedRoute.data.subscribe(data => {
+        this.id = data.routeResolver.data._id;
+        this.initializeValues(data.routeResolver.data);
+      });
+    
+    // this.user$ = this.userStore.select(UserSelectorType.selectUser);
 
-    this.user$.subscribe(res => {
-      if(res._id){
-        this.initializeValues(res);
-      }
-    });
+    // this.user$.subscribe(res => {
+    //   if(res._id){
+    //     this.initializeValues(res);
+    //   }
+    // });
 
   }
 
@@ -80,49 +84,30 @@ export class UpdateUserComponent implements OnInit {
 
   updateUser() {
 
-    // var user = this.userForm.value;
+    var user = this.userForm.value as UserModel;
 
-    // if (this.userForm.status !== "INVALID") {
-    //   this.userService.updateUserById(this.id, user).subscribe(
-    //     res => {
-    //       if (res.success) {
-    //         this.alertifyService.success("User saved.");
-    //         this.getUser();
-    //       }
-    //     },
-    //     error => {
-    //       this.alertifyService.error(error.error.error);
-    //     }
-    //   );
-    // } else {
-    //   this.alertifyService.error("Please fill up all required information.");
-    // }
+    if (this.userForm.status !== "INVALID") {
+      this.userStore.dispatch(UserActionTypes.updateUser({user : user , id : this.id}));
+      this.userStore.select(UserSelectorType.selectUser).subscribe(res=>{
+        this.initializeValues(res);
+      });
+    } else {
+      this.alertifyService.error("Please fill up all required information.");
+    }
   }
 
   changePassword() {
-    // var pass = this.passwordForm.value;
+     var pass = this.passwordForm.value as ChangeUserPasswordAdmin;
 
-    // if (this.passwordForm.status !== "INVALID") {
-    //   this.userService.changeUserPassByAdmin(this.id, pass).subscribe(
-    //     res => {
-    //       if (res.success) {
-    //         this.alertifyService.success("Password changed successfully.");
-    //         this.passwordForm.reset();
-    //         this.getUser();
-    //       }
-    //     },
-    //     error => {
-    //       this.alertifyService.error(error.error.error);
-    //     }
-    //   );
-    // } else {
-
-    //   if (this.pfc.confirmPassword.errors?.mustMatch) {
-    //     this.alertifyService.error("Password doesn't match.");
-    //     return;
-    //   }
-    //   this.alertifyService.error("Please fill up all required information.");
-    // }
+    if (this.passwordForm.status !== "INVALID") {
+      this.userStore.dispatch(UserActionTypes.changeUserPasswordAdmin({userPassword : pass , id : this.id}));
+    } else {
+      if (this.pfc.confirmPassword.errors?.mustMatch) {
+        this.alertifyService.error("Password doesn't match.");
+        return;
+      }
+      this.alertifyService.error("Please fill up all required information.");
+    }
   }
 
 }

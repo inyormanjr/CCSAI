@@ -37,5 +37,25 @@ export const userReducer = createReducer(
       ...state,
       user : action.user
     }
-  })
+  }),
+  on(UserActionTypes.createUserSucess,(state,action)=>{
+    return{
+      ...state,
+      user : action.data
+    }
+  }),
+  on(UserActionTypes.createUserFailure,(state,action)=>{
+    return{
+      ...state,
+      user : {
+        _id: '',
+        firstName: '',
+        lastName: '',
+        fullName: '',
+        email: '',
+        role: '',
+        user_status: ''
+      }
+    }
+  }),
 );
