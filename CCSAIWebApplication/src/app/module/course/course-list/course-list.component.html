@@ -13,36 +13,49 @@
                         <button type="button" class="btn btn-primary" (click)="newCourse()" *ngIf="currentUser.role==='admin'">New Course</button>
                     </div>
                 </div>
-                <div class="row mt-4">
+                <div class="d-flex mt-4 ">
+                    <div class="p-0">
+                        <input type="text" class="form-control" placeholder="Course" id="search" (keyup)="updateFilter($event)">
+                    </div>
+                    <div class="ml-auto mt-3">
+                        <select name="limit" id="limit" [(ngModel)]="limit">
+                            <option [ngValue]="10">10</option>
+                            <option [ngValue]="25">25</option>
+                            <option [ngValue]="50">50</option>
+                            <option [ngValue]="100">100</option>
+                          </select>
+                    </div>
+                </div>
+                <div class="row mt-1">
                     <div class="col-12">
+                        <ngx-datatable class='bootstrap' [columnMode]="'force'" [footerHeight]="50" [rowHeight]="'auto'" [rows]='courses' [limit]="limit">
 
-                        <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover" style="width: 100%">
-                            <thead>
-                                <tr>
-                                    <th>CODE</th>
-                                    <th>COURSE</th>
-                                    <th>STATUS</th>
-                                    <th>ACTION</th>
-                                </tr>
-                            </thead>
-                            <tbody *ngIf="courses.length > 0">
-                                <tr *ngFor="let course of courses">
-                                    <td>{{course.courseCode | uppercase}}</td>
-                                    <td>{{course.course | uppercase}}</td>
-                                    <td>{{course.course_status | uppercase}}</td>
-                                    <td><button type="button" (click)="updateCourse(course._id)" routerLinkActive="router-link-active" class="btn btn-outline-primary fa fa-pencil" data-bs-toggle="tooltip" data-bs-placement="top" title="View/Edit"></button>
-                                        <button type="button" (click)="deactivate(course)" routerLinkActive="router-link-active" class="btn btn-outline-danger fa fa-ban" *ngIf="course.course_status === 'active'" data-bs-toggle="tooltip" data-bs-placement="top" title="Deactivate"></button>
-                                        <button type="button" (click)="activate(course)" routerLinkActive="router-link-active" class="btn btn-outline-success fa fa-check" *ngIf="course.course_status === 'deactivated'" data-bs-toggle="tooltip" data-bs-placement="top" title="Activate"></button></td>
-                                </tr>
-                            </tbody>
-                            <tbody *ngIf="courses?.length === 0">
-                                <tr>
-                                    <td colspan="4" class="no-data-available" style="text-align: center;">
-                                        No Data To Display
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                            <ngx-datatable-column name="CODE" prop="courseCode">
+                                <ng-template let-row="row" ngx-datatable-cell-template>
+                                    {{row.courseCode | uppercase}}
+                                </ng-template>
+                            </ngx-datatable-column>
+
+                            <ngx-datatable-column name="COURSE" prop="course">
+                                <ng-template let-row="row" ngx-datatable-cell-template>
+                                    {{row.course | uppercase}}
+                                </ng-template>
+                            </ngx-datatable-column>
+
+                            <ngx-datatable-column name="STATUS" prop="course_status">
+                                <ng-template let-row="row" ngx-datatable-cell-template>
+                                    {{row.course_status | uppercase}}
+                                </ng-template>
+                            </ngx-datatable-column>
+
+                            <ngx-datatable-column name="ACTIONS" prop="action">
+                                <ng-template let-row="row" ngx-datatable-cell-template>
+                                    <button type="button" (click)="updateCourse(row._id)" routerLinkActive="router-link-active" class="btn btn-outline-primary fa fa-pencil" data-bs-toggle="tooltip" data-bs-placement="top" title="View/Edit"></button>
+                                    <button type="button" (click)="deactivate(row)" routerLinkActive="router-link-active" class="btn btn-outline-danger fa fa-ban" *ngIf="row.course_status === 'active'" data-bs-toggle="tooltip" data-bs-placement="top" title="Deactivate"></button>
+                                    <button type="button" (click)="activate(row)" routerLinkActive="router-link-active" class="btn btn-outline-success fa fa-check" *ngIf="row.course_status === 'deactivated'" data-bs-toggle="tooltip" data-bs-placement="top" title="Activate"></button>
+                                </ng-template>
+                            </ngx-datatable-column>
+                        </ngx-datatable>
                     </div>
                 </div>
             </div>

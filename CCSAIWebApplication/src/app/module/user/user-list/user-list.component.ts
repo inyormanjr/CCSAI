@@ -56,17 +56,11 @@ export class UserListComponent implements OnInit, OnDestroy {
   }
 
   updateFilter(event : any) {
-  
     const val = event.target.value.toLowerCase();
-
-    // filter our data
     const temp = this.temp.filter(function (d) {
-      return d.firstName.toLowerCase().indexOf(val) !== -1 || !val;
+      return (d.firstName.toLowerCase().indexOf(val) !== -1 || d.lastName.toLowerCase().indexOf(val) !== -1 ) || !val;
     });
-
-    // update the rows
     this.userList = temp;
- 
   }
  
   

@@ -38,6 +38,20 @@ export const userReducer = createReducer(
       user : action.user
     }
   }),
+  on(UserActionTypes.getUserByIdFailure,(state,action)=>{
+    return {
+      ...state,
+      user : {
+        _id: '',
+        firstName: '',
+        lastName: '',
+        fullName: '',
+        email: '',
+        role: '',
+        user_status: ''
+      }
+    }
+  }),
   on(UserActionTypes.createUserSucess,(state,action)=>{
     return{
       ...state,

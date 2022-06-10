@@ -1,4 +1,9 @@
-import { ReactiveFormsModule } from '@angular/forms';
+import { CourseEffects } from './effects/course.effects';
+import { EffectsModule } from '@ngrx/effects';
+import { courseFeatureKey, courseReducer } from './reducer/course.reducer';
+import { StoreModule } from '@ngrx/store';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -23,7 +28,11 @@ import { DataTablesModule } from 'angular-datatables';
     CourseRoutingModule,
     NgbModule,
     DataTablesModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxDatatableModule,
+    FormsModule,
+    StoreModule.forFeature(courseFeatureKey,courseReducer),
+    EffectsModule.forFeature([CourseEffects])
   ]
 })
 export class CourseModule { }
