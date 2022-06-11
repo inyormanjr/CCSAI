@@ -3,6 +3,10 @@ import { Component, Input, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { AlertifyjsService } from 'src/app/core/services/alertifyjs.service';
 import { FormBuilder, Validators } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { Term } from 'src/app/shared/models/Term';
+import { TermActionTypes } from '../action/term.actions.types';
+import { TermSelectorTypes } from '../selector/term.selectors.types';
 @Component({
   selector: 'app-update-term',
   templateUrl: './update-term.component.html',
@@ -18,44 +22,30 @@ export class UpdateTermComponent implements OnInit {
   });
 
   constructor(public activeModal: NgbActiveModal,
-    private termsService: TermsService,
+    private termStore : Store<Term>,
     private alertifyService: AlertifyjsService,
     private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
-    this.getTermById()
+    this.termStore.dispatch(TermActionTypes.getTermById({_id : this.termId}));
+    this.termStore.select(TermSelectorTypes.selectTerm).subscribe(res=>{
+      this.initializeValues(res);
+    });
   }
 
   get fc() {
     return this.termForm.controls;
   }
 
-  getTermById() {
-
-    this.termsService.getTermById(this.termId).subscribe(res => {
-      if (res.success) {
-        this.initializeValues(res.data);
-      }
-    },
-      error => {
-        this.alertifyService.error(error.error.error);
-      });
-  }
+  
 
   updateTerm(){
-    var term = this.termForm.value;
+    var term = this.termForm.value as Term;
     if (this.termForm.status !== "INVALID") {
-      this.termsService.updateTerm(term,this.termId).subscribe(
-        res => {
-          if (res.success) {
-            this.alertifyService.success("Term updated");
-            this.activeModal.close('success');
-          }
-        },
-        error => {
-          this.alertifyService.error(error.error.error);
-        }
-      );
+      this.termStore.dispatch(TermActionTypes.updateTerm({term , id : this.termId}));
+      this.termStore.select(TermSelectorTypes.selectTerm).subscribe(res=>{
+        this.initializeValues(res);
+      });
     } else {
       this.alertifyService.error("Please fill up all required information.");
     }

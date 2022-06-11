@@ -13,7 +13,6 @@ import { NewCourseComponent } from './new-course/new-course.component';
 import { UpdateCourseComponent } from './update-course/update-course.component';
 import { CourseListComponent } from './course-list/course-list.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { DataTablesModule } from 'angular-datatables';
 
 
 @NgModule({
@@ -27,7 +26,6 @@ import { DataTablesModule } from 'angular-datatables';
     CommonModule,
     CourseRoutingModule,
     NgbModule,
-    DataTablesModule,
     ReactiveFormsModule,
     NgxDatatableModule,
     FormsModule,

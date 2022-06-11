@@ -27,9 +27,9 @@ export class CourseEffects {
   this.actions$.pipe(ofType(CourseActionTypes.getCourseById),
     tap((action) => {
       this.courseService.GetById(action._id).pipe(map((response: ResponseResult<Course>) => {
-        this.courseStore.dispatch(CourseActionTypes.createCourseSuccess({ data: response.data }))
+        this.courseStore.dispatch(CourseActionTypes.getCourseByIdSuccess({ course: response.data }))
       })).subscribe(noop, error => {
-        this.courseStore.dispatch(CourseActionTypes.createCourseFailure());
+        this.courseStore.dispatch(CourseActionTypes.getCourseByIdFailure({error}));
         this.alertify.error(error.error.error);
       })
     })

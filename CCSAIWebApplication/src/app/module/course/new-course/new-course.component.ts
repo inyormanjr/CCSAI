@@ -1,5 +1,4 @@
 import { CourseState } from './../reducer/course.reducer';
-import { CourseService } from './../../../core/http/course.service';
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { AlertifyjsService } from 'src/app/core/services/alertifyjs.service';

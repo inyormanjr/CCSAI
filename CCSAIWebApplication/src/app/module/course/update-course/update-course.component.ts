@@ -3,7 +3,6 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
-import { CourseService } from 'src/app/core/http/course.service';
 import { AlertifyjsService } from 'src/app/core/services/alertifyjs.service';
 import { CourseActionTypes } from '../action/course.action.types';
 import { CourseState } from '../reducer/course.reducer';
@@ -24,7 +23,6 @@ export class UpdateCourseComponent implements OnInit {
   });
 
   constructor(public activeModal: NgbActiveModal,
-    private courseService: CourseService,
     private alertifyService: AlertifyjsService,
     private formBuilder: FormBuilder,
     private courseStore: Store<CourseState>) {

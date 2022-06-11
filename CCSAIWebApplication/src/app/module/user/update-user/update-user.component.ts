@@ -3,7 +3,6 @@ import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { UsersService } from 'src/app/core/http/users.service';
 import { AlertifyjsService } from 'src/app/core/services/alertifyjs.service';
 import { MustMatch } from 'src/app/shared/helpers/mustMatch';
 import { Roles } from 'src/app/shared/models/Roles';
@@ -40,7 +39,7 @@ export class UpdateUserComponent implements OnInit {
     validator: MustMatch('newPassword', 'confirmPassword')
   });
 
-  constructor(private userService: UsersService,
+  constructor(
     private alertifyService: AlertifyjsService,
     private formBuilder: FormBuilder,
     private activatedRoute: ActivatedRoute,

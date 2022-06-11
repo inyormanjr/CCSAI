@@ -1,6 +1,5 @@
 import { UpdateCourseComponent } from './../update-course/update-course.component';
 import { NewCourseComponent } from './../new-course/new-course.component';
-import { CourseService } from './../../../core/http/course.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
 import { AlertifyjsService } from 'src/app/core/services/alertifyjs.service';
