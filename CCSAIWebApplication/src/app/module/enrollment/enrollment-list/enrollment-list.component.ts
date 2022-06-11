@@ -19,50 +19,44 @@ import { EnrollmentSelectorTypes } from '../selector/enrollment.selector.types';
 export class EnrollmentListComponent implements OnInit,OnDestroy {
 
 
-  
+  limit: number = 10;
+  enrollmentList : Enrollment[] = [];
+  temp : Enrollment[] = [];
   enrollments$: Observable<Enrollment[]> | undefined;
-  dtOptions: DataTables.Settings = {};
-  dtTrigger: Subject<any> = new Subject<any>();
   currentUser: any = {};
 
   constructor(
     private tokenStorage: TokenStorageService,
-    private enrollmentStore: Store<EnrollmentState>,
-    private eService: EnrollmentService) {
+    private enrollmentStore: Store<EnrollmentState>) {
+      if (this.tokenStorage.getDecodedUserToken() !== null) {
+        this.currentUser = this.tokenStorage.getDecodedUserToken()
+      } else {
+        this.currentUser = {};
+      }
+
       this.enrollmentStore.dispatch(EnrollmentActionTypes.loadEnrollments());
       this.enrollments$ = this.enrollmentStore.select(EnrollmentSelectorTypes.selectEnrollmentsList);
 
-      this.enrollments$.subscribe(()=>{
-        this.dtTrigger.next();
+      this.enrollments$.subscribe(res=>{
+        this.enrollmentList = res;
+        this.temp = res;
+    
       });
     }
 
   ngOnInit(): void {
-    if (this.tokenStorage.getDecodedUserToken() !== null) {
-      this.currentUser = this.tokenStorage.getDecodedUserToken()
-    } else {
-      this.currentUser = {};
-    }
-
-    this.dtOptions = {
-      pagingType: 'full_numbers',
-      pageLength: 10,
-      processing: true,
-      retrieve: true,
-    };
-
-    //this.getEnrollment();
   }
 
   ngOnDestroy(): void {
-    this.dtTrigger.unsubscribe();
   }
 
-  getEnrollment(){
-    this.eService.Get(0,0).subscribe(responseResult => {
-     
-      
+  updateFilter(event: any) {
+
+    const val = event.target.value.toLowerCase();
+    const temp = this.temp.filter(function (d) {
+      return d.courseId.course.toLowerCase().indexOf(val) !== -1  || !val;
     });
+    this.enrollmentList = temp;
   }
 
   updateEnrollment(enrollmentId : string){

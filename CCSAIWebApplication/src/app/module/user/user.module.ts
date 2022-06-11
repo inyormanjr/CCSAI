@@ -32,7 +32,6 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
     CommonModule,
     ReactiveFormsModule,
     UserRoutingModule,
-    DataTablesModule,
     NgxDatatableModule,
     FormsModule,
     StoreModule.forFeature(userFeatureKey,userReducer),

@@ -34,10 +34,8 @@ export class RegisterComponent implements OnInit,OnDestroy {
       validator: MustMatch('password', 'confirmPassword')
     });
 
-  constructor(private authService: AuthenticationService,
-    private alertifyService: AlertifyjsService,
+  constructor(private alertifyService: AlertifyjsService,
     private formBuilder: FormBuilder,
-    private router : Router,
     private userStore : Store<UserState>,
     private clearFormService : ClearFormService) { }
 
