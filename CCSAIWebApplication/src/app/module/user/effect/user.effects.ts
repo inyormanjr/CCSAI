@@ -10,6 +10,8 @@ import { UserActionTypes } from '../action/user.action.types';
 import { Store } from '@ngrx/store';
 import { UserState } from '../reducer/user.reducer';
 import { noop } from 'jquery';
+import { Router } from '@angular/router';
+import { ClearFormService } from 'src/app/core/services/clear-form.service';
 
 
 
@@ -42,12 +44,10 @@ export class UserEffects {
   this.actions$.pipe(ofType(UserActionTypes.createUser),
     tap((action) => {
       this.userService.Create(action.data).pipe(map((response: ResponseResult<UserModel>) => {
-        this.userStore.dispatch(UserActionTypes.loadUser());
-        this.userStore.dispatch(UserActionTypes.createUserSucess({data : response.data}));
         this.alertify.success("User Registered.");
+        this.clearFormService.clearForm();
       })).subscribe(noop, error => {
-        this.userStore.dispatch(UserActionTypes.createUserFailure());
-        this.alertify.error(error.error.error);
+          this.alertify.error(error.error.error);
       })
     })
   ), { dispatch: false }
@@ -124,6 +124,8 @@ export class UserEffects {
   constructor(private actions$: Actions,
     private userStore: Store<UserState>,
     private userService: UsersService,
-    private alertify: AlertifyjsService) { }
+    private alertify: AlertifyjsService,
+    private router : Router,
+    private clearFormService: ClearFormService) { }
 
 }
