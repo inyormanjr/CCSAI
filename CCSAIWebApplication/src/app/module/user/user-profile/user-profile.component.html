@@ -1,37 +1,33 @@
 <div class="container-fluid mt-4">
-    <div class="row">
-        <div class="col-12 d-flex justify-content-start">
-            <h2>User Profile</h2>
-        </div>
-    </div>
-    <hr>
     <div class="row mt-4">
         <div class="container">
-            <form [formGroup]="userForm" class="row g-3 mt-4">
-                <div class="col-md-6">
-                    <label for="firstName" class="form-label">First Name</label>
-                    <input type="text" class="form-control" formControlName="firstName" id="firstName">
+            <div class="card">
+                <h4 class="card-header">User Profile</h4>
+                <div class="card-body">
+                    <form [formGroup]="userForm" class="row g-3 mt-4">
+                        <div class="col-md-6">
+                            <label for="firstName" class="form-label">First Name</label>
+                            <input type="text" class="form-control" formControlName="firstName" id="firstName" readonly>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="lastName" class="form-label">Last name</label>
+                            <input type="text" class="form-control" formControlName="lastName" id="lastName" readonly>
+                        </div>
+                        <div class="col-md-12 mt-4">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="text" class="form-control" formControlName="email" id="email" readonly>
+                        </div>
+                        <div class="col-md-6 mt-4">
+                            <label for="role" class="form-label">Role</label>
+                            <input type="text" class="form-control" formControlName="role" id="role" readonly>
+                        </div>
+                        <div class="col-md-6 mt-4">
+                            <label for="user_status" class="form-label">Status</label>
+                            <input type="text" class="form-control" formControlName="user_status" id="user_status" readonly>
+                        </div>
+                    </form>
                 </div>
-                <div class="col-md-6">
-                    <label for="lastName" class="form-label">Last name</label>
-                    <input type="text" class="form-control" formControlName="lastName" id="lastName">
-                </div>
-                <div class="col-md-12 mt-4">
-                    <label for="email" class="form-label">Email</label>
-                    <input type="text" class="form-control" formControlName="email" id="email" readonly>
-                </div>
-                <div class="col-md-6 mt-4">
-                    <label for="role" class="form-label">Role</label>
-                    <input type="text" class="form-control" formControlName="role" id="role">
-                </div>
-                <div class="col-md-6 mt-4">
-                    <label for="user_status" class="form-label">Status</label>
-                    <input type="text" class="form-control" formControlName="user_status" id="user_status" readonly>
-                </div>
-            </form>
-
-
-
+            </div>
         </div>
     </div>
 </div>

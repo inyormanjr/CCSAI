@@ -10,43 +10,55 @@
             <div class="container">
                 <div class="row">
                     <div class="col-12 d-flex justify-content-end">
-                        <button type="button" class="btn btn-primary" (click)="newEnrollment()" *ngIf="currentUser.role==='admin'">New Enrollment</button>
+                        <button type="button" class="btn btn-primary" [routerLink]="['../newenrollment']" *ngIf="currentUser.role==='admin'">New Enrollment</button>
                     </div>
                 </div>
-                <div class="row mt-4">
+                <div class="d-flex mt-4 ">
+                    <div class="p-0">
+                        <input type="text" class="form-control" placeholder="Course" id="search" (keyup)="updateFilter($event)">
+                    </div>
+                    <div class="ml-auto mt-3">
+                        <select name="limit" id="limit" [(ngModel)]="limit">
+                            <option [ngValue]="10">10</option>
+                            <option [ngValue]="25">25</option>
+                            <option [ngValue]="50">50</option>
+                            <option [ngValue]="100">100</option>
+                          </select>
+                    </div>
+                </div>
+                <div class="row mt-1">
                     <div class="col-12">
+                        <ngx-datatable class='bootstrap' [columnMode]="'force'" [footerHeight]="50" [rowHeight]="'auto'" [rows]='enrollmentList' [limit]="limit">
+                            <ngx-datatable-column name="TERM" prop="term">
+                                <ng-template let-row="row" ngx-datatable-cell-template>
+                                    {{row.termId.termName | uppercase}}
+                                </ng-template>
+                            </ngx-datatable-column>
 
-                        <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover" style="width: 100%">
-                            <thead>
-                                <tr>
-                                    <th>TERM</th>
-                                    <th>COURSE</th>
-                                    <th>INSTRUCTOR</th>
-                                    <th>DATE</th>
-                                    <th>ACTION</th>
-                                </tr>
-                            </thead>
-                            <ng-container *ngIf="(enrollments$ | async) as enrollments; else elseTemplate">
-                                <tbody>
-                                    <tr *ngFor="let enrollment of enrollments">
-                                        <td>{{enrollment.termId.termName}}</td>
-                                        <td>{{enrollment.courseId.course | uppercase}}</td>
-                                        <td>{{enrollment.instructorId.fullName | uppercase}}</td>
-                                        <td>{{enrollment.enrollmentDate | date}}</td>
-                                        <td><button type="button" (click)="updateEnrollment(enrollment._id)" routerLinkActive="router-link-active" class="btn btn-outline-primary fa fa-pencil" data-bs-toggle="tooltip" data-bs-placement="top" title="View/Edit"></button></td>
-                                    </tr>
-                                </tbody>
-                            </ng-container>
-                            <ng-template #elseTemplate>
-                                <tbody>
-                                    <tr>
-                                        <td colspan="5" class="no-data-available" style="text-align: center;">
-                                            No Data To Display
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </ng-template>
-                        </table>
+                            <ngx-datatable-column name="COURSE" prop="course">
+                                <ng-template let-row="row" ngx-datatable-cell-template>
+                                    {{row.courseId.course | uppercase}}
+                                </ng-template>
+                            </ngx-datatable-column>
+
+                            <ngx-datatable-column name="INSTRUCTOR" prop="instructor">
+                                <ng-template let-row="row" ngx-datatable-cell-template>
+                                    {{row.instructorId.fullName | uppercase}}
+                                </ng-template>
+                            </ngx-datatable-column>
+
+                            <ngx-datatable-column name="DATE" prop="date">
+                                <ng-template let-row="row" ngx-datatable-cell-template>
+                                    {{row.enrollmentDate | date}}
+                                </ng-template>
+                            </ngx-datatable-column>
+
+                            <ngx-datatable-column name="ACTIONS" prop="action">
+                                <ng-template let-row="row" ngx-datatable-cell-template>
+                                    <button type="button" (click)="updateEnrollment(row._id)" routerLinkActive="router-link-active" class="btn btn-outline-primary fa fa-pencil" data-bs-toggle="tooltip" data-bs-placement="top" title="View/Edit"></button>
+                                </ng-template>
+                            </ngx-datatable-column>
+                        </ngx-datatable>
                     </div>
                 </div>
             </div>
