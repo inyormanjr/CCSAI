@@ -3,10 +3,9 @@ import { changeUserPasswordAdmin } from './../action/user.actions';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { UsersService } from 'src/app/core/http/users.service';
 import { AlertifyjsService } from 'src/app/core/services/alertifyjs.service';
 import { MustMatch } from 'src/app/shared/helpers/mustMatch';
-import { ChangeUserPasswordAdmin } from 'src/app/shared/models/UserModel';
+
 import { UserActionTypes } from '../action/user.action.types';
 import { UserState } from '../reducer/user.reducer';
 
@@ -27,7 +26,7 @@ export class ChangeUserPasswordComponent implements OnInit {
       validator: MustMatch('newPassword', 'confirmPassword')
     });
 
-  constructor(private userService: UsersService,
+  constructor(
     private alertifyService: AlertifyjsService,
     private formBuilder: FormBuilder,
     private userStore: Store<UserState>) { }

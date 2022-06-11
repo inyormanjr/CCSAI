@@ -1,8 +1,12 @@
+import { Course } from './../../../shared/models/Course';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { CourseService } from 'src/app/core/http/course.service';
+import { Store } from '@ngrx/store';
 import { AlertifyjsService } from 'src/app/core/services/alertifyjs.service';
+import { CourseActionTypes } from '../action/course.action.types';
+import { CourseState } from '../reducer/course.reducer';
+import { CourseSelectorTypes } from '../selector/course.selectors.types';
 
 @Component({
   selector: 'app-update-course',
@@ -19,28 +23,20 @@ export class UpdateCourseComponent implements OnInit {
   });
 
   constructor(public activeModal: NgbActiveModal,
-    private courseService: CourseService,
     private alertifyService: AlertifyjsService,
-    private formBuilder: FormBuilder) { }
+    private formBuilder: FormBuilder,
+    private courseStore: Store<CourseState>) {
+     }
 
   ngOnInit(): void {
-    this.getByCourseId();
+    this.courseStore.dispatch(CourseActionTypes.getCourseById({_id : this.courseId}));
+    this.courseStore.select(CourseSelectorTypes.selectCourse).subscribe(res=>{
+      this.initializeValues(res);
+    });
   }
 
   get fc() {
     return this.courseForm.controls;
-  }
-
-  getByCourseId() {
-
-    this.courseService.getCourseById(this.courseId).subscribe(res => {
-      if (res.success) {
-        this.initializeValues(res.data);
-      }
-    },
-      error => {
-        this.alertifyService.error(error.error.error);
-      });
   }
 
   initializeValues(course: any) {
@@ -50,19 +46,23 @@ export class UpdateCourseComponent implements OnInit {
   }
 
   updateCourse() {
-    var course = this.courseForm.value;
+    var course = this.courseForm.value as Course;
     if (this.courseForm.status !== "INVALID") {
-      this.courseService.updateCourseById(this.courseId,course).subscribe(
-        res => {
-          if (res.success) {
-            this.alertifyService.success("Course updated");
-            this.activeModal.close('success');
-          }
-        },
-        error => {
-          this.alertifyService.error(error.error.error);
-        }
-      );
+      this.courseStore.dispatch(CourseActionTypes.updateCourse({course , id : this.courseId}));
+      this.courseStore.select(CourseSelectorTypes.selectCourse).subscribe(res=>{
+        this.initializeValues(res);
+      });
+      // this.courseService.updateCourseById(this.courseId,course).subscribe(
+      //   res => {
+      //     if (res.success) {
+      //       this.alertifyService.success("Course updated");
+      //       this.activeModal.close('success');
+      //     }
+      //   },
+      //   error => {
+      //     this.alertifyService.error(error.error.error);
+      //   }
+      // );
     } else {
       this.alertifyService.error("Please fill up all required information.");
     }
