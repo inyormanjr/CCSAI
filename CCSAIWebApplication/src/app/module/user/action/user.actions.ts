@@ -36,15 +36,6 @@ export const createUser = createAction(
   props<{data: UserModel}>()
 );
 
-export const createUserSucess = createAction(
-  '[User] Create User Success',
-  props<{data: UserModel}>()
-);
-
-export const createUserFailure = createAction(
-  '[User] Create User Failure'
-);
-
 export const updateUser = createAction(
   '[User] Update User',
   props<{user : UserModel , id : string}>()

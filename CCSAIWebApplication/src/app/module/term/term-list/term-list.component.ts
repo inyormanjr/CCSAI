@@ -37,7 +37,7 @@ export class TermListComponent implements OnInit, OnDestroy {
     this.termStore.dispatch(TermActionTypes.loadTerms());
     this.terms$ = this.termStore.select(TermSelectorTypes.selectTerms);
     this.terms$.subscribe(res => {
-      console.log(res);
+ 
       this.terms = res;
       this.temp = res;
     });

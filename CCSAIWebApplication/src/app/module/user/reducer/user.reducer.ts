@@ -9,6 +9,7 @@ export const userFeatureKey = 'user';
 export interface UserState {
   userList: UserModel[];
   user: UserModel;
+
 }
 
 export const initialUserState: UserState = {
@@ -40,26 +41,6 @@ export const userReducer = createReducer(
   }),
   on(UserActionTypes.getUserByIdFailure,(state,action)=>{
     return {
-      ...state,
-      user : {
-        _id: '',
-        firstName: '',
-        lastName: '',
-        fullName: '',
-        email: '',
-        role: '',
-        user_status: ''
-      }
-    }
-  }),
-  on(UserActionTypes.createUserSucess,(state,action)=>{
-    return{
-      ...state,
-      user : action.data
-    }
-  }),
-  on(UserActionTypes.createUserFailure,(state,action)=>{
-    return{
       ...state,
       user : {
         _id: '',
