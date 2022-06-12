@@ -1,0 +1,54 @@
+<div class="modal-header">
+    <h4 class="modal-title">Course Selection</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+<div class="modal-body">
+    <div class="container">
+        <div class="d-flex mt-4 ">
+            <div class="p-0">
+                <input type="text" class="form-control" placeholder="Course" id="search" (keyup)="updateFilter($event)">
+            </div>
+            <div class="ml-auto mt-3">
+                <select name="limit" id="limit" [(ngModel)]="limit">
+                    <option [ngValue]="10">10</option>
+                    <option [ngValue]="25">25</option>
+                    <option [ngValue]="50">50</option>
+                    <option [ngValue]="100">100</option>
+                  </select>
+            </div>
+        </div>
+        <div class="row mt-1">
+            <div class="col-12">
+                <ngx-datatable class='bootstrap' [columnMode]="'force'" [footerHeight]="50" [rowHeight]="'auto'" [rows]='courses' [limit]="limit">
+
+                    <ngx-datatable-column name="CODE" prop="courseCode">
+                        <ng-template let-row="row" ngx-datatable-cell-template>
+                            {{row.courseCode | uppercase}}
+                        </ng-template>
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-column name="COURSE" prop="course">
+                        <ng-template let-row="row" ngx-datatable-cell-template>
+                            {{row.course | uppercase}}
+                        </ng-template>
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-column name="STATUS" prop="course_status">
+                        <ng-template let-row="row" ngx-datatable-cell-template>
+                            {{row.course_status | uppercase}}
+                        </ng-template>
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-column name="ACTIONS" prop="action">
+                        <ng-template let-row="row" ngx-datatable-cell-template>
+                            <button type="button" (click)="select(row)" routerLinkActive="router-link-active" class="btn btn-outline-success fa fa-check" data-bs-toggle="tooltip" data-bs-placement="top" title="Select"></button>
+                        </ng-template>
+                    </ngx-datatable-column>
+                </ngx-datatable>
+            </div>
+        </div>
+    </div>
+</div>

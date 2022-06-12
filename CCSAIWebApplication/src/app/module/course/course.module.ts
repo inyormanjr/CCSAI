@@ -13,6 +13,7 @@ import { NewCourseComponent } from './new-course/new-course.component';
 import { UpdateCourseComponent } from './update-course/update-course.component';
 import { CourseListComponent } from './course-list/course-list.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ActiveCourseListComponent } from './active-course-list/active-course-list.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     CourseComponent,
     NewCourseComponent,
     UpdateCourseComponent,
-    CourseListComponent
+    CourseListComponent,
+    ActiveCourseListComponent
   ],
   imports: [
     CommonModule,

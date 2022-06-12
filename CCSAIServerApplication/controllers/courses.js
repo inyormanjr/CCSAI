@@ -31,8 +31,6 @@ exports.updateCourse = asyncHandler(async(req, res, next) => {
         return next(new ErrorResponse(`Course not found with id of ${req.params.id}.`));
     }
 
-
-
     const { courseCode, course } = req.body;
     courseObj = await Course.findByIdAndUpdate(req.params.id, {
         "courseCode": courseCode,
@@ -54,6 +52,19 @@ exports.updateCourse = asyncHandler(async(req, res, next) => {
 // @access  Private/Admin
 exports.getAllCourses = asyncHandler(async(req, res, next) => {
     const courses = await Course.find();
+
+    res.status(200).json({
+        success: true,
+        count: courses.length,
+        data: courses
+    });
+});
+
+// @desc    Get courses by status
+// @route   GET /api/v1/courses/active
+// @access  Private/Admin
+exports.getAllActiveCourses = asyncHandler(async(req, res, next) => {
+    const courses = await Course.find({ course_status: 'active' });
 
     res.status(200).json({
         success: true,

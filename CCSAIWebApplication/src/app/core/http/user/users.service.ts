@@ -31,10 +31,14 @@ export class UsersService extends BaseService<UserModel> {
   }
 
   activateUser(user : any) : Observable<ResponseResult<any>>{
-    return this.httpClient.put<any>(`${this.baseURL}/activate/${user._id}`,user);
+    return this.httpClient.put<any>(`${this.baseURL}activate/${user._id}`,user);
   }
 
   deactivateUser(user : any) : Observable<ResponseResult<any>>{
-    return this.httpClient.put<any>(`${this.baseURL}/deactivate/${user._id}`,user);
+    return this.httpClient.put<any>(`${this.baseURL}deactivate/${user._id}`,user);
+  }
+
+  getUsersByRole(role : string) : Observable<ResponseResult<any>>{
+    return this.httpClient.get<any>(`${this.baseURL}roles/${role}`);
   }
 }

@@ -14,11 +14,12 @@ import { ActivatedRoute } from '@angular/router';
 import { DatePipe } from '@angular/common'
 
 @Component({
-  selector: 'app-new-enrollment',
-  templateUrl: './new-enrollment.component.html',
-  styleUrls: ['./new-enrollment.component.css']
+  selector: 'app-update-enrollment',
+  templateUrl: './update-enrollment.component.html',
+  styleUrls: ['./update-enrollment.component.css']
 })
-export class NewEnrollmentComponent implements OnInit {
+export class UpdateEnrollmentComponent implements OnInit {
+
 
   selectedInstructor : UserModel = {
     _id: '',
@@ -47,40 +48,21 @@ export class NewEnrollmentComponent implements OnInit {
     courseId: [null, Validators.required],
     termId: [null, Validators.required],
     instructorId: [null, Validators.required],
-    enrollmentDate: [new Date(), Validators.required]
+    enrollmentDate: [null, Validators.required]
   });
 
   constructor(private formBuilder: FormBuilder,
     private alertifyService: AlertifyjsService,
     private modalService: NgbModal,
-    private enrollmentService : EnrollmentService) {
+    private enrollmentService : EnrollmentService,
+    private activatedRoute: ActivatedRoute,
+    private datepipe: DatePipe) {
+      this.activatedRoute.data.subscribe(data => {
+        this.initializeValues(data.routeResolver.data);
+      });
      }
 
   ngOnInit(): void {
-  }
-
-  get fc() {
-    return this.enrollmentForm.controls;
-  }
-
-  create() {
-    var enrollment = this.enrollmentForm.value as Enrollment;
-    
-    if (this.enrollmentForm.status !== "INVALID") {
-        this.alertifyService.confirm("Enrollment Registration","Create Enrollment?",()=>{
-          this.enrollmentService.Create(enrollment).subscribe(res=>{
-            this.alertifyService.success("Successfully Created.");
-            this.enrollmentForm.reset();
-            this.clearValues();
-          },
-          error=>{
-            this.alertifyService.error(error.error.error);
-          })
-        })
-    } else {
-
-      this.alertifyService.error("Please fill up all required information.");
-    }
   }
 
   searchInstructor(){
@@ -107,28 +89,48 @@ export class NewEnrollmentComponent implements OnInit {
     });
   }
 
-  clearValues(){
-    this.selectedInstructor  = {
-      _id: '',
-      firstName: '',
-      lastName: '',
-      fullName: '',
-      email: '',
-      role: '',
-      user_status: ''
-    };
-  
-    this.selectedCourse  = {
-      _id : '',
-      course_status : '',
-      course : '',
-      courseCode : ''
-    };
-  
-    this.selectedTerm  = {
-      _id : '',
-      termName : ''
+  save(){
+    var enrollment = this.enrollmentForm.value as Enrollment;
+    
+    if (this.enrollmentForm.status !== "INVALID") {
+      console.log(enrollment);
+        this.alertifyService.confirm("Update enrollment","Update Enrollment?",()=>{
+          this.enrollmentService.Update(enrollment._id,enrollment).subscribe(res=>{
+            this.alertifyService.success("Successfully Saved.");
+          },
+          error=>{
+            this.alertifyService.error(error.error.error);
+          })
+        })
+    } else {
+      this.alertifyService.error("Please fill up all required information.");
     }
+  }
+
+  initializeValues(enrollment: any) {
+    
+    const slicedDate = enrollment.enrollmentDate.split('T')[0];
+    const day = slicedDate.split('-')[2];
+    const year =slicedDate.split('-')[0];
+    const month =slicedDate.split('-')[1];
+    
+    const formattedDate = {
+      year : parseInt(year),
+      month : parseInt(month),
+      day : parseInt(day)
+    }
+   
+    this.enrollmentForm.controls['_id'].setValue(enrollment._id);
+    this.enrollmentForm.controls['courseId'].setValue(enrollment.courseId._id);
+    this.enrollmentForm.controls['termId'].setValue(enrollment.termId._id);
+    this.enrollmentForm.controls['instructorId'].setValue(enrollment.instructorId._id);
+    this.enrollmentForm.controls['enrollmentDate'].setValue(formattedDate);
+  
+    this.selectedCourse = enrollment.courseId as Course;
+    this.selectedInstructor = enrollment.instructorId as UserModel;
+    this.selectedTerm = enrollment.termId as Term;
+
+
   }
 
 }
