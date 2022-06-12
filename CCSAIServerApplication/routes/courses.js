@@ -5,7 +5,8 @@ const {
     getAllCourses,
     getCourseById,
     activateCourse,
-    deactivateCourse
+    deactivateCourse,
+    getAllActiveCourses
 } = require('../controllers/courses');
 const Course = require('../models/Course');
 const router = express.Router();
@@ -21,6 +22,9 @@ router.route('/')
     .get(protectUser,
         authorize('admin'), getAllCourses);
 
+router.route('/active')
+    .get(protectUser,
+        authorize('admin'), getAllActiveCourses);
 
 router.route('/activate/:id')
     .put(protectUser,

@@ -1,5 +1,4 @@
 import { TermState } from './../reducer/term.reducer';
-import { TermsService } from './../../../core/http/terms.service';
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { AlertifyjsService } from 'src/app/core/services/alertifyjs.service';

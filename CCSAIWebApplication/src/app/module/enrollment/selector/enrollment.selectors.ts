@@ -6,3 +6,6 @@ export const selectEnrollmentAppFeature =
 
 
 export const selectEnrollmentsList = createSelector(selectEnrollmentAppFeature, x => x.enrollmentList);
+export const selectUserList = createSelector(selectEnrollmentAppFeature, x=>x.userList);
+export const selectActiveCourses = createSelector(selectEnrollmentAppFeature, x=> x.activeCourseList)
+export const selectTerms = createSelector(selectEnrollmentAppFeature, x=> x.termList);

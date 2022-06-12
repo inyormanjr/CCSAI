@@ -15,6 +15,10 @@ export class CourseService extends BaseService<Course> {
     this.baseURL = this.baseURL + '/courses/'
    }
 
+   getAllActiveCourse() : Observable<ResponseResult<any>>{
+    return this.httpClient.get<any>(`${this.baseURL}active`);
+   }
+
    activateCourse(course : any) : Observable<ResponseResult<any>>{
 
     return this.httpClient.put<any>(`${this.baseURL}activate/${course._id}`,course);

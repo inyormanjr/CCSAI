@@ -1,3 +1,4 @@
+import { TermsListModalComponent } from './../term/terms-list-modal/terms-list-modal.component';
 import { TermEffects } from './effect/term.effects';
 import { termFeatureKey, termReducer } from './reducer/term.reducer';
 import { NgModule } from '@angular/core';
@@ -20,7 +21,8 @@ import { EffectsModule } from '@ngrx/effects';
     TermComponent,
     TermListComponent,
     NewTermComponent,
-    UpdateTermComponent
+    UpdateTermComponent,
+    TermsListModalComponent
   ],
   imports: [
     CommonModule,

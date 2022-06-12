@@ -182,6 +182,23 @@ exports.getUserById = asyncHandler(async(req, res, next) => {
     });
 });
 
+// @desc        Get users by Role and Active
+// @route       GET /api/v1/users/roles/:role
+// @access      Private/Admin
+exports.getUserByRole = asyncHandler(async(req, res, next) => {
+    const users = await User.find({
+        $and: [
+            { role: req.params.role },
+            { user_status: 'active' }
+        ]
+    });
+
+    res.status(200).json({
+        success: true,
+        data: users
+    });
+});
+
 const sendUserTokenResponse = (user, statusCode, res) => {
     const token = user.getSignedJwtToken();
 

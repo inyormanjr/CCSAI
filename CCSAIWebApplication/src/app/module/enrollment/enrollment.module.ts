@@ -1,7 +1,7 @@
 import { enrollmentFeatureKey, enrollmentReducer } from './reducer/enrollment.reducer';
 
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { EffectsModule } from '@ngrx/effects';
 import { EnrollmentRoutingModule } from './enrollment-routing.module';
 import { EnrollmentComponent } from './enrollment.component';
@@ -13,6 +13,7 @@ import { NewEnrollmentComponent } from './new-enrollment/new-enrollment.componen
 import { EnrollmentEffects } from './effect/enrollment.effects';
 import { StoreModule } from '@ngrx/store';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { UpdateEnrollmentComponent } from './update-enrollment/update-enrollment.component';
 
 
 
@@ -21,6 +22,7 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
     EnrollmentComponent,
     EnrollmentListComponent,
     NewEnrollmentComponent,
+    UpdateEnrollmentComponent,
   ],
   imports: [
     CommonModule,
@@ -31,6 +33,9 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
     FormsModule,
     StoreModule.forFeature(enrollmentFeatureKey, enrollmentReducer),
     EffectsModule.forFeature([EnrollmentEffects])
+  ],
+  providers : [
+    DatePipe
   ]
 })
 export class EnrollmentModule { }

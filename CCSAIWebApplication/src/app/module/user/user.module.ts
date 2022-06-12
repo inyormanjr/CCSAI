@@ -16,6 +16,7 @@ import { UserEffects } from './effect/user.effects';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { GetUserByIdResolver } from './resolvers/get-user-by-id.resolver';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { UserRoleListModalComponent } from './user-role-list-modal/user-role-list-modal.component';
 
 
 
@@ -26,7 +27,8 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
     RegisterComponent,
     UpdateUserComponent,
     ChangeUserPasswordComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    UserRoleListModalComponent
   ],
   imports: [
     CommonModule,
