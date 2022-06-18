@@ -1,0 +1,39 @@
+<div class="container-fluid mt-4">
+    <div class="row mt-4">
+        <div class="container">
+            <div class="card">
+                <h4 class="card-header">Module Information</h4>
+                <div class="card-body mb-0 pb-0">
+                    <form [formGroup]="courseForm" class="row g-3">
+                        <div class="col-6">
+                            <label for="courseCode" class="form-label">Course Code</label>
+                            <input type="text" class="form-control" id="courseCode" formControlName="courseCode" readonly>
+                        </div>
+                        <div class="col-6">
+                            <label for="course" class="form-label">Course</label>
+                            <input type="text" class="form-control" id="course" formControlName="course" readonly>
+                        </div>
+                    </form>
+                </div>
+                <hr>
+                <div class="card-body mt-0 pt-0">
+                    <form [formGroup]="moduleForm" (ngSubmit)="updateModule()" class="row g-3">
+                        <div class="col-12 d-flex">
+                            <div class="p-0 col-6">
+                                <label for="module " class="form-label ">Module</label>
+                                <input type="text " class="form-control " id="module " formControlName="module">
+                            </div>
+                            <div class="ml-auto">
+                                <button type="submit" class="btn btn-primary fa fa-pencil-square-o"></button>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="mt-4">
+                        <button type="button" (click)="back()" class="btn btn-primary">Back</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

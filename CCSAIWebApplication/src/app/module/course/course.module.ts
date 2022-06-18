@@ -15,6 +15,7 @@ import { CourseListComponent } from './course-list/course-list.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ActiveCourseListComponent } from './active-course-list/active-course-list.component';
 import { ModuleListComponent } from './module-list/module-list.component';
+import { ModuleViewComponent } from './module-view/module-view.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { ModuleListComponent } from './module-list/module-list.component';
     UpdateCourseComponent,
     CourseListComponent,
     ActiveCourseListComponent,
-    ModuleListComponent
+    ModuleListComponent,
+    ModuleViewComponent
   ],
   imports: [
     CommonModule,

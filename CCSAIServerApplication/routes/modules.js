@@ -1,7 +1,9 @@
 const express = require('express');
 const {
     createModule,
-    getModulesByCourseId
+    getModulesByCourseId,
+    getModuleById,
+    updateModuleById
 } = require('../controllers/modules');
 
 const router = express.Router();
@@ -13,8 +15,19 @@ router.route('/')
         createModule);
 
 
+
 router.route('/getmodulesbycourseid/:id')
     .get(protectUser,
         authorize('admin', 'instructor'), getModulesByCourseId);
+
+
+router.route('/:id')
+    .get(protectUser,
+        authorize('admin', 'instructor'), getModuleById);
+
+router.route('/:id')
+    .put(protectUser,
+        authorize('admin', 'instructor'), updateModuleById);
+
 
 module.exports = router;

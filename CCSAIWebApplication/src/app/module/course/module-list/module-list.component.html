@@ -57,13 +57,13 @@
 
                                 <ngx-datatable-column name="MODULE" prop="module" [width]="200">
                                     <ng-template let-row="row" ngx-datatable-cell-template>
-                                        {{row.module | uppercase}}
+                                        {{row.module}}
                                     </ng-template>
                                 </ngx-datatable-column>
 
                                 <ngx-datatable-column name="ACTIONS" prop="action" [canAutoResize]="false">
                                     <ng-template let-row="row" ngx-datatable-cell-template>
-                                        <button type="button" class="btn btn-primary fa fa-folder-open" data-bs-toggle="tooltip" data-bs-placement="top" title="View Module"></button>
+                                        <button type="button" [routerLink]="['../../moduleview',row._id]" class="btn btn-primary fa fa-folder-open" data-bs-toggle="tooltip" data-bs-placement="top" title="View Module"></button>
                                     </ng-template>
                                 </ngx-datatable-column>
                             </ngx-datatable>
