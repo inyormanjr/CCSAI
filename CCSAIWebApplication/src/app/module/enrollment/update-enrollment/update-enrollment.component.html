@@ -1,62 +1,151 @@
 <div class="container-fluid mt-4">
     <div class="row mt-4">
         <div class="container">
-            <div class="card">
-                <h4 class="card-header">Enrollment Registration</h4>
-                <div class="card-body">
-                    <form [formGroup]="enrollmentForm" (ngSubmit)="save()" class="row g-3">
+            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-enrollment" role="tab" aria-controls="pills-home" aria-selected="true">Enrollment</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-enrollmentdetails" role="tab" aria-controls="pills-profile" aria-selected="false">Student Assignment</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="pills-tabContent">
+                <div class="tab-pane fade show active" id="pills-enrollment" role="tabpanel" aria-labelledby="pills-home-tab">
+                    <div class="card">
+                        <h4 class="card-header">Enrollment</h4>
+                        <div class="card-body">
+                            <form [formGroup]="enrollmentForm" (ngSubmit)="save()" class="row g-3">
 
-                        <div class="col-6">
-                            <label for="coursecode" class="form-label">Course Code</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control" name="coursecode" aria-label="instructor" aria-describedby="button-addon" [(ngModel)]="selectedCourse.courseCode" [ngModelOptions]="{standalone: true}" readonly>
-                                <div class="input-group-append">
-                                    <button class="btn btn-outline-primary" (click)="searchCourse()" type="button" id="button-addon">Search</button>
+                                <div class="col-6">
+                                    <label for="coursecode" class="form-label">Course Code</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" name="coursecode" aria-label="instructor" aria-describedby="button-addon" [(ngModel)]="selectedCourse.courseCode" [ngModelOptions]="{standalone: true}" readonly>
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-primary" (click)="searchCourse()" type="button" id="button-addon">Search</button>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="col-12 mt-2">
-                            <label for="course" class="form-label">Course</label>
-                            <input type="text" class="form-control" name="course" aria-label="course" aria-describedby="button-addon" [(ngModel)]="selectedCourse.course" [ngModelOptions]="{standalone: true}" readonly>
-                        </div>
-
-                        <div class="col-12 mt-2">
-                            <label for="instructor" class="form-label">Instructor</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control" name="instructor" aria-label="instructor" aria-describedby="button-addon" [(ngModel)]="selectedInstructor.fullName" [ngModelOptions]="{standalone: true}" readonly>
-                                <div class="input-group-append">
-                                    <button class="btn btn-outline-primary" (click)="searchInstructor()" type="button" id="button-addon">Search</button>
+                                <div class="col-12 mt-2">
+                                    <label for="course" class="form-label">Course</label>
+                                    <input type="text" class="form-control" name="course" aria-label="course" aria-describedby="button-addon" [(ngModel)]="selectedCourse.course" [ngModelOptions]="{standalone: true}" readonly>
                                 </div>
-                            </div>
-                        </div>
 
-                        <div class="col-12 mt-2">
-                            <label for="term" class="form-label">Term</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control" name="term" aria-label="term" aria-describedby="button-addon" [(ngModel)]="selectedTerm.termName" [ngModelOptions]="{standalone: true}" readonly>
-                                <div class="input-group-append">
-                                    <button class="btn btn-outline-primary" (click)="searchTerm()" type="button" id="button-addon">Search</button>
+                                <div class="col-12 mt-2">
+                                    <label for="instructor" class="form-label">Instructor</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" name="instructor" aria-label="instructor" aria-describedby="button-addon" [(ngModel)]="selectedInstructor.fullName" [ngModelOptions]="{standalone: true}" readonly>
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-primary" (click)="searchInstructor()" type="button" id="button-addon">Search</button>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
+
+                                <div class="col-12 mt-2">
+                                    <label for="term" class="form-label">Term</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" name="term" aria-label="term" aria-describedby="button-addon" [(ngModel)]="selectedTerm.termName" [ngModelOptions]="{standalone: true}" readonly>
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-primary" (click)="searchTerm()" type="button" id="button-addon">Search</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-4 mt-2">
+                                    <label for="dp" class="form-label">Date</label>
+                                    <div class="input-group">
+                                        <input class="form-control" placeholder="yyyy-mm-dd" name="dp" formControlName="enrollmentDate" ngbDatepicker #d="ngbDatepicker">
+                                        <button class="btn btn-outline-secondary fa fa-calendar" (click)="d.toggle()" type="button"></button>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-12 mt-4">
+                                    <button type="submit" class="btn btn-primary">Save</button>
+                                </div>
+                            </form>
                         </div>
-
-                        <div class="col-4 mt-2">
-                            <label for="dp" class="form-label">Date</label>
-                            <div class="input-group">
-                                <input class="form-control" placeholder="yyyy-mm-dd" name="dp" formControlName="enrollmentDate" ngbDatepicker #d="ngbDatepicker">
-                                <button class="btn btn-outline-secondary fa fa-calendar" (click)="d.toggle()" type="button"></button>
-                            </div>
-                        </div>
-
-
-                        <div class="col-12 mt-4">
-
-                            <button type="submit" class="btn btn-primary">Save</button>
-                        </div>
-                    </form>
+                    </div>
                 </div>
-            </div>
+                <div class="tab-pane fade" id="pills-enrollmentdetails" role="tabpanel" aria-labelledby="pills-profile-tab">
+                    <div class="card">
+                        <h4 class="card-header">Student Assignment</h4>
+                        <div class="card-body">
+                            <form [formGroup]="enrollmentDetailForm" (ngSubmit)="saveStudent()" class="row g-3">
+                                <div class="col-12 d-flex">
+                                    <div class="p-0 col-6">
+                                        <label for="student" class="form-label">Student</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" name="student" aria-label="instructor" aria-describedby="button-addon" [(ngModel)]="selectedStudent.fullName" [ngModelOptions]="{standalone: true}" readonly>
+                                            <div class="input-group-append">
+                                                <button class="btn btn-outline-primary" (click)="searchStudent()" type="button" id="button-addon">Search</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="ml-auto">
+                                        <button type="submit" class="btn btn-primary fa fa-user-plus"></button>
+                                    </div>
+                                </div>
+                                <div class="col-4 mt-2">
+                                    <label for="dp1" class="form-label">Date</label>
+                                    <div class="input-group">
+                                        <input class="form-control" placeholder="yyyy-mm-dd" name="dp1" formControlName="enrollDetailDate" ngbDatepicker #d1="ngbDatepicker">
+                                        <button class="btn btn-outline-secondary fa fa-calendar" (click)="d1.toggle()" type="button"></button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="card" *ngIf="enrollmentDetails.length > 0">
+                        <h4 class="card-header">Enrolled Student</h4>
+                        <div class="card-body">
+                            <div class="row mt-1">
+                                <div class="col-12">
+                                    <div class="d-flex mt-4 ">
+                                        <div class="p-0">
+                                            <input type="text" class="form-control" placeholder="Student" id="search" (keyup)="updateFilter($event)">
+                                        </div>
+                                        <div class="ml-auto mt-3">
+                                            <select name="limit" id="limit" [(ngModel)]="limit">
+                                                <option [ngValue]="10">10</option>
+                                                <option [ngValue]="25">25</option>
+                                                <option [ngValue]="50">50</option>
+                                                <option [ngValue]="100">100</option>
+                                              </select>
+                                        </div>
+                                    </div>
+                                    <ngx-datatable class='bootstrap' [columnMode]="'force'" [footerHeight]="50" [rowHeight]="'auto'" [rows]='enrollmentDetails' [limit]="limit">
 
+                                        <ngx-datatable-column name="STUDENT" prop="studentId.fullName">
+                                            <ng-template let-row="row" ngx-datatable-cell-template>
+                                                {{row.studentId.fullName | uppercase}}
+                                            </ng-template>
+                                        </ngx-datatable-column>
+
+                                        <ngx-datatable-column name="ENROLLED DATE" prop="enrollDetailDate">
+                                            <ng-template let-row="row" ngx-datatable-cell-template>
+                                                {{row.enrollDetailDate | date}}
+                                            </ng-template>
+                                        </ngx-datatable-column>
+
+                                        <ngx-datatable-column name="ACTIONS" prop="action">
+                                            <ng-template let-row="row" ngx-datatable-cell-template>
+
+                                                <button type="button" (click)="deleteEnrollmentDetail(row._id)" class="btn btn-danger fa fa-trash" data-bs-toggle="tooltip" data-bs-placement="top" title="Enroll Student"></button>
+                                            </ng-template>
+                                        </ngx-datatable-column>
+
+
+                                    </ngx-datatable>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
         </div>
     </div>
+
 </div>

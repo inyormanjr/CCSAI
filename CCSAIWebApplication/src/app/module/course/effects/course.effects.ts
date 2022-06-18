@@ -1,3 +1,5 @@
+import { CourseModelModule } from './../../../shared/models/CourseModule';
+import { ModuleService } from './../../../core/http/module/module.service';
 import { Course } from './../../../shared/models/Course';
 
 import { CourseState } from './../reducer/course.reducer';
@@ -22,6 +24,16 @@ export class CourseEffects {
       })
     ), { dispatch: false }
   );
+
+  loadModules$ = createEffect(() =>
+  this.actions$.pipe(ofType(CourseActionTypes.loadModulesByCourseId),
+    tap((action) => {
+      this.moduleService.getModulesByCourseId(action._id).pipe(map((response: ResponseResult<CourseModelModule[]>) => {
+        this.courseStore.dispatch(CourseActionTypes.loadModulesByCourseIdSuccess({ data: response.data }))
+      })).subscribe(noop, error => console.log(error))
+    })
+  ), { dispatch: false }
+);
 
   getCourseById$ = createEffect(() =>
   this.actions$.pipe(ofType(CourseActionTypes.getCourseById),
@@ -97,5 +109,6 @@ this.actions$.pipe(ofType(CourseActionTypes.updateCourse),
   constructor(private actions$: Actions,
     private courseStore: Store<CourseState>,
     private courseService: CourseService,
-    private alertify: AlertifyjsService) { }
+    private alertify: AlertifyjsService,
+    private moduleService : ModuleService) { }
 }

@@ -10,7 +10,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AlertifyjsService } from 'src/app/core/services/alertifyjs.service';
 import { Enrollment } from 'src/app/shared/models/Enrollment';
 import { Course } from 'src/app/shared/models/Course';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DatePipe } from '@angular/common'
 
 @Component({
@@ -53,8 +53,9 @@ export class NewEnrollmentComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
     private alertifyService: AlertifyjsService,
     private modalService: NgbModal,
-    private enrollmentService : EnrollmentService) {
-     }
+    private enrollmentService : EnrollmentService,
+    private router : Router ) {
+    }
 
   ngOnInit(): void {
   }
@@ -72,6 +73,7 @@ export class NewEnrollmentComponent implements OnInit {
             this.alertifyService.success("Successfully Created.");
             this.enrollmentForm.reset();
             this.clearValues();
+            this.router.navigate([`./mainview/enrollment/updateenrollment/${res.data._id}`]);
           },
           error=>{
             this.alertifyService.error(error.error.error);
@@ -85,6 +87,7 @@ export class NewEnrollmentComponent implements OnInit {
 
   searchInstructor(){
     const modalRef = this.modalService.open(UserRoleListModalComponent, { size: 'lg', centered: true });
+    modalRef.componentInstance.roleFilter = 'instructor';
     modalRef.componentInstance.passEntry.subscribe((user : UserModel)=>{
       this.selectedInstructor = user;
       this.enrollmentForm.controls['instructorId'].setValue(this.selectedInstructor._id);

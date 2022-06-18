@@ -1,0 +1,79 @@
+<div class="container-fluid mt-4">
+    <div class="row mt-4">
+        <div class="container">
+            <div class="card">
+                <h4 class="card-header">Course</h4>
+                <div class="card-body">
+                    <form [formGroup]="courseForm" class="row g-3">
+
+                        <div class="col-6">
+                            <label for="courseCode" class="form-label">Course Code</label>
+                            <input type="text" class="form-control" id="courseCode" formControlName="courseCode" readonly>
+                        </div>
+                        <div class="col-6">
+                            <label for="course" class="form-label">Course</label>
+                            <input type="text" class="form-control" id="course" formControlName="course" readonly>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="card">
+                <h4 class="card-header">Module Registration</h4>
+                <div class="card-body">
+                    <form [formGroup]="moduleForm" (ngSubmit)="createModule()" class="row g-3">
+                        <div class="col-12 d-flex">
+                            <div class="p-0 col-6">
+                                <label for="module " class="form-label ">Module</label>
+                                <input type="text " class="form-control " id="module " formControlName="module">
+                            </div>
+                            <div class="ml-auto">
+                                <button type="submit" class="btn btn-primary fa fa-plus-circle"></button>
+                            </div>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+            <div class="card">
+                <h4 class="card-header">Course Modules</h4>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="d-flex mt-4 ">
+                                <div class="p-0">
+                                    <input type="text" class="form-control" placeholder="Module" id="search" (keyup)="updateFilter($event)">
+                                </div>
+                                <div class="ml-auto mt-3">
+                                    <select name="limit" id="limit" [(ngModel)]="limit">
+                                        <option [ngValue]="10">10</option>
+                                        <option [ngValue]="25">25</option>
+                                        <option [ngValue]="50">50</option>
+                                        <option [ngValue]="100">100</option>
+                                      </select>
+                                </div>
+                            </div>
+                            <ngx-datatable class='bootstrap' [columnMode]="'force'" [footerHeight]="50" [rowHeight]="'auto'" [rows]='moduleList' [limit]="limit">
+
+                                <ngx-datatable-column name="MODULE" prop="module" [width]="200">
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        {{row.module | uppercase}}
+                                    </ng-template>
+                                </ngx-datatable-column>
+
+                                <ngx-datatable-column name="ACTIONS" prop="action" [canAutoResize]="false">
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        <button type="button" class="btn btn-primary fa fa-folder-open" data-bs-toggle="tooltip" data-bs-placement="top" title="View Module"></button>
+                                    </ng-template>
+                                </ngx-datatable-column>
+                            </ngx-datatable>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>

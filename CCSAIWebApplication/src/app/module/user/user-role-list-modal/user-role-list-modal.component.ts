@@ -1,5 +1,5 @@
 import { EnrollmentState } from './../../enrollment/reducer/enrollment.reducer';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -16,25 +16,33 @@ import { EnrollmentSelectorTypes } from '../../enrollment/selector/enrollment.se
   styleUrls: ['./user-role-list-modal.component.css']
 })
 export class UserRoleListModalComponent implements OnInit {
+  @Input() roleFilter: any;
   @Output() passEntry: EventEmitter<any> = new EventEmitter();
+
   limit : number = 10;
   users$: Observable<UserModel[]> | undefined;
   currentUser: any = {};
   userList: UserModel[] = [];
   temp : UserModel[] = [];
-
+  role = "";
 
   constructor(private enrollmentStore: Store<EnrollmentState>,
     public activeModal: NgbActiveModal,) { 
-    this.enrollmentStore.dispatch(EnrollmentActionTypes.loadUser());
+
+  }
+
+  ngOnInit(): void {
+    if(this.roleFilter === 'instructor'){
+      this.role = 'Instructor'
+    }else{
+      this.role = 'Student'
+    }
+    this.enrollmentStore.dispatch(EnrollmentActionTypes.loadUser({role : this.roleFilter}));
     this.users$ = this.enrollmentStore.select(EnrollmentSelectorTypes.selectUserList);
     this.users$.subscribe(res => {
       this.userList = res;  
       this.temp = res;
     });
-  }
-
-  ngOnInit(): void {
   }
 
   updateFilter(event : any) {

@@ -1,3 +1,5 @@
+import { GetCourseByIdResolver } from './../user/resolver/get-course-by-id.resolver';
+import { ModuleListComponent } from './module-list/module-list.component';
 import { CourseListComponent } from './course-list/course-list.component';
 
 import { NgModule } from '@angular/core';
@@ -12,6 +14,13 @@ const routes: Routes = [  {
 {
   path: 'courselist',
   component: CourseListComponent,
+},
+{
+  path : 'modulelist/:id',
+  component : ModuleListComponent,
+  resolve : {
+    routeResolver : GetCourseByIdResolver
+  }
 }];
 
 @NgModule({

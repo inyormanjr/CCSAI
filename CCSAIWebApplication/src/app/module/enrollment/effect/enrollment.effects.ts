@@ -1,3 +1,4 @@
+import { EnrollmentDetailService } from './../../../core/http/enrollment/enrollment-detail.service';
 
 import { CourseService } from 'src/app/core/http/course/course.service';
 import { UsersService } from 'src/app/core/http/user/users.service';
@@ -16,6 +17,7 @@ import { UserModel } from 'src/app/shared/models/UserModel';
 import { Course } from 'src/app/shared/models/Course';
 import { Term } from 'src/app/shared/models/Term';
 import { TermsService } from 'src/app/core/http/terms/terms.service';
+import { EnrollmentDetail } from 'src/app/shared/models/EnrollmentDetail';
 
 
 
@@ -32,10 +34,20 @@ export class EnrollmentEffects {
     ), { dispatch: false }
   );
 
+  loadEnrollmentDetails$ = createEffect(() =>
+  this.actions$.pipe(ofType(EnrollmentActionTypes.loadEnrollmentDetails),
+    tap((action) => { 
+      this.enrollmentDetailService.getEnrollmentDetailsByEnrollmentId(action.id).pipe(map((response: ResponseResult<EnrollmentDetail[]>) => {   
+        this.enrollmentStore.dispatch(EnrollmentActionTypes.loadEnrollmentDetailsSuccess({ data: response.data }))
+      })).subscribe(noop, error => console.log(error))
+    })
+  ), { dispatch: false }
+);
+
   loadUsers$ = createEffect(() =>
     this.actions$.pipe(ofType(EnrollmentActionTypes.loadUser),
       tap((action) => {
-        this.userService.getUsersByRole('instructor').pipe(map((response: ResponseResult<UserModel[]>) => {
+        this.userService.getUsersByRole(action.role).pipe(map((response: ResponseResult<UserModel[]>) => {
           this.enrollmentStore.dispatch(EnrollmentActionTypes.loadUsersSuccess({ data: response.data }))
         })).subscribe(noop, error => console.log(error))
       })
@@ -68,6 +80,7 @@ export class EnrollmentEffects {
     private enrollmentService: EnrollmentService,
     private userService: UsersService,
     private courseService: CourseService,
-    private termService : TermsService) { }
+    private termService : TermsService,
+    private enrollmentDetailService : EnrollmentDetailService) { }
 
 }

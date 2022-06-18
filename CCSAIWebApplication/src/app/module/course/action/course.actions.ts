@@ -1,3 +1,4 @@
+import { CourseModelModule } from './../../../shared/models/CourseModule';
 import { Course } from './../../../shared/models/Course';
 import { createAction, props } from '@ngrx/store';
 
@@ -13,6 +14,16 @@ export const loadCoursesSuccess = createAction(
 export const loadCoursesFailure = createAction(
   '[Course] Load Courses Failure',
   props<{ error: any }>()
+);
+
+export const loadModulesByCourseId = createAction(
+  '[Course] Load Modules By Course Id',
+  props<{_id : string}>()
+);
+
+export const loadModulesByCourseIdSuccess = createAction(
+  '[Course] Load Modules By Course Id Success',
+  props<{ data: CourseModelModule[] }>()
 );
 
 export const createCourse = createAction(

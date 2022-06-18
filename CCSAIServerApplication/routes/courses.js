@@ -20,11 +20,11 @@ router.route('/')
 
 router.route('/')
     .get(protectUser,
-        authorize('admin'), getAllCourses);
+        authorize('admin', 'instructor'), getAllCourses);
 
 router.route('/active')
     .get(protectUser,
-        authorize('admin'), getAllActiveCourses);
+        authorize('admin', 'instructor'), getAllActiveCourses);
 
 router.route('/activate/:id')
     .put(protectUser,
@@ -43,6 +43,7 @@ router.route('/:id')
 
 router.route('/:id')
     .get(protectUser,
+        authorize('admin', 'instructor'),
         getCourseById);
 
 module.exports = router;

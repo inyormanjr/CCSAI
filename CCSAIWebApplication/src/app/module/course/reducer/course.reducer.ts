@@ -1,3 +1,4 @@
+import { CourseModelModule } from './../../../shared/models/CourseModule';
 import { Course } from './../../../shared/models/Course';
 import { Action, createReducer, on } from '@ngrx/store';
 import { CourseActionTypes } from '../action/course.action.types';
@@ -8,6 +9,7 @@ export const courseFeatureKey = 'course';
 export interface CourseState {
     courses : Course[];
     course : Course;
+    moduleList : CourseModelModule[]; 
 }
 
 export const initialCourseState: CourseState = {
@@ -17,7 +19,8 @@ export const initialCourseState: CourseState = {
     course : "",
     courseCode : "",
     course_status : ""
-  }
+  },
+  moduleList : []
 };
 
 export const courseReducer = createReducer(
@@ -62,4 +65,10 @@ export const courseReducer = createReducer(
       }
     }
   }),
+  on(CourseActionTypes.loadModulesByCourseIdSuccess,(state,action)=>{
+    return {
+      ...state,
+      moduleList : action.data
+    }
+  })
 );

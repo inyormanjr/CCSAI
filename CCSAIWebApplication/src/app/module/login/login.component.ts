@@ -53,8 +53,9 @@ export class LoginComponent implements OnInit {
         }
       },
       error=>{
+        console.log(error)
         this.tokenStorage.signOut();
-        this.alertify.error(error.error.error);
+        this.alertify.error(error.message);
       });
   }
 

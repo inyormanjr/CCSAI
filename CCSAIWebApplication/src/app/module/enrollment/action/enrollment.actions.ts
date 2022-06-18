@@ -3,6 +3,7 @@ import { createAction, props } from '@ngrx/store';
 import { UserModel } from 'src/app/shared/models/UserModel';
 import { Course } from 'src/app/shared/models/Course';
 import { Term } from 'src/app/shared/models/Term';
+import { EnrollmentDetail } from 'src/app/shared/models/EnrollmentDetail';
 
 export const loadEnrollments = createAction(
   '[Enrollment] Load Enrollments'
@@ -19,7 +20,8 @@ export const loadEnrollmentsFailure = createAction(
 );
 
 export const loadUser = createAction(
-  '[Enrollment] Load Users'
+  '[Enrollment] Load Users',
+  props<{role : string}>()
 );
 
 export const loadUsersSuccess = createAction(
@@ -46,4 +48,13 @@ export const loadTermsSuccess = createAction(
   props<{ data: Term[] }>()
 );
 
+export const loadEnrollmentDetails = createAction(
+  '[Enrollment] Load Enrollment Details',
+  props<{id : string}>()
+);
+
+export const loadEnrollmentDetailsSuccess = createAction(
+  '[Enrollment] Load Enrollments Details Success',
+  props<{ data: EnrollmentDetail[] }>()
+);
 
