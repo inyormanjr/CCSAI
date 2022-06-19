@@ -16,6 +16,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ActiveCourseListComponent } from './active-course-list/active-course-list.component';
 import { ModuleListComponent } from './module-list/module-list.component';
 import { ModuleViewComponent } from './module-view/module-view.component';
+import { ModuleViewReferenceTabComponent } from './components/module-view-reference-tab/module-view-reference-tab.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { ModuleViewComponent } from './module-view/module-view.component';
     CourseListComponent,
     ActiveCourseListComponent,
     ModuleListComponent,
-    ModuleViewComponent
+    ModuleViewComponent,
+    ModuleViewReferenceTabComponent
   ],
   imports: [
     CommonModule,

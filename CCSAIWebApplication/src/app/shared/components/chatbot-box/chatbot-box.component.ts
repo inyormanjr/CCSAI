@@ -17,7 +17,7 @@ export class ChatbotBoxComponent implements OnInit {
   constructor(private botSocketServce: BotSocketService) {
     this.message = '';
     this.gotStarted = false;
-    this.hidden = false;
+    this.hidden = true;
     this.isFetching = false;
     botSocketServce.receivedReply().subscribe(x => {
       if (x) {
