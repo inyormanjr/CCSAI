@@ -23,14 +23,15 @@ export class ModuleViewComponent implements OnInit {
   moduleForm = this.formBuilder.group({
     _id : [null,Validators.nullValidator],
     courseId : ['',Validators.nullValidator],
-    module : ['',Validators.nullValidator]
+    module: ['', Validators.nullValidator],
+    discussions: []
   });
 
   constructor(private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
     private alertifyService: AlertifyjsService,
     private router : Router,
-    private moduleService : ModuleService) { 
+    private moduleService : ModuleService) {
     this.activatedRoute.data.subscribe(data => {
       this.moduleId = data.routeResolver.data._id;
       this.initializeValues(data.routeResolver.data);
@@ -56,7 +57,8 @@ export class ModuleViewComponent implements OnInit {
     var module = this.moduleForm.value as CourseModelModule;
 
     if (this.moduleForm.status !== "INVALID") {
-
+      module.discussions = [];
+      module.discussions.push({ title: 'test', subTitle: 'test2' });
       this.alertifyService.confirm("Module Update", "Update module?", () => {
         this.moduleService.Update(this.moduleId,module).subscribe(res => {
           this.alertifyService.success("Successfully Saved.");
