@@ -1,81 +1,47 @@
 <div class="references container d-flex flex-column mt-5 bg-light p-3" style="min-height:350px;">
-  <ul class="nav nav-tabs" id="myTab" role="tablist">
-    <li class="nav-item" role="presentation">
-      <a class="nav-link active" id="home-tab" data-toggle="tab" href="#Discussions" role="tab" aria-controls="home"
-        aria-selected="true">Discussions</a>
-    </li>
-    <li class="nav-item" role="presentation">
-      <a class="nav-link" id="profile-tab" data-toggle="tab" href="#Exercises" role="tab" aria-controls="profile"
-        aria-selected="false">Exercises</a>
-    </li>
-    <li class="nav-item" role="presentation">
-      <a class="nav-link" id="contact-tab" data-toggle="tab" href="#Assessments" role="tab" aria-controls="contact"
-        aria-selected="false">Assessments</a>
-    </li>
-    <li class="nav-item" role="presentation">
-      <a class="nav-link" id="contact-tab" data-toggle="tab" href="#resources" role="tab" aria-controls="contact"
-        aria-selected="false">Resources</a>
-    </li>
-  </ul>
-  <div class="tab-content d-flex flex-fill h-100 w-100" id="myTabContent" style=" max-height: 400px; overflow-y: auto;">
-    <div class="tab-pane fade show active d-flex w-100 flex-column align-items-stretch" id="Discussions" role="tabpanel" aria-labelledby="home-tab">
-    <nav class="navbar d-flex flex-row justify-content-end mb-4">
-      <a name="" id="" class="btn btn-primary" href="#" role="button">
-        <i class="fa fa-edit" aria-hidden="true"></i>
-      </a>
-    </nav>
-        <div class="accordion p-1" id="accordionExample">
-          <div class="card">
-            <div class="card-header" id="headingOne">
-              <h2 class="mb-0">
-                <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne"
-                  aria-expanded="true" aria-controls="collapseOne">
-                  Collapsible Group Item #1
-                </button>
-              </h2>
-            </div>
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#Discussions" role="tab" aria-controls="home" aria-selected="true">Discussions</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#Exercises" role="tab" aria-controls="profile" aria-selected="false">Exercises</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" id="contact-tab" data-toggle="tab" href="#Assessments" role="tab" aria-controls="contact" aria-selected="false">Assessments</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" id="contact-tab" data-toggle="tab" href="#resources" role="tab" aria-controls="contact" aria-selected="false">Resources</a>
+        </li>
+    </ul>
+    <div class="tab-content d-flex flex-fill h-100 w-100" id="myTabContent" style=" max-height: 400px; overflow-y: auto;">
+        <div class="tab-pane fade show active d-flex w-100 flex-column align-items-stretch" id="Discussions" role="tabpanel" aria-labelledby="home-tab">
+            <nav class="navbar d-flex flex-row justify-content-end mb-4">
+                <button class="btn btn-primary fa fa-plus" (click)="addDiscussion()"></button>
+            </nav>
+            <div class="panel-group accordion" id="accordion">
+                <div class="panel panel-default" *ngFor='let x of discussionList;index as i'>
+                    <div class="card">
 
-            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
-              <div class="card-body">
-                Some placeholder content for the first accordion panel. This panel is shown by default, thanks to the
-                <code>.show</code> class.
-              </div>
+                        <h6 class="card-header">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{i}}">{{x.title}}</a>
+                        </h6>
+                        <div id="collapse{{i}}" class="panel-collapse collapse in">
+                            <div class="card-body">
+                                <div>
+                                    {{x.discussion}}
+                                </div>
+                                <div class="mt-2 d-flex flex-row-reverse">
+                                    <button class="btn btn-primary fa fa-save" (click)="updateDiscussion(x)" aria-label="save"></button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-          <div class="card">
-            <div class="card-header" id="headingTwo">
-              <h2 class="mb-0">
-                <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse"
-                  data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                  Collapsible Group Item #2
-                </button>
-              </h2>
-            </div>
-            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-              <div class="card-body">
-                Some placeholder content for the second accordion panel. This panel is hidden by default.
-              </div>
-            </div>
-          </div>
-          <div class="card">
-            <div class="card-header" id="headingThree">
-              <h2 class="mb-0">
-                <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse"
-                  data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                  Collapsible Group Item #3
-                </button>
-              </h2>
-            </div>
-            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
-              <div class="card-body">
-                And lastly, the placeholder content for the third and final accordion panel. This panel is hidden by default.
-              </div>
-            </div>
-          </div>
         </div>
+        <div class="tab-pane fade" id="Exercises" role="tabpanel" aria-labelledby="profile-tab">...</div>
+        <div class="tab-pane fade" id="Assessments" role="tabpanel" aria-labelledby="contact-tab">...</div>
+        <div class="tab-pane fade" id="resources" role="tabpanel" aria-labelledby="contact-tab">...</div>
     </div>
-    <div class="tab-pane fade" id="Exercises" role="tabpanel" aria-labelledby="profile-tab">...</div>
-    <div class="tab-pane fade" id="Assessments" role="tabpanel" aria-labelledby="contact-tab">...</div>
-    <div class="tab-pane fade" id="resources" role="tabpanel" aria-labelledby="contact-tab">...</div>
-  </div>
 </div>

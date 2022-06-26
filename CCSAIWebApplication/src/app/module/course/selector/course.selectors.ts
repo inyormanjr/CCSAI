@@ -6,4 +6,5 @@ export const selectCourseAppFeature =
 
   export const selectCourses = createSelector(selectCourseAppFeature, x => x.courses);
   export const selectCourse = createSelector(selectCourseAppFeature, x => x.course);
-  export const selectModules = createSelector(selectCourseAppFeature, x=>x.moduleList); 
+  export const selectModules = createSelector(selectCourseAppFeature, x=>x.moduleList);
+  export const selectDiscussions = createSelector(selectCourseAppFeature,x=> x.discussions);

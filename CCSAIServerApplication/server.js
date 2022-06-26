@@ -27,6 +27,7 @@ const terms = require('./routes/terms');
 const enrollment = require('./routes/enrollment');
 const enrollmentDetails = require('./routes/enrollmentDetails');
 const modules = require('./routes/modules');
+const discussions = require('./routes/discussion');
 app.use('/api/v1/auth', auth);
 app.use('/api/v1/users', users);
 app.use('/api/v1/courses', courses);
@@ -34,6 +35,7 @@ app.use('/api/v1/terms', terms);
 app.use('/api/v1/enrollment', enrollment);
 app.use('/api/v1/enrollmentdetails', enrollmentDetails);
 app.use('/api/v1/modules', modules);
+app.use('/api/v1/discussions', discussions);
 
 const PORT = 5001;
 
