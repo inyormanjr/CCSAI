@@ -1,6 +1,6 @@
+
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './dashboard.component';
 import { ProgressLineItemComponent } from './components/progress-line-item/progress-line-item.component';
@@ -9,7 +9,7 @@ import { StudentDashboardComponent } from './components/student-dashboard/studen
 import { InstructorDashboardComponent } from './components/instructor-dashboard/instructor-dashboard.component';
 import { ActivityCountLineItemComponent } from './components/activity-count-line-item/activity-count-line-item.component';
 import { DashboardCoursesCardComponent } from './components/dashboard-courses-card/dashboard-courses-card.component';
-
+import { DashboardCoursesContainerComponent } from './components/dashboard-courses-container/dashboard-courses-container.component';
 
 @NgModule({
   declarations: [
@@ -19,11 +19,9 @@ import { DashboardCoursesCardComponent } from './components/dashboard-courses-ca
     StudentDashboardComponent,
     InstructorDashboardComponent,
     ActivityCountLineItemComponent,
-    DashboardCoursesCardComponent
+    DashboardCoursesCardComponent,
+    DashboardCoursesContainerComponent,
   ],
-  imports: [
-    CommonModule,
-    DashboardRoutingModule
-  ]
+  imports: [CommonModule, DashboardRoutingModule],
 })
-export class DashboardModule { }
+export class DashboardModule {}
