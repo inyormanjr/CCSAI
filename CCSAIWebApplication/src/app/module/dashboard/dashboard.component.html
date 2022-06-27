@@ -1,1 +1,13 @@
-<p>dashboard works!</p>
+<!-- Condition should be check if student or instructor -->
+
+<div class="container-fluid  p-4">
+<ng-container *ngIf="true; else elseTemplate">
+  <app-student-dashboard></app-student-dashboard>
+</ng-container>
+<ng-template #elseTemplate>
+ <app-instructor-dashboard></app-instructor-dashboard>
+</ng-template>
+</div>
+
+
+

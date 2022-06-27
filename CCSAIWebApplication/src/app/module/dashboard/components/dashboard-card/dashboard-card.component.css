@@ -1,0 +1,9 @@
+.card {
+  min-height: 270px;
+}
+
+.card:hover {
+box-shadow: 4px 6px 52px -24px rgba(0, 0, 0, 0.89);
+  -webkit-box-shadow: 4px 6px 52px -24px rgba(0, 0, 0, 0.89);
+  -moz-box-shadow: 4px 6px 52px -24px rgba(0, 0, 0, 0.89);
+}

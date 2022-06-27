@@ -13,12 +13,7 @@ import { GetUserByIdResolver } from './resolvers/get-user-by-id.resolver';
 const routes: Routes = [
   {
     path: '',
-    pathMatch: 'full',
-    redirectTo: "userlist"
-  },
-  {
-    path: 'userlist',
-    component: UserListComponent,
+    component: UserListComponent
   },
   {
     path : 'updateuser/:id',

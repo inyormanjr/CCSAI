@@ -8,11 +8,6 @@ import { UpdateEnrollmentResolver } from './resolver/update-enrollment.resolver'
 
 const routes: Routes = [{
   path: '',
-  pathMatch: 'full',
-  redirectTo: "enrollmentlist"
-},
-{
-  path: 'enrollmentlist',
   component: EnrollmentListComponent,
 },
 {
