@@ -10,12 +10,7 @@ import { GetModuleByIdResolver } from './resolver/get-module-by-id.resolver';
 
 const routes: Routes = [  {
   path: '',
-  pathMatch: 'full',
-  redirectTo: "courselist"
-},
-{
-  path: 'courselist',
-  component: CourseListComponent,
+  component:CourseListComponent
 },
 {
   path : 'modulelist/:id',

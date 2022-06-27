@@ -9,19 +9,24 @@ const routes: Routes = [
     path: 'login',
     component: LoginComponent,
   },
-  {
-    path: '',
-    redirectTo: 'login',
-    pathMatch: 'full'
-  },
+
   {
     path: 'mainview',
     canActivate: [UserAuthGuard],
-    loadChildren: () => import('./module/main-view/main-view.module').then(m => m.MainViewModule)
+    loadChildren: () =>
+      import('./module/main-view/main-view.module').then(
+        (m) => m.MainViewModule
+      ),
   },
   {
-    path: '**', component: PageNotFoundComponent
-  }
+    path: '',
+    redirectTo: 'mainview',
+    pathMatch: 'full',
+  },
+  {
+    path: '**',
+    component: PageNotFoundComponent,
+  },
 ];
 
 @NgModule({
