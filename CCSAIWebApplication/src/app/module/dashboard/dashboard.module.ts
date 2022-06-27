@@ -8,6 +8,7 @@ import { DashboardCardComponent } from './components/dashboard-card/dashboard-ca
 import { StudentDashboardComponent } from './components/student-dashboard/student-dashboard.component';
 import { InstructorDashboardComponent } from './components/instructor-dashboard/instructor-dashboard.component';
 import { ActivityCountLineItemComponent } from './components/activity-count-line-item/activity-count-line-item.component';
+import { DashboardCoursesCardComponent } from './components/dashboard-courses-card/dashboard-courses-card.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { ActivityCountLineItemComponent } from './components/activity-count-line
     DashboardCardComponent,
     StudentDashboardComponent,
     InstructorDashboardComponent,
-    ActivityCountLineItemComponent
+    ActivityCountLineItemComponent,
+    DashboardCoursesCardComponent
   ],
   imports: [
     CommonModule,

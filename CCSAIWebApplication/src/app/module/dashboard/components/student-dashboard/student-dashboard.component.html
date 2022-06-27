@@ -1,5 +1,11 @@
+<div class="row mb-2">
+  <div class="col-md-12">
+  <h1>Student Dashboard </h1>
+  <h4 class="text-muted">(Term 1 - 2022)</h4>
+  </div>
+</div>
 <div class="row ">
-  <div class="col-md-6 p-2 g-0 mb-1">
+  <div class="col-md-6 p-2 g-0 ">
     <app-dashboard-card [cardTitle]="'Course Progress'">
       <app-progress-line-item content [trailing]="'CS101-Basic Programming'" [progressValue]="90" [callbackFunction]="">
       </app-progress-line-item>
@@ -9,26 +15,55 @@
       </app-progress-line-item>
     </app-dashboard-card>
   </div>
-  <div class="col-md-3 p-2 g-0 mb-1">
+  <div class="col-md-3 p-2 g-0 ">
     <app-dashboard-card [cardTitle]="'Exercises'">
       <app-activity-count-line-item content></app-activity-count-line-item>
       <app-activity-count-line-item content></app-activity-count-line-item>
       <app-activity-count-line-item content></app-activity-count-line-item>
     </app-dashboard-card>
   </div>
-  <div class="col-md-3 p-2 g-0 mb-1">
+  <div class="col-md-3 p-2 g-0 ">
     <app-dashboard-card [cardTitle]="'Assessments'">
       <app-activity-count-line-item content></app-activity-count-line-item>
       <app-activity-count-line-item content></app-activity-count-line-item>
       <app-activity-count-line-item content></app-activity-count-line-item>
     </app-dashboard-card>
   </div>
-  <div class="col-md-7 p-2 g-0 mb-1">
-    <app-dashboard-card [cardTitle]="'Announcements'">
+  <div class="col-md-9 p-2 g-0 ">
+    <div class="container-fluid">
+      <div class="row   ">
+        <div class="col-md-12 d-flex flex-row justify-content-between">
+        <h4>My Courses </h4>
+        <a name="" id="" class="" style="font-size: 20px;" href="#" role="button">View All</a>
+        </div>
+      </div>
+      <div class="row ">
+        <div class="col-md-4">
+         <app-dashboard-courses-card></app-dashboard-courses-card>
+        </div>
+        <div class="col-md-4">
+          <app-dashboard-courses-card></app-dashboard-courses-card>
+        </div>
+        <div class="col-md-4">
+          <app-dashboard-courses-card></app-dashboard-courses-card>
+        </div>
+        <div class="col-md-4">
+          <app-dashboard-courses-card></app-dashboard-courses-card>
+        </div>
+        <div class="col-md-4">
+          <app-dashboard-courses-card></app-dashboard-courses-card>
+        </div>
+        <div class="col-md-4">
+          <app-dashboard-courses-card></app-dashboard-courses-card>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="col-md-3 p-2 g-0 ">
+    <app-dashboard-card  [cardTitle]="'Announcements'">
 
     </app-dashboard-card>
-  </div>
-  <div class="col-md-5 p-2 g-0 mb-1">
     <app-dashboard-card [cardTitle]="'Grades'">
 
     </app-dashboard-card>

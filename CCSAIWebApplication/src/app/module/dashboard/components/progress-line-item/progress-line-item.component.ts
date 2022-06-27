@@ -17,6 +17,23 @@ export class ProgressLineItemComponent implements OnInit {
 
   }
 
+  progressBarColor(progressValue: any) {
+    if (progressValue <= 30)
+    {
+      return 'bg-danger';
+    } else if (progressValue >= 30 && progressValue <= 50) {
+      return 'bg-warning';
+    }
+    else if (progressValue >= 50 && progressValue <= 90)
+    {
+      return 'bg-primary';
+    }
+    else {
+      return 'bg-success';
+    }
+
+  }
+
 
   ngOnInit(): void {}
 }

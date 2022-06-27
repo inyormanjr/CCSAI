@@ -1,0 +1,10 @@
+.card:hover {
+  box-shadow: 4px 6px 52px -24px rgba(0, 0, 0, 0.89) !important;
+  -webkit-box-shadow: 4px 6px 52px -24px rgba(0, 0, 0, 0.89) !important;
+  -moz-box-shadow: 4px 6px 52px -24px rgba(0, 0, 0, 0.89) !important;
+}
+
+.actions a:hover{
+    font-weight: bold;
+    color: red !important;
+}
