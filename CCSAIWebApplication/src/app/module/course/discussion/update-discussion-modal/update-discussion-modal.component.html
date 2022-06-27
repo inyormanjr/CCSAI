@@ -1,0 +1,26 @@
+<div class="modal-header">
+    <h4 class="modal-title">Update Discussion</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<form [formGroup]="discussionForm" (ngSubmit)="updateDiscussion() ">
+    <div class="modal-body ">
+
+        <div class="mb-3 ">
+
+            <label for="title " class="form-label ">Title</label>
+            <input type="text " class="form-control " id="title " formControlName="title">
+
+
+        </div>
+        <div class="mb-3 ">
+            <label for="discussion " class="form-label ">Discussion</label>
+            <textarea name="" id="" cols="30" rows="10" class="form-control" id="discussion " formControlName="discussion"></textarea>
+        </div>
+
+    </div>
+    <div class="modal-footer ">
+        <button type="submit " class="btn btn-primary ">Save</button>
+    </div>
+</form>

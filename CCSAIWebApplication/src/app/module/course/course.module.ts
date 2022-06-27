@@ -17,6 +17,8 @@ import { ActiveCourseListComponent } from './active-course-list/active-course-li
 import { ModuleListComponent } from './module-list/module-list.component';
 import { ModuleViewComponent } from './module-view/module-view.component';
 import { ModuleViewReferenceTabComponent } from './components/module-view-reference-tab/module-view-reference-tab.component';
+import { AddDiscussionModalComponent } from './discussion/add-discussion-modal/add-discussion-modal.component';
+import { UpdateDiscussionModalComponent } from './discussion/update-discussion-modal/update-discussion-modal.component';
 
 
 @NgModule({
@@ -28,7 +30,9 @@ import { ModuleViewReferenceTabComponent } from './components/module-view-refere
     ActiveCourseListComponent,
     ModuleListComponent,
     ModuleViewComponent,
-    ModuleViewReferenceTabComponent
+    ModuleViewReferenceTabComponent,
+    AddDiscussionModalComponent,
+    UpdateDiscussionModalComponent
   ],
   imports: [
     CommonModule,

@@ -1,0 +1,79 @@
+<div class="container-fluid mt-4">
+    <div class="row mt-4">
+        <div class="container">
+            <div class="tab-pane fade show active" id="pills-enrollment" role="tabpanel" aria-labelledby="pills-home-tab">
+                <div class="card">
+                    <h4 class="card-header">Enrollment</h4>
+                    <div class="card-body">
+                        <div class="row g-3">
+                            <div class="col-2 mt-2">
+                                <label for="courseCode" class="form-label">Course Code</label>
+                                <input type="text" class="form-control" name="courseCode" aria-label="course" aria-describedby="button-addon" [(ngModel)]="selectedCourse.courseCode" [ngModelOptions]="{standalone: true}" readonly>
+                            </div>
+                            <div class="col-8 mt-2">
+                                <label for="course" class="form-label">Course</label>
+                                <input type="text" class="form-control" name="course" aria-label="course" aria-describedby="button-addon" [(ngModel)]="selectedCourse.course" [ngModelOptions]="{standalone: true}" readonly>
+                            </div>
+
+                            <div class="col-4 mt-2">
+                                <label for="instructor" class="form-label">Instructor</label>
+                                <input type="text" class="form-control" name="instructor" aria-label="course" aria-describedby="button-addon" [(ngModel)]="selectedInstructor.fullName" [ngModelOptions]="{standalone: true}" readonly>
+                            </div>
+
+                            <div class="col-4 mt-2">
+                                <label for="term" class="form-label">Term</label>
+                                <input type="text" class="form-control" name="term" aria-label="course" aria-describedby="button-addon" [(ngModel)]="selectedTerm.termName" [ngModelOptions]="{standalone: true}" readonly>
+                            </div>
+
+                            <div class="col-4 mt-2">
+                                <label for="dp" class="form-label">Date</label>
+                                <div class="input-group">
+                                    <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="formattedDate" ngbDatepicker #d="ngbDatepicker" readonly>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card" *ngIf="enrollmentDetails.length > 0">
+                <h4 class="card-header">Enrolled Student</h4>
+                <div class="card-body">
+                    <div class="row mt-1">
+                        <div class="col-12">
+                            <div class="d-flex mt-4 ">
+                                <div class="p-0">
+                                    <input type="text" class="form-control" placeholder="Student" id="search" (keyup)="updateFilter($event)">
+                                </div>
+                                <div class="ml-auto mt-3">
+                                    <select name="limit" id="limit" [(ngModel)]="limit">
+                                                <option [ngValue]="10">10</option>
+                                                <option [ngValue]="25">25</option>
+                                                <option [ngValue]="50">50</option>
+                                                <option [ngValue]="100">100</option>
+                                              </select>
+                                </div>
+                            </div>
+                            <ngx-datatable class='bootstrap' [columnMode]="'force'" [footerHeight]="50" [rowHeight]="'auto'" [rows]='enrollmentDetails' [limit]="limit">
+
+                                <ngx-datatable-column name="STUDENT" prop="studentId.fullName">
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        {{row.studentId.fullName | uppercase}}
+                                    </ng-template>
+                                </ngx-datatable-column>
+
+                                <ngx-datatable-column name="ENROLLED DATE" prop="enrollDetailDate">
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        {{row.enrollDetailDate | date}}
+                                    </ng-template>
+                                </ngx-datatable-column>
+                            </ngx-datatable>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

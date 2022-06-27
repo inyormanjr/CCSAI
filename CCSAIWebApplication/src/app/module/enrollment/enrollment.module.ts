@@ -14,6 +14,7 @@ import { EnrollmentEffects } from './effect/enrollment.effects';
 import { StoreModule } from '@ngrx/store';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { UpdateEnrollmentComponent } from './update-enrollment/update-enrollment.component';
+import { EnrollmentDetailListComponent } from './enrollment-detail-list/enrollment-detail-list.component';
 
 
 
@@ -23,6 +24,7 @@ import { UpdateEnrollmentComponent } from './update-enrollment/update-enrollment
     EnrollmentListComponent,
     NewEnrollmentComponent,
     UpdateEnrollmentComponent,
+    EnrollmentDetailListComponent,
   ],
   imports: [
     CommonModule,
