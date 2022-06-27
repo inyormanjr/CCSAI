@@ -1,3 +1,4 @@
+import { EnrollmentDetailListComponent } from './enrollment-detail-list/enrollment-detail-list.component';
 import { UpdateEnrollmentComponent } from './update-enrollment/update-enrollment.component';
 import { EnrollmentListComponent } from './enrollment-list/enrollment-list.component';
 import { NgModule } from '@angular/core';
@@ -16,6 +17,13 @@ const routes: Routes = [{
 {
   path : 'updateenrollment/:id',
   component : UpdateEnrollmentComponent,
+  resolve : {
+    routeResolver : UpdateEnrollmentResolver
+  }
+},
+{
+  path : 'enrollmentdetails/:id',
+  component : EnrollmentDetailListComponent,
   resolve : {
     routeResolver : UpdateEnrollmentResolver
   }

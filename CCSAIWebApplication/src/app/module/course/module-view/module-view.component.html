@@ -2,10 +2,10 @@
     <div class="row mt-4">
         <div class="container">
             <div class="card">
-              <div class="card-header d-flex flex-row justify-content-between">
-                <h4 class="">Module Information</h4>
-                <button type="button" (click)="updateModule()" class="btn btn-primary fa fa-save"></button>
-              </div>
+                <div class="card-header d-flex flex-row justify-content-between">
+                    <h4 class="">Module Information</h4>
+                    <button type="button" (click)="updateModule()" class="btn btn-primary fa fa-save"></button>
+                </div>
                 <div class="card-body mb-0 pb-0">
                     <form [formGroup]="courseForm" class="row g-3">
                         <div class="col-6">
@@ -27,8 +27,8 @@
                                 <input type="text " class="form-control " id="module " formControlName="module">
                             </div>
                         </div>
-                        <app-module-view-reference-tab></app-module-view-reference-tab>
                     </form>
+                    <app-module-view-reference-tab></app-module-view-reference-tab>
                     <div class="mt-4 d-flex flex-row justify-content-between">
                         <button type="button" (click)="back()" class="btn btn-primary">Back</button>
                     </div>

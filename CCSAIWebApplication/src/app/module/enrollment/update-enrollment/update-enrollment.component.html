@@ -77,12 +77,12 @@
                                         <div class="input-group">
                                             <input type="text" class="form-control" name="student" aria-label="instructor" aria-describedby="button-addon" [(ngModel)]="selectedStudent.fullName" [ngModelOptions]="{standalone: true}" readonly>
                                             <div class="input-group-append">
-                                                <button class="btn btn-outline-primary" (click)="searchStudent()" type="button" id="button-addon">Search</button>
+                                                <button class="btn btn-outline-primary" (click)="searchStudent()" type="button" id="button-addon">Search</button><button type="submit" class="btn btn-primary fa fa-user-plus"></button>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="ml-auto">
-                                        <button type="submit" class="btn btn-primary fa fa-user-plus"></button>
+
                                     </div>
                                 </div>
                                 <div class="col-4 mt-2">
@@ -133,8 +133,6 @@
                                                 <button type="button" (click)="deleteEnrollmentDetail(row._id)" class="btn btn-danger fa fa-trash" data-bs-toggle="tooltip" data-bs-placement="top" title="Enroll Student"></button>
                                             </ng-template>
                                         </ngx-datatable-column>
-
-
                                     </ngx-datatable>
 
                                 </div>
