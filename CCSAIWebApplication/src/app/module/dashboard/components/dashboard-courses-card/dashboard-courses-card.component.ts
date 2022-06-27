@@ -6,10 +6,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./dashboard-courses-card.component.css']
 })
 export class DashboardCoursesCardComponent implements OnInit {
-
+  isFlip = false;
   constructor() { }
 
   ngOnInit(): void {
   }
+
+  flipDiv() {
+    this.isFlip = true;
+    }
 
 }
