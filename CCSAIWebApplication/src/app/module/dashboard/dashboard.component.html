@@ -1,1 +1,30 @@
-<p>dashboard works!</p>
+<!-- Condition should be check if student -->
+<ng-container *ngIf="true; else elseTemplate">
+  <div class="container-fluid  p-4">
+    <h2 class="mb-3">Dashboard</h2>
+    <div class="row ">
+      <div class="col-md-6 p-2 g-0 mb-1">
+        <app-dashboard-card [cardTitle]="'Course Progress'">
+          <app-progress-line-item content [trailing]="'CS101-Basic Programming'" [progressValue]="90" [callbackFunction]="">
+          </app-progress-line-item>
+          <app-progress-line-item content [trailing]="'CS102-Data Structure'" [progressValue]="30" [callbackFunction]="">
+          </app-progress-line-item>
+          <app-progress-line-item content [trailing]="'CS103-Basic Database'" [progressValue]="50" [callbackFunction]="">
+          </app-progress-line-item>
+        </app-dashboard-card>
+      </div>
+      <div class="col-md-6 p-2 g-0 mb-1">
+        <app-dashboard-card [cardTitle]="'Exercises'">
+
+        </app-dashboard-card>
+      </div>
+
+    </div>
+  </div>
+</ng-container>
+<ng-template #elseTemplate>
+
+</ng-template>
+
+
+
