@@ -25,7 +25,7 @@ exports.update = asyncHandler(async (req, res, next) => {
     });
 });
 
-exports.getllAll = asyncHandler(async (req, res, next) => {
+exports.getAll = asyncHandler(async (req, res, next) => {
     const anouncementList = await Anouncement.find().populate({
         path: 'createdBy'
     });

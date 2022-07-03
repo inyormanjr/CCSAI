@@ -31,18 +31,17 @@ const discussions = require('./routes/discussion');
 const dashboard = require('./routes/dashboard');
 const anouncement = require('./routes/anouncement');
 
-const apiBaseRouteV1 = '/api/v1/';
-
-app.use(apiBaseRouteV1 + 'auth', auth);
-app.use(apiBaseRouteV1 + 'users', users);
-app.use(apiBaseRouteV1 + 'courses', courses);
-app.use(apiBaseRouteV1 + 'terms', terms);
-app.use(apiBaseRouteV1 + 'enrollment', enrollment);
-app.use(apiBaseRouteV1 + 'enrollmentdetails', enrollmentDetails);
-app.use(apiBaseRouteV1 + 'modules', modules);
-app.use(apiBaseRouteV1 + 'discussions', discussions);
-app.use(apiBaseRouteV1 + 'dashboard', dashboard);
-app.use(apiBaseRouteV1 + 'anouncement', anouncement);
+const apiRouteV1 = '/api/v1/';
+app.use(apiRouteV1 + 'auth', auth);
+app.use(apiRouteV1 + 'users', users);
+app.use(apiRouteV1 + 'courses', courses);
+app.use(apiRouteV1 + 'terms', terms);
+app.use(apiRouteV1 + 'enrollment', enrollment);
+app.use(apiRouteV1 + 'enrollmentdetails', enrollmentDetails);
+app.use(apiRouteV1 + 'modules', modules);
+app.use(apiRouteV1 + 'discussions', discussions);
+app.use(apiRouteV1 + 'dashboard', dashboard);
+app.use(apiRouteV1 + 'anouncement', anouncement);
 
 const PORT = 5001;
 
