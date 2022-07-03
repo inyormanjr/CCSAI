@@ -1,6 +1,8 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const { setSocketInstance } = require('./utils/chatbotsocket');
+const { setRoutes } = require('./utils/appRoutingManager');
+
 //dev utils
 const morgan = require('morgan');
 const colors = require('colors');
@@ -19,25 +21,8 @@ app.use(express.json());
 
 app.use(cors());
 
-//routes
-const auth = require('./routes/auth');
-const users = require('./routes/users');
-const courses = require('./routes/courses');
-const terms = require('./routes/terms');
-const enrollment = require('./routes/enrollment');
-const enrollmentDetails = require('./routes/enrollmentDetails');
-const modules = require('./routes/modules');
-const discussions = require('./routes/discussion');
-const dashboard = require('./routes/dashboard');
-app.use('/api/v1/auth', auth);
-app.use('/api/v1/users', users);
-app.use('/api/v1/courses', courses);
-app.use('/api/v1/terms', terms);
-app.use('/api/v1/enrollment', enrollment);
-app.use('/api/v1/enrollmentdetails', enrollmentDetails);
-app.use('/api/v1/modules', modules);
-app.use('/api/v1/discussions', discussions);
-app.use('/api/v1/dashboard', dashboard);
+//routes manager
+setRoutes(app);
 
 const PORT = 5001;
 
