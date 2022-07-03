@@ -71,8 +71,17 @@
                         <h4 class="card-header">Student Assignment</h4>
                         <div class="card-body">
                             <form [formGroup]="enrollmentDetailForm" (ngSubmit)="saveStudent()" class="row g-3">
-                                <div class="col-12 d-flex">
-                                    <div class="p-0 col-6">
+
+                                <div class="col-6 mb-2">
+                                  <label for="dp1" class="form-label">Enrollment Date</label>
+                                  <div class="input-group">
+                                    <input class="form-control" placeholder="yyyy-mm-dd" name="dp1" formControlName="enrollDetailDate" ngbDatepicker
+                                      #d1="ngbDatepicker">
+                                    <button class="btn btn-outline-secondary fa fa-calendar" (click)="d1.toggle()" type="button"></button>
+                                  </div>
+                                </div>
+                                <div class="col-6  d-flex">
+                                    <div class="p-0 col-12">
                                         <label for="student" class="form-label">Student</label>
                                         <div class="input-group">
                                             <input type="text" class="form-control" name="student" aria-label="instructor" aria-describedby="button-addon" [(ngModel)]="selectedStudent.fullName" [ngModelOptions]="{standalone: true}" readonly>
@@ -83,13 +92,6 @@
                                     </div>
                                     <div class="ml-auto">
 
-                                    </div>
-                                </div>
-                                <div class="col-4 mt-2">
-                                    <label for="dp1" class="form-label">Date</label>
-                                    <div class="input-group">
-                                        <input class="form-control" placeholder="yyyy-mm-dd" name="dp1" formControlName="enrollDetailDate" ngbDatepicker #d1="ngbDatepicker">
-                                        <button class="btn btn-outline-secondary fa fa-calendar" (click)="d1.toggle()" type="button"></button>
                                     </div>
                                 </div>
                             </form>
