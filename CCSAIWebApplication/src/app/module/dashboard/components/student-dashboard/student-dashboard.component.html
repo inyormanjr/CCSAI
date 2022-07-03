@@ -30,7 +30,9 @@
     </app-dashboard-card>
   </div>
   <div class="col-md-9 p-2 g-0 ">
-  <app-dashboard-courses-container></app-dashboard-courses-container>
+  <app-dashboard-card [cardTitle]="'Courses'">
+  <app-dashboard-courses-container content></app-dashboard-courses-container>
+  </app-dashboard-card>
   </div>
   <div class="col-md-3 p-2 g-0 ">
     <app-dashboard-card  [cardTitle]="'Announcements'">
