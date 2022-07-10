@@ -14,7 +14,9 @@ router
 
 router
     .route('/anouncements')
-      .get(protectUser, dc.getAnnouncements);
+  .get(protectUser, dc.getAnnouncements);
+      
+router.route('/courses').get(dc.getCoursesByUserByCurrentActiveTerm);
     
 router.route('/grades/:id').get(protectUser, dc.getRecentGradeUpdates);
 

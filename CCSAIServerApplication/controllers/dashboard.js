@@ -8,41 +8,45 @@ exports.getCourseProgressByStudent = asyncHandler(async(req, res, next) => {
     //let studentId = req.params.id;
     var obid = new ObjectId('62a465162e8f9724eb8342c6');
     var studentId = new ObjectId('629cbb5d79fb9eb8bbeade07');
-    result = await enrollmentDetail.aggregate([{
-            $lookup: {
-                from: 'enrollments',
-                localField: 'enrollmentId',
-                foreignField: '_id',
-                as: 'enrollments',
-            },
+    result = await enrollmentDetail.aggregate([
+      {
+        $lookup: {
+          from: 'enrollments',
+          localField: 'enrollmentId',
+          foreignField: '_id',
+          as: 'enrollments',
         },
-        {
-            $lookup: {
-                from: 'courses',
-                localField: 'enrollments.courseId',
-                foreignField: '_id',
-                as: 'courses',
-            },
+      },
+      {
+        $lookup: {
+          from: 'courses',
+          localField: 'enrollments.courseId',
+          foreignField: '_id',
+          as: 'courses',
         },
-        {
-            $lookup: {
-                from: 'users',
-                localField: 'enrollments.instructorId',
-                foreignField: '_id',
-                as: 'instructor',
-            },
+      },
+      {
+        $lookup: {
+          from: 'users',
+          localField: 'enrollments.instructorId',
+          foreignField: '_id',
+          as: 'instructor',
         },
+      },
 
-        {
-            $match: { 'enrollments.termId': obid, studentId },
+      {
+        $match: { 'enrollments.termId': obid, studentId },
+      },
+      {
+        $project: {
+          '_id': 0,
+          'courses': {
+            '_id': 1,
+            'courseCode': 1,
+            'course': 1,
+          },
         },
-        {
-            $project: {
-                courses: 1,
-                instructor: 1,
-            },
-        },
-
+      },
     ]);
     res.status(200).json(result);
 });
@@ -103,7 +107,45 @@ exports.getAssessmentsProgressByStudent = asyncHandler(
 
 exports.getCoursesByUserByCurrentActiveTerm = asyncHandler(
     async(req, res, next) => {
-        let studentId = req.params.id;
+          var obid = new ObjectId('62a468c52e8f9724eb834304');
+          var studentId = new ObjectId('62c14b33f3d170d494a8226f');
+          result = await enrollmentDetail.aggregate([
+            {
+              $lookup: {
+                from: 'enrollments',
+                localField: 'enrollmentId',
+                foreignField: '_id',
+                as: 'enrollments',
+              },
+            },
+            {
+              $lookup: {
+                from: 'courses',
+                localField: 'enrollments.courseId',
+                foreignField: '_id',
+                as: 'courses',
+              },
+            },
+            {
+              $lookup: {
+                from: 'users',
+                localField: 'enrollments.instructorId',
+                foreignField: '_id',
+                as: 'instructor',
+              },
+            },
+            {
+              $project: {
+                _id: 0,
+                courses: {
+                  _id: 1,
+                  courseCode: 1,
+                  course: 1,
+                },
+              },
+            },
+          ]);
+          res.status(200).json(result);
     }
 );
 
