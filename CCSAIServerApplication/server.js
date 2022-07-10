@@ -20,11 +20,17 @@ const app = express();
 app.use(express.json());
 
 app.use(cors());
+app.use(express.static(__dirname + '/dist'));
+app.get('/', function (req, res) {
+  res.sendFile(path.join(__dirname + '/dist/index.html'));
+});
+
 
 //routes manager
 setRoutes(app);
 
 const PORT = 5001;
+
 
 const server = app.listen(PORT, console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`
     .yellow.bold));

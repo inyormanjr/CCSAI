@@ -45,6 +45,7 @@ const routes: Routes = [
         },
         loadChildren: () => import('../enrollment/enrollment.module').then(m => m.EnrollmentModule)
       },
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full'}
     ]
   },
 
