@@ -11,6 +11,11 @@ const ExerciseSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  points : {
+    type : Number,
+    required : true,
+    default : 0
+  },
   exercise_status : { type: String, required: true , default : "active" },
   exerciseDetails: {
     type: String,
@@ -20,7 +25,7 @@ const ExerciseSchema = new mongoose.Schema({
     {
       type: String,
     },
-  ],
+  ], 
 });
 
 module.exports = mongoose.model('Exercise', ExerciseSchema);
