@@ -1,0 +1,38 @@
+<div class="modal-header">
+    <h4 class="modal-title">{{discussion.title}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div>
+    <form [formGroup]="exerciseForm" (ngSubmit)="save() ">
+        <div class="modal-body ">
+            <div class="mb-3 ">
+                <label for="title " class="form-label ">Exercise(<strong>{{trans}}</strong>)</label>
+                <textarea name="" id="" cols="30" rows="10" class="form-control" id="exerciseDetails " formControlName="exerciseDetails" style="background-color: black;color:yellow"></textarea>
+                <label class="form-label"><i>Note : Type <strong>"[q-blank]"</strong></i> before each question words.</label>
+            </div>
+            <div class="mb-3">
+                <button *ngIf="fc._id.value" type="button" (click)="clear()" class="btn btn-primary mr-2">Clear</button>
+                <button type="submit " class="btn btn-primary ">Save</button>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal-body">
+    <div>
+        <h4 class="ml-3">Exercises</h4>
+    </div>
+    <div class="references container d-flex flex-column" *ngIf="exerciseList.length > 0">
+        <div class="card" *ngFor='let x of exerciseList;index as i'>
+            <div class="card-body">
+                <div>
+                    {{x.exerciseDetails}}
+                </div>
+                <div class="mt-2 d-flex flex-row-reverse">
+                    <button class="btn btn-warning" (click)="selectExercise(x)" aria-label="exercise">Select</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

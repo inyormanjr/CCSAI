@@ -1,8 +1,10 @@
+import { ExerciseMainViewComponent } from './exercise/exercise-main-view/exercise-main-view.component';
 import { CourseEffects } from './effects/course.effects';
 import { EffectsModule } from '@ngrx/effects';
 import { courseFeatureKey, courseReducer } from './reducer/course.reducer';
 import { StoreModule } from '@ngrx/store';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -21,6 +23,9 @@ import { AddDiscussionModalComponent } from './discussion/add-discussion-modal/a
 import { UpdateDiscussionModalComponent } from './discussion/update-discussion-modal/update-discussion-modal.component';
 
 
+
+
+
 @NgModule({
   declarations: [
     CourseComponent,
@@ -32,7 +37,8 @@ import { UpdateDiscussionModalComponent } from './discussion/update-discussion-m
     ModuleViewComponent,
     ModuleViewReferenceTabComponent,
     AddDiscussionModalComponent,
-    UpdateDiscussionModalComponent
+    UpdateDiscussionModalComponent,
+    ExerciseMainViewComponent
   ],
   imports: [
     CommonModule,
@@ -42,7 +48,8 @@ import { UpdateDiscussionModalComponent } from './discussion/update-discussion-m
     NgxDatatableModule,
     FormsModule,
     StoreModule.forFeature(courseFeatureKey,courseReducer),
-    EffectsModule.forFeature([CourseEffects])
+    EffectsModule.forFeature([CourseEffects]),
+
   ]
 })
 export class CourseModule { }
