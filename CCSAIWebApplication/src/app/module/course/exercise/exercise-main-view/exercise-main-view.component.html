@@ -8,13 +8,13 @@
     <form [formGroup]="exerciseForm" (ngSubmit)="save() ">
         <div class="modal-body ">
             <div class="mb-3 ">
-                <label for="title " class="form-label">Exercise(<strong>{{trans}}</strong>)</label>
-                <textarea name="" id="" cols="30" rows="5" class="form-control" id="exerciseDetails " formControlName="exerciseDetails" style="background-color: black;color:yellow"></textarea>
+                <label for="title " class="form-label ">Exercise(<strong>{{trans}}</strong>)</label>
+                <textarea name="" id="" cols="30" rows="10" class="form-control" id="exerciseDetails " formControlName="exerciseDetails" style="background-color: black;color:yellow"></textarea>
                 <label class="form-label"><i>Note : Type <strong>"[q-blank]"</strong></i> before each question words.</label>
             </div>
             <div class="mb-3">
                 <button *ngIf="fc._id.value" type="button" (click)="clear()" class="btn btn-primary mr-2">Clear</button>
-                <button type="submit" class="btn btn-primary">Save</button>
+                <button type="submit " class="btn btn-primary ">Save</button>
             </div>
         </div>
     </form>

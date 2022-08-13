@@ -1,3 +1,4 @@
+import { ExerciseMainViewComponent } from './exercise/exercise-main-view/exercise-main-view.component';
 import { CourseEffects } from './effects/course.effects';
 import { EffectsModule } from '@ngrx/effects';
 import { courseFeatureKey, courseReducer } from './reducer/course.reducer';
@@ -37,6 +38,7 @@ import { UpdateDiscussionModalComponent } from './discussion/update-discussion-m
     ModuleViewReferenceTabComponent,
     AddDiscussionModalComponent,
     UpdateDiscussionModalComponent,
+    ExerciseMainViewComponent
   ],
   imports: [
     CommonModule,
