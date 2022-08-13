@@ -1,3 +1,4 @@
+import { ExerciseMainViewComponent } from './../../exercise/exercise-main-view/exercise-main-view.component';
 import { UpdateDiscussionModalComponent } from './../../discussion/update-discussion-modal/update-discussion-modal.component';
 import { CourseState } from './../../reducer/course.reducer';
 import { AddDiscussionModalComponent } from './../../discussion/add-discussion-modal/add-discussion-modal.component';
@@ -44,6 +45,11 @@ export class ModuleViewReferenceTabComponent implements OnInit {
 
   updateDiscussion(discussion : any){
     const modalRef = this.modalService.open(UpdateDiscussionModalComponent, { size: 'lg', centered: true });
+    modalRef.componentInstance.discussion = discussion;
+  }
+
+  openExercises(discussion : any){
+    const modalRef = this.modalService.open(ExerciseMainViewComponent, { size: 'lg', centered: true });
     modalRef.componentInstance.discussion = discussion;
   }
 
