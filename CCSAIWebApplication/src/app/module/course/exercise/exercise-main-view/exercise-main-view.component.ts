@@ -21,7 +21,10 @@ export class ExerciseMainViewComponent implements OnInit {
   exerciseForm = this.formBuilder.group({
     _id: [null],
     discussionId: [null, Validators.required],
-    exerciseDetails: [null, Validators.required]
+    exerciseDetails: [null, Validators.required],
+    exerciseName : [null, Validators.required],
+    instructions : [null, Validators.required],
+    points : [0, Validators.required]
   });
 
   constructor(public activeModal: NgbActiveModal,
@@ -55,7 +58,7 @@ export class ExerciseMainViewComponent implements OnInit {
             if(res.success){
               this.alertifyService.success("Exercise successfully added.");
               this.loadExercises();
-              this.exerciseForm.reset({discussionId : this.discussion._id});
+              this.exerciseForm.reset({discussionId : this.discussion._id, points : 0});
             }
           })
         }
@@ -72,18 +75,46 @@ export class ExerciseMainViewComponent implements OnInit {
   }
 
   selectExercise(exercise: any) {
+
     this.exerciseForm.controls._id.setValue(exercise._id);
     this.exerciseForm.controls.exerciseDetails.setValue(exercise.exerciseDetails);
+    this.exerciseForm.controls.instructions.setValue(exercise.instructions);
+    this.exerciseForm.controls.exerciseName.setValue(exercise.exerciseName);
+    this.exerciseForm.controls.points.setValue(exercise.points);
     this.trans = "UPDATE";
   }
 
   loadExercises() {
     this.exerciseService.getExerciseByDiscussionId(this.discussion._id).subscribe(res => {
-      console.log(res);
+
       if (res.count > 0) {
 
         this.exerciseList = res.data;
       }
+    });
+  }
+
+  activate(exercise : any){
+    this.alertifyService.confirm('Exercise Activation', 'Activate selected exercise?', () => {
+      this.exerciseService.activateExercise(exercise).subscribe(res=>{
+        if(res.success){
+          this.alertifyService.success("Exercise Activated");
+          this.loadExercises();
+         
+        }
+      })
+    });
+  }
+
+  deactivate(exercise : any){
+    this.alertifyService.confirm('Exercise Deactivation', 'Deactivate selected exercise?', () => {
+      this.exerciseService.deactivateExercise(exercise).subscribe(res=>{
+        if(res.success){
+          this.alertifyService.error("Exercise deactivated");
+          this.loadExercises();
+         
+        }
+      })
     });
   }
 

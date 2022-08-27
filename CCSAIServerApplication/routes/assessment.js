@@ -1,38 +1,31 @@
 const express = require('express');
 const {
-    createExercise,
-    getExercisesByDiscussionId,
-    updateExercise,
-    deactivateExercise,
-    activateExercise
-} = require('../controllers/exercise');
+    createAssessment,
+    getAssessmentByModuleId,
+    deactivateAssessment,
+    activateAssessment
+} = require('../controllers/assessment');
 const router = express.Router();
 const { protectUser, authorize } = require('../middleware/auth');
 
 router.route('/')
     .post(protectUser,
         authorize('admin', 'instructor'),
-        createExercise);
+        createAssessment);
 
-
-router.route('/getbydiscussionid/:discussionId')
+router.route('/getassessmentsbymoduleid/:moduleId')
     .get(protectUser,
         authorize('admin', 'instructor'),
-        getExercisesByDiscussionId);
+        getAssessmentByModuleId);
 
 router.route('/deactivate/:id')
     .put(protectUser,
         authorize('admin', 'instructor'),
-        deactivateExercise);
+        deactivateAssessment);
 
 router.route('/activate/:id')
     .put(protectUser,
         authorize('admin', 'instructor'),
-        activateExercise);
-
-router.route('/:id')
-    .put(protectUser,
-        authorize('admin', 'instructor'),
-        updateExercise);
+        activateAssessment);
 
 module.exports = router;

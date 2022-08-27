@@ -9,6 +9,7 @@ const discussions = require('../routes/discussion');
 const dashboard = require('../routes/dashboard');
 const anouncement = require('../routes/anouncement');
 const exercises = require('../routes/exercise');
+const assessments = require('../routes/assessment');
 const apiRouteV1 = '/api/v1/';
 
 
@@ -24,6 +25,7 @@ function setRoutes(app) {
     app.use(apiRouteV1 + 'dashboard', dashboard);
     app.use(apiRouteV1 + 'anouncement', anouncement);
     app.use(apiRouteV1 + 'exercises', exercises)
+    app.use(apiRouteV1 + 'assessment', assessments)
 }
 
 module.exports = { setRoutes };

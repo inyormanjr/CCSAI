@@ -7,7 +7,7 @@ var ObjectId = require('mongoose').Types.ObjectId;
 // @route     POST /api/v1/exercises/
 // @access    Private/Admin
 exports.createExercise = asyncHandler(async(req, res, next) => {
-    const { exerciseDetails, discussionId } = req.body;
+    const { exerciseDetails, discussionId, exerciseName, instructions, points } = req.body;
 
 
     const exDetailsArray = exerciseDetails.split(" ");
@@ -18,12 +18,16 @@ exports.createExercise = asyncHandler(async(req, res, next) => {
             let slicedWord = word.slice(9);
             answers.push(slicedWord);
         }
+
     });
 
     let exerciseObj = await Exercise.create({
         answers,
         exerciseDetails,
-        discussionId
+        discussionId,
+        exerciseName,
+        instructions,
+        points
     });
 
     res.status(200).json({
@@ -37,7 +41,7 @@ exports.createExercise = asyncHandler(async(req, res, next) => {
 // @route     PUT /api/v1/exercises/:id
 // @access    Private/Admin
 exports.updateExercise = asyncHandler(async(req, res, next) => {
-    const { exerciseDetails } = req.body;
+    const { exerciseDetails, exerciseName, instructions, points } = req.body;
 
 
     const exDetailsArray = exerciseDetails.split(" ");
@@ -52,7 +56,10 @@ exports.updateExercise = asyncHandler(async(req, res, next) => {
 
     let exerciseObj = await Exercise.findByIdAndUpdate(new ObjectId(req.params.id), {
         answers,
-        exerciseDetails
+        exerciseDetails,
+        exerciseName,
+        instructions,
+        points
     }, {
         new: true,
         runValidators: true
@@ -77,4 +84,50 @@ exports.getExercisesByDiscussionId = asyncHandler(async(req, res, next) => {
         count: exercises.length,
         data: exercises
     });
+});
+
+// @desc      Change exercise status to Deactivated
+// @route     PUT /api/v1/exercises/deactivate/:id
+// @access    Private/Admin/
+exports.deactivateExercise = asyncHandler(async(req, res, next) => {
+
+    let exercise = await Exercise.findById(req.params.id);
+
+    if (!exercise) {
+        return next(new ErrorResponse(`Exercise not found with id of ${req.params.id}`, 404));
+    }
+
+    exercise = await Exercise.findByIdAndUpdate(req.params.id, { "exercise_status": "deactivated" }, {
+        new: true,
+        runValidators: false
+    });
+
+    res.status(200).json({
+        success: true,
+        data: exercise
+    });
+
+});
+
+// @desc      Change exercise status to Activated
+// @route     PUT /api/v1/exercises/activate/:id
+// @access    Private/Admin/
+exports.activateExercise = asyncHandler(async(req, res, next) => {
+
+    let exercise = await Exercise.findById(req.params.id);
+
+    if (!exercise) {
+        return next(new ErrorResponse(`Exercise not found with id of ${req.params.id}`, 404));
+    }
+
+    exercise = await Exercise.findByIdAndUpdate(req.params.id, { "exercise_status": "active" }, {
+        new: true,
+        runValidators: false
+    });
+
+    res.status(200).json({
+        success: true,
+        data: exercise
+    });
+
 });

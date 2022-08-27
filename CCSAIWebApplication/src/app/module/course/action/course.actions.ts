@@ -1,3 +1,4 @@
+import { AssessmentListDTO } from './../../../shared/models/Assessment';
 import { Discussion } from './../../../shared/models/Discussion';
 import { CourseModelModule } from './../../../shared/models/CourseModule';
 import { Course } from './../../../shared/models/Course';
@@ -35,6 +36,16 @@ export const loadDiscussionsByModuleId = createAction(
 export const loadDiscussionsByModuleIdSuccess = createAction(
   '[Course] Load Discussion By Module Id Success',
   props<{ data: Discussion[] }>()
+);
+
+export const loadAssessmentByModuleId = createAction(
+  '[Course] Load Assessment By Module Id',
+  props<{_id : string}>()
+);
+
+export const loadAssessmentByModuleIdSuccess = createAction(
+  '[Course] Load Assessment By Module Id',
+  props<{ data: AssessmentListDTO[] }>()
 );
 
 

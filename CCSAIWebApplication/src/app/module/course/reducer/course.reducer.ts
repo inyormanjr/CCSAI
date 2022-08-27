@@ -1,3 +1,4 @@
+import { AssessmentListDTO } from './../../../shared/models/Assessment';
 import { Discussion } from './../../../shared/models/Discussion';
 import { CourseModelModule } from './../../../shared/models/CourseModule';
 import { Course } from './../../../shared/models/Course';
@@ -12,6 +13,7 @@ export interface CourseState {
     course : Course;
     moduleList : CourseModelModule[]; 
     discussions : Discussion[];
+    assessmentsList : AssessmentListDTO[]
 }
 
 export const initialCourseState: CourseState = {
@@ -23,7 +25,8 @@ export const initialCourseState: CourseState = {
     course_status : ""
   },
   moduleList : [],
-  discussions : []
+  discussions : [],
+  assessmentsList : []
 };
 
 export const courseReducer = createReducer(
@@ -78,6 +81,12 @@ export const courseReducer = createReducer(
     return {
       ...state,
       discussions : action.data
+    }
+  }),
+  on(CourseActionTypes.loadAssessmentByModuleIdSuccess,(state,action)=>{
+    return {
+      ...state,
+      assessmentsList : action.data
     }
   })
 );

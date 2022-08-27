@@ -1,3 +1,4 @@
+import { AddAssessmentComponent } from './assessment/add-assessment/add-assessment.component';
 import { ExerciseMainViewComponent } from './exercise/exercise-main-view/exercise-main-view.component';
 import { CourseEffects } from './effects/course.effects';
 import { EffectsModule } from '@ngrx/effects';
@@ -21,6 +22,8 @@ import { ModuleViewComponent } from './module-view/module-view.component';
 import { ModuleViewReferenceTabComponent } from './components/module-view-reference-tab/module-view-reference-tab.component';
 import { AddDiscussionModalComponent } from './discussion/add-discussion-modal/add-discussion-modal.component';
 import { UpdateDiscussionModalComponent } from './discussion/update-discussion-modal/update-discussion-modal.component';
+import { AssessmentListComponent } from './assessment/assessment-list/assessment-list.component';
+
 
 
 
@@ -38,7 +41,9 @@ import { UpdateDiscussionModalComponent } from './discussion/update-discussion-m
     ModuleViewReferenceTabComponent,
     AddDiscussionModalComponent,
     UpdateDiscussionModalComponent,
-    ExerciseMainViewComponent
+    ExerciseMainViewComponent,
+    AssessmentListComponent,
+    AddAssessmentComponent
   ],
   imports: [
     CommonModule,
@@ -49,7 +54,6 @@ import { UpdateDiscussionModalComponent } from './discussion/update-discussion-m
     FormsModule,
     StoreModule.forFeature(courseFeatureKey,courseReducer),
     EffectsModule.forFeature([CourseEffects]),
-
   ]
 })
 export class CourseModule { }
