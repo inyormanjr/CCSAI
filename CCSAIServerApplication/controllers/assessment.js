@@ -52,6 +52,53 @@ exports.createAssessment = asyncHandler(async(req, res, next) => {
 
 });
 
+// @desc      UpdateAssessment assessment
+// @route     PUT /api/v1/assessment/:id
+// @access    Private/Admin
+exports.updateAssessment = asyncHandler(async(req, res, next) => {
+    const { moduleId, assessmentName, assessmentGroup } = req.body;
+
+    let assessment = await Assessment[0].findByIdAndUpdate(new ObjectId(req.params.id), {
+        assessmentName
+    });
+
+    assessmentGroup.forEach(async group => {
+        await Assessment[1].findByIdAndUpdate(group._id, {
+
+            groupName: group.groupName
+        });
+
+        group.questions.forEach(async question => {
+
+            const questionArray = question.questionDetail.split(" ");
+            var answers = [];
+            //var questionCount = 0;
+            questionArray.forEach(word => {
+                if (word.toLowerCase().includes("[q-blank]")) {
+                    let slicedWord = word.slice(9);
+                    answers.push(slicedWord);
+                    //questionCount++;
+                }
+            });
+
+            //const points = question.points / questionCount;
+
+            await Assessment[2].findByIdAndUpdate(question._id, {
+                points: question.points,
+                questionDetail: question.questionDetail,
+                instructions: question.instructions,
+                answers
+            });
+        });
+    })
+
+    res.status(200).json({
+        success: true,
+        data: assessment
+    });
+
+});
+
 
 // @desc      Get Assessment By Module Id
 // @route     POST /api/v1/assessment/getassessmentsbymoduleid/:moduleId
@@ -62,6 +109,39 @@ exports.getAssessmentByModuleId = asyncHandler(async(req, res, next) => {
     const moduleId = new ObjectId(req.params.moduleId);
 
     const assessments = await Assessment[0].aggregate([{ $match: { moduleId } },
+        {
+            $lookup: {
+                from: "assessmentgroups",
+                localField: '_id',
+                foreignField: 'assessmentId',
+                as: "assessmentgroups",
+                pipeline: [{
+                    $lookup: {
+                        from: "assessmentquestions",
+                        localField: '_id',
+                        foreignField: 'assessmentGroupId',
+                        as: "assessmentquestions"
+                    }
+                }]
+            }
+        }
+    ]);
+
+    res.status(200).json({
+        success: true,
+        data: assessments
+    });
+});
+
+// @desc      Get Assessment By Assessment Id
+// @route     POST /api/v1/assessment/getassessmentbyid/:id
+// @access    Private/Admin/Instructor
+exports.getAssessmentById = asyncHandler(async(req, res, next) => {
+
+
+    const id = new ObjectId(req.params.id);
+
+    const assessments = await Assessment[0].aggregate([{ $match: { _id: id } },
         {
             $lookup: {
                 from: "assessmentgroups",

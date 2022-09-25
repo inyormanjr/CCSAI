@@ -1,3 +1,4 @@
+import { UpdateAssessmentComponent } from './../update-assessment/update-assessment.component';
 import { AssessmentService } from './../../../../core/http/assessment/assessment.service';
 import { AddAssessmentComponent } from './../add-assessment/add-assessment.component';
 import { AssessmentListDTO } from 'src/app/shared/models/Assessment';
@@ -67,12 +68,14 @@ export class AssessmentListComponent implements OnInit {
 
   newAssessment() {
 
-    const modalRef = this.modalService.open(AddAssessmentComponent, { size: 'lg', centered: true });
+    const modalRef = this.modalService.open(AddAssessmentComponent, { size: 'lg', centered: true, windowClass: "no-pointer-events" });
     modalRef.componentInstance.moduleId = this.moduleId;
   }
 
-  viewAssessment(assessment: any) {
-
+  viewAssessment(assessmentId: any) {
+    
+    const modalRef = this.modalService.open(UpdateAssessmentComponent, { size: 'lg', centered: true });
+    modalRef.componentInstance.id = assessmentId;
   }
 
   deactivate(assessment: any) {

@@ -73,11 +73,25 @@ exports.updateExercise = asyncHandler(async(req, res, next) => {
 });
 
 // @desc      Get Exercises By Discussion Id
-// @route     POST /api/v1/exercises/:discussionId
+// @route     GET /api/v1/exercises/:discussionId
 // @access    Private/Admin/Instructor
 exports.getExercisesByDiscussionId = asyncHandler(async(req, res, next) => {
 
     const exercises = await Exercise.find({ discussionId: new ObjectId(req.params.discussionId) });
+
+    res.status(200).json({
+        success: true,
+        count: exercises.length,
+        data: exercises
+    });
+});
+
+// @desc      Get Exercises
+// @route     GET /api/v1/exercises/
+// @access    Private/Admin/Instructor
+exports.getExercises = asyncHandler(async(req, res, next) => {
+
+    const exercises = await Exercise.find();
 
     res.status(200).json({
         success: true,

@@ -23,6 +23,8 @@ import { ModuleViewReferenceTabComponent } from './components/module-view-refere
 import { AddDiscussionModalComponent } from './discussion/add-discussion-modal/add-discussion-modal.component';
 import { UpdateDiscussionModalComponent } from './discussion/update-discussion-modal/update-discussion-modal.component';
 import { AssessmentListComponent } from './assessment/assessment-list/assessment-list.component';
+import { UpdateAssessmentComponent } from './assessment/update-assessment/update-assessment.component';
+import { ExerciseListComponent } from './exercise/exercise-list/exercise-list.component';
 
 
 
@@ -43,7 +45,9 @@ import { AssessmentListComponent } from './assessment/assessment-list/assessment
     UpdateDiscussionModalComponent,
     ExerciseMainViewComponent,
     AssessmentListComponent,
-    AddAssessmentComponent
+    AddAssessmentComponent,
+    UpdateAssessmentComponent,
+    ExerciseListComponent
   ],
   imports: [
     CommonModule,

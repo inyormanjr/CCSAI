@@ -4,7 +4,8 @@ const {
     getExercisesByDiscussionId,
     updateExercise,
     deactivateExercise,
-    activateExercise
+    activateExercise,
+    getExercises
 } = require('../controllers/exercise');
 const router = express.Router();
 const { protectUser, authorize } = require('../middleware/auth');
@@ -13,6 +14,12 @@ router.route('/')
     .post(protectUser,
         authorize('admin', 'instructor'),
         createExercise);
+
+router.route('/')
+    .get(protectUser,
+        authorize('admin', 'instructor'),
+        getExercises);
+
 
 
 router.route('/getbydiscussionid/:discussionId')

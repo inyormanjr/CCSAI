@@ -82,7 +82,7 @@ export class AddAssessmentComponent implements OnInit {
 
   addNewAssessment() {
 
-    console.log(this.assessmentForm.value);
+    
     var assessment = this.assessmentForm.value as Assessment;
     if (this.assessmentForm.status !== "INVALID") {
         this.alertifyService.confirm("Add Assessment","Save assessment?",()=>{

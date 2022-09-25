@@ -17,4 +17,8 @@ export class AssessmentListDTOService extends BaseService<AssessmentListDTO> {
   getAssessmentsByModuleId(id:string): Observable<any>{
     return this.httpClient.get<any>(`${this.baseURL}getassessmentsbymoduleid/${id}`);
   }
+
+  getAssessmentById(id:string): Observable<any>{
+    return this.httpClient.get<any>(`${this.baseURL}getassessmentbyid/${id}`);
+  }
 }
