@@ -20,7 +20,7 @@ export class AddAssessmentComponent implements OnInit {
   @Input() moduleId: any;
 
   assessmentForm: FormGroup;
-  constructor(public activeModal: NgbActiveModal,
+  constructor(public activeModalAdd: NgbActiveModal,
     private alertifyService: AlertifyjsService,
     private formBuilder: FormBuilder,
     private courseStore: Store<CourseState>,
@@ -90,7 +90,7 @@ export class AddAssessmentComponent implements OnInit {
             if(res.success){
               this.courseStore.dispatch(CourseActionTypes.loadAssessmentByModuleId({ _id: this.moduleId }));
               this.assessmentForm.reset({moduleId : this.moduleId});
-              this.activeModal.close();
+              this.activeModalAdd.close();
             }
           });
         })

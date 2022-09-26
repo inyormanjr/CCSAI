@@ -51,6 +51,7 @@ export class ModuleViewReferenceTabComponent implements OnInit {
   openExercises(discussion : any){
     const modalRef = this.modalService.open(ExerciseMainViewComponent, { size: 'lg', centered: true });
     modalRef.componentInstance.discussion = discussion;
+    modalRef.componentInstance.moduleId = this.moduleId;
   }
 
 }

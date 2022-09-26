@@ -5,7 +5,8 @@ const {
     updateExercise,
     deactivateExercise,
     activateExercise,
-    getExercises
+    getExercises,
+    getExercisesByModuleId
 } = require('../controllers/exercise');
 const router = express.Router();
 const { protectUser, authorize } = require('../middleware/auth');
@@ -20,7 +21,10 @@ router.route('/')
         authorize('admin', 'instructor'),
         getExercises);
 
-
+router.route('/getexercisesbymoduleid/:moduleId')
+    .get(protectUser,
+        authorize('admin', 'instructor'),
+        getExercisesByModuleId);
 
 router.route('/getbydiscussionid/:discussionId')
     .get(protectUser,

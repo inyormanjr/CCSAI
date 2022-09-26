@@ -25,6 +25,7 @@ import { UpdateDiscussionModalComponent } from './discussion/update-discussion-m
 import { AssessmentListComponent } from './assessment/assessment-list/assessment-list.component';
 import { UpdateAssessmentComponent } from './assessment/update-assessment/update-assessment.component';
 import { ExerciseListComponent } from './exercise/exercise-list/exercise-list.component';
+import { UpdateSelectedExerciseComponent } from './exercise/update-selected-exercise/update-selected-exercise.component';
 
 
 
@@ -47,7 +48,8 @@ import { ExerciseListComponent } from './exercise/exercise-list/exercise-list.co
     AssessmentListComponent,
     AddAssessmentComponent,
     UpdateAssessmentComponent,
-    ExerciseListComponent
+    ExerciseListComponent,
+    UpdateSelectedExerciseComponent
   ],
   imports: [
     CommonModule,

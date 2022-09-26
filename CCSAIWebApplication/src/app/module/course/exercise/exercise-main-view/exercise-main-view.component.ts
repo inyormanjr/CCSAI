@@ -4,6 +4,10 @@ import { Component, Input, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Exercise } from 'src/app/shared/models/Exercise';
+import { ActivatedRoute } from '@angular/router';
+import { CourseState } from '../../reducer/course.reducer';
+import { Store } from '@ngrx/store';
+import { CourseActionTypes } from '../../action/course.action.types';
 
 @Component({
   selector: 'app-exercise-main-view',
@@ -14,9 +18,11 @@ export class ExerciseMainViewComponent implements OnInit {
 
 
   @Input() discussion: any;
+  @Input() moduleId: any;
 
   exerciseList: Exercise[] = [];
   trans = "NEW";
+  
 
   exerciseForm = this.formBuilder.group({
     _id: [null],
@@ -30,9 +36,14 @@ export class ExerciseMainViewComponent implements OnInit {
   constructor(public activeModal: NgbActiveModal,
     private alertifyService: AlertifyjsService,
     private formBuilder: FormBuilder,
-    private exerciseService: ExerciseService) { }
+    private exerciseService: ExerciseService,
+    private route: ActivatedRoute,
+    private courseStore: Store<CourseState>,) { 
+      
+    }
 
   ngOnInit(): void {
+    
     this.exerciseForm.controls.discussionId.setValue(this.discussion._id);
     this.loadExercises();
   }
@@ -59,9 +70,12 @@ export class ExerciseMainViewComponent implements OnInit {
               this.alertifyService.success("Exercise successfully added.");
               this.loadExercises();
               this.exerciseForm.reset({discussionId : this.discussion._id, points : 0});
+             
             }
           })
         }
+        this.courseStore.dispatch(CourseActionTypes.loadExercisesByModuleId({ _id: this.moduleId }));
+        
     }
     else {
       this.alertifyService.error("Please fill up all required information.");

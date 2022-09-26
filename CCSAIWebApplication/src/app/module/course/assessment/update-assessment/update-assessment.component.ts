@@ -23,7 +23,7 @@ export class UpdateAssessmentComponent implements OnInit {
   
   assessment:any;
   assessmentForm: FormGroup;
-  constructor(public activeModal: NgbActiveModal,
+  constructor(public activeModalUpdate: NgbActiveModal,
     private alertifyService: AlertifyjsService,
     private formBuilder: FormBuilder,
     private courseStore: Store<CourseState>,
@@ -95,7 +95,7 @@ export class UpdateAssessmentComponent implements OnInit {
           this.assessmentService.Update(assessment._id,assessment).subscribe(res=>{
             if(res.success){
               this.courseStore.dispatch(CourseActionTypes.loadAssessmentByModuleId({ _id: assessment.moduleId }));
-              this.activeModal.close();
+              this.activeModalUpdate.close();
             }
           });
         })

@@ -19,6 +19,10 @@ export class ExerciseService extends BaseService<Exercise> {
     return this.httpClient.get<any>(`${this.baseURL}getbydiscussionid/${id}`);
   }
 
+  getExerciseByModuleId(id:string): Observable<any>{
+    return this.httpClient.get<any>(`${this.baseURL}getexercisesbymoduleid/${id}`);
+  }
+
   activateExercise(exercise : any) : Observable<ResponseResult<any>>{
 
     return this.httpClient.put<any>(`${this.baseURL}activate/${exercise._id}`,exercise);

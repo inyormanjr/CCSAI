@@ -1,3 +1,4 @@
+import { Exercise } from './../../../shared/models/Exercise';
 import { AssessmentListDTOService } from './../../../core/http/assessment/assessment-list-dto.service';
 import { DiscussionService } from './../../../core/http/discussion/discussion.service';
 import { CourseModelModule } from './../../../shared/models/CourseModule';
@@ -16,6 +17,7 @@ import { CourseService } from 'src/app/core/http/course/course.service';
 import { data, noop } from 'jquery';
 import { Discussion } from 'src/app/shared/models/Discussion';
 import { AssessmentListDTO } from 'src/app/shared/models/Assessment';
+import { ExerciseService } from 'src/app/core/http/exercise/exercise.service';
 
 @Injectable()
 export class CourseEffects {
@@ -45,6 +47,23 @@ export class CourseEffects {
 
         this.discussionService.getDiscussionsByModuleId(action._id).pipe(map((response: ResponseResult<Discussion[]>) => {
           this.courseStore.dispatch(CourseActionTypes.loadDiscussionsByModuleIdSuccess({ data: response.data }))
+        })).subscribe(noop, error => console.log(error))
+      })
+    ), { dispatch: false }
+  );
+
+  
+  loadExercisesByModuleId$ = createEffect(() =>
+    this.actions$.pipe(ofType(CourseActionTypes.loadExercisesByModuleId),
+      tap((action) => {
+        this.exerciseService.getExerciseByModuleId(action._id).pipe(map((response: ResponseResult<any[]>) => {
+          var exercises : Exercise[] = [];
+          response.data[0].discussions.forEach((discussion:any) => {
+            discussion.exercises.forEach((exercise : any) => {
+              exercises.push(exercise);
+            });
+          });
+          this.courseStore.dispatch(CourseActionTypes.loadExercisesByModuleIdSuccess({ data: exercises }))
         })).subscribe(noop, error => console.log(error))
       })
     ), { dispatch: false }
@@ -168,5 +187,6 @@ export class CourseEffects {
     private alertify: AlertifyjsService,
     private moduleService: ModuleService,
     private discussionService: DiscussionService,
-    private assessmentListDTOService : AssessmentListDTOService) { }
+    private assessmentListDTOService : AssessmentListDTOService,
+    private exerciseService : ExerciseService) { }
 }

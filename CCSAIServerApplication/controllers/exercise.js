@@ -1,6 +1,7 @@
 const ErrorResponse = require('../utils/errorResponse');
 const asyncHandler = require('../middleware/async');
 const Exercise = require('../models/Exercise');
+const Module = require('../models/Module');
 var ObjectId = require('mongoose').Types.ObjectId;
 
 // @desc      Create exercise
@@ -96,6 +97,38 @@ exports.getExercises = asyncHandler(async(req, res, next) => {
     res.status(200).json({
         success: true,
         count: exercises.length,
+        data: exercises
+    });
+});
+
+// @desc      Get Exercises by module Id
+// @route     GET /api/v1/exercises/getexercisesbymoduleid/:moduleId
+// @access    Private/Admin/Instructor
+exports.getExercisesByModuleId = asyncHandler(async(req, res, next) => {
+
+    const moduleId = new ObjectId(req.params.moduleId);
+
+    const exercises = await Module.aggregate([{ $match: { _id: moduleId } },
+        {
+            $lookup: {
+                from: "discussions",
+                localField: '_id',
+                foreignField: 'moduleId',
+                as: "discussions",
+                pipeline: [{
+                    $lookup: {
+                        from: "exercises",
+                        localField: '_id',
+                        foreignField: 'discussionId',
+                        as: "exercises"
+                    }
+                }]
+            }
+        }
+    ]);
+
+    res.status(200).json({
+        success: true,
         data: exercises
     });
 });

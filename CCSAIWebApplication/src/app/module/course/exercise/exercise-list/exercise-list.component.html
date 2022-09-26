@@ -1,1 +1,26 @@
-<p>exercise-list works!</p>
+<div class="panel-group accordion" id="accordionExercises" *ngIf="exerciseList">
+    <div class="panel panel-default" *ngFor='let x of exerciseList;index as i'>
+        <div class="card">
+            <h6 class="card-header">
+                <a data-toggle="collapse" data-parent="#accordionExercises" href="#collapseExercises{{i}}">{{x.exerciseName}}({{x.points}} pts.) - {{x.exercise_status}}</a>
+            </h6>
+            <div id="collapseExercises{{i}}" class="panel-collapse collapse in">
+                <div class="card-body">
+                    <div>
+                        <strong>Instructions</strong> : {{x.instructions}}
+                    </div>
+                    <div>
+                        <strong>Exercise</strong> : {{x.exerciseDetails}}
+                    </div>
+                    <div class="mt-2 d-flex flex-row-reverse">
+                        <button type="button" (click)="updateExercise(x)" class="btn btn-primary fa fa-pencil-square-o  mr-2" aria-label="update"></button>
+                        <button type="button" (click)="deactivate(x)" routerLinkActive="router-link-active" class="btn btn-outline-danger fa fa-ban" *ngIf="x.exercise_status === 'active'" data-bs-toggle="tooltip" data-bs-placement="top" title="Deactivate"></button>
+                        <button type="button" (click)="activate(x)" routerLinkActive="router-link-active" class="btn btn-outline-success fa fa-check" *ngIf="x.exercise_status === 'deactivated'" data-bs-toggle="tooltip" data-bs-placement="top" title="Activate"></button>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,34 @@
+<div class="modal-header">
+    <h4 class="modal-title">Update Exercise</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div>
+    <form [formGroup]="exerciseForm" (ngSubmit)="save() ">
+        <div class="modal-body ">
+            <div class="row mb-3 ">
+                <div class="col-10">
+                    <label for="exerciseName " class="form-label ">Exercise Name</label>
+                    <input type="text" class="form-control" id="exerciseName " formControlName="exerciseName">
+                </div>
+                <div class="col-2">
+                    <label for="points" class="form-label ">Points</label>
+                    <input type="number" class="form-control" id="points" formControlName="points">
+                </div>
+            </div>
+            <div class="mb-2 ">
+                <label for="instructions " class="form-label ">Instructions</label>
+                <textarea name="" id="" cols="30" rows="1" class="form-control" id="instructions " formControlName="instructions"></textarea>
+            </div>
+            <div class="mb-2">
+                <label for="title " class="form-label ">Exercise</label>
+                <textarea name="" id="" cols="30" rows="3" class="form-control" id="exerciseDetails " formControlName="exerciseDetails" style="background-color: black;color:yellow"></textarea>
+                <label class="form-label"><i>Note : Type <strong>"[q-blank]"</strong></i> before each question words.</label>
+            </div>
+            <div class="mb-3">
+                <button type="submit " class="btn btn-primary ">Save</button>
+            </div>
+        </div>
+    </form>
+</div>
