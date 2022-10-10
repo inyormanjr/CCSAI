@@ -1,0 +1,47 @@
+<div class="container">
+    <div class="row mt-4">
+        <div class="col-12 d-flex justify-content-end">
+            <button class="btn btn-primary fa fa-plus" (click)="newAssessment()"></button>
+        </div>
+    </div>
+    <div class="d-flex mt-4 ">
+        <div class="p-0">
+            <input type="text" class="form-control" placeholder="Assessment" id="search" (keyup)="updateFilter($event)">
+        </div>
+        <div class="ml-auto mt-3">
+            <select name="limit" id="limit" [(ngModel)]="limit">
+                <option [ngValue]="10">10</option>
+                <option [ngValue]="25">25</option>
+                <option [ngValue]="50">50</option>
+                <option [ngValue]="100">100</option>
+              </select>
+        </div>
+    </div>
+    <div class="row mt-1">
+        <div class="col-12">
+            <ngx-datatable class='bootstrap' [columnMode]="'force'" [footerHeight]="50" [rowHeight]="'auto'" [rows]='assessmentList' [limit]="limit">
+
+                <ngx-datatable-column name="ASSESSMENT" prop="assessmentName">
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                        {{row.assessmentName | uppercase}}
+                    </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column name="STATUS" prop="assessment_status">
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                        {{row.assessment_status | uppercase}}
+                    </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column name="ACTIONS" prop="action">
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                        <button type="button" (click)="viewAssessment(row._id)" routerLinkActive="router-link-active" class="btn btn-outline-primary fa fa-eye" data-bs-toggle="tooltip" data-bs-placement="top" title="View/Edit"></button>
+                        <button type="button" (click)="deactivate(row)" routerLinkActive="router-link-active" class="btn btn-outline-danger fa fa-ban" *ngIf="row.assessment_status === 'active' && currentUser.role ==='admin'" data-bs-toggle="tooltip" data-bs-placement="top" title="Deactivate"></button>
+                        <button type="button" (click)="activate(row)" routerLinkActive="router-link-active" class="btn btn-outline-success fa fa-check" *ngIf="row.assessment_status === 'deactivated' && currentUser.role ==='admin'" data-bs-toggle="tooltip" data-bs-placement="top"
+                            title="Activate"></button>
+                    </ng-template>
+                </ngx-datatable-column>
+            </ngx-datatable>
+        </div>
+    </div>
+</div>

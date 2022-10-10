@@ -43,7 +43,6 @@ function compare(triggerArray, replyArray, string) {
 }
 
 function setSocketInstance(server) {
-    console.log(server);
     const io = SocketIO(server, {
         cors: {
       origin: '*'

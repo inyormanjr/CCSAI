@@ -1,3 +1,5 @@
+import { Exercise } from './../../../shared/models/Exercise';
+import { AssessmentListDTOService } from './../../../core/http/assessment/assessment-list-dto.service';
 import { DiscussionService } from './../../../core/http/discussion/discussion.service';
 import { CourseModelModule } from './../../../shared/models/CourseModule';
 import { ModuleService } from './../../../core/http/module/module.service';
@@ -14,6 +16,8 @@ import { AlertifyjsService } from 'src/app/core/services/alertifyjs.service';
 import { CourseService } from 'src/app/core/http/course/course.service';
 import { data, noop } from 'jquery';
 import { Discussion } from 'src/app/shared/models/Discussion';
+import { AssessmentListDTO } from 'src/app/shared/models/Assessment';
+import { ExerciseService } from 'src/app/core/http/exercise/exercise.service';
 
 @Injectable()
 export class CourseEffects {
@@ -47,6 +51,35 @@ export class CourseEffects {
       })
     ), { dispatch: false }
   );
+
+  
+  loadExercisesByModuleId$ = createEffect(() =>
+    this.actions$.pipe(ofType(CourseActionTypes.loadExercisesByModuleId),
+      tap((action) => {
+        this.exerciseService.getExerciseByModuleId(action._id).pipe(map((response: ResponseResult<any[]>) => {
+          var exercises : Exercise[] = [];
+          response.data[0].discussions.forEach((discussion:any) => {
+            discussion.exercises.forEach((exercise : any) => {
+              exercises.push(exercise);
+            });
+          });
+          this.courseStore.dispatch(CourseActionTypes.loadExercisesByModuleIdSuccess({ data: exercises }))
+        })).subscribe(noop, error => console.log(error))
+      })
+    ), { dispatch: false }
+  );
+
+  loadAssessmentsByModuleId$ = createEffect(() =>
+  this.actions$.pipe(ofType(CourseActionTypes.loadAssessmentByModuleId),
+    tap((action) => {
+
+      this.assessmentListDTOService.getAssessmentsByModuleId(action._id).pipe(map((response: ResponseResult<AssessmentListDTO[]>) => {
+       
+        this.courseStore.dispatch(CourseActionTypes.loadAssessmentByModuleIdSuccess({ data: response.data }))
+      })).subscribe(noop, error => console.log(error))
+    })
+  ), { dispatch: false }
+);
 
   getCourseById$ = createEffect(() =>
     this.actions$.pipe(ofType(CourseActionTypes.getCourseById),
@@ -153,5 +186,7 @@ export class CourseEffects {
     private courseService: CourseService,
     private alertify: AlertifyjsService,
     private moduleService: ModuleService,
-    private discussionService: DiscussionService) { }
+    private discussionService: DiscussionService,
+    private assessmentListDTOService : AssessmentListDTOService,
+    private exerciseService : ExerciseService) { }
 }

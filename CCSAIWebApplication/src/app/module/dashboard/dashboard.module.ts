@@ -1,3 +1,7 @@
+import { AnouncementService } from './../../core/http/anouncement/anouncement.service';
+import { EffectsModule } from '@ngrx/effects';
+import { dashboardFeatureKey, dashboardReducer } from './reducer/dashboard.reducer';
+import { StoreModule } from '@ngrx/store';
 
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -10,6 +14,8 @@ import { InstructorDashboardComponent } from './components/instructor-dashboard/
 import { ActivityCountLineItemComponent } from './components/activity-count-line-item/activity-count-line-item.component';
 import { DashboardCoursesCardComponent } from './components/dashboard-courses-card/dashboard-courses-card.component';
 import { DashboardCoursesContainerComponent } from './components/dashboard-courses-container/dashboard-courses-container.component';
+import { AnouncementItemComponent } from './components/anouncement-item/anouncement-item.component';
+import { DashboardEffects } from './effect/dashboard.effects';
 
 @NgModule({
   declarations: [
@@ -21,7 +27,15 @@ import { DashboardCoursesContainerComponent } from './components/dashboard-cours
     ActivityCountLineItemComponent,
     DashboardCoursesCardComponent,
     DashboardCoursesContainerComponent,
+    AnouncementItemComponent,
   ],
-  imports: [CommonModule, DashboardRoutingModule],
+  imports: [
+    CommonModule,
+    DashboardRoutingModule,
+    StoreModule.forFeature(dashboardFeatureKey, dashboardReducer),
+    EffectsModule.forFeature([DashboardEffects])
+  ],
+  providers: [AnouncementService]
+
 })
 export class DashboardModule {}

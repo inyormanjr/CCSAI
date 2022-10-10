@@ -1,0 +1,66 @@
+<div class="modal-header">
+    <h4 class="modal-title">{{discussion.title}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div>
+    <form [formGroup]="exerciseForm" (ngSubmit)="save() ">
+        <div class="modal-body ">
+            <div class="row mb-3 ">
+                <div class="col-10">
+                    <label for="exerciseName " class="form-label ">Exercise Name(<strong>{{trans}}</strong>)</label>
+                    <input type="text" class="form-control" id="exerciseName " formControlName="exerciseName">
+                </div>
+                <div class="col-2">
+                    <label for="points" class="form-label ">Points</label>
+                    <input type="number" class="form-control" id="points" formControlName="points">
+                </div>
+            </div>
+            <div class="mb-2 ">
+                <label for="instructions " class="form-label ">Instructions</label>
+                <textarea name="" id="" cols="30" rows="1" class="form-control" id="instructions " formControlName="instructions"></textarea>
+            </div>
+            <div class="mb-2">
+                <label for="title " class="form-label ">Exercise</label>
+                <textarea name="" id="" cols="30" rows="3" class="form-control" id="exerciseDetails " formControlName="exerciseDetails" style="background-color: black;color:yellow"></textarea>
+                <label class="form-label"><i>Note : Type <strong>"[q-blank]"</strong></i> before each question words.</label>
+            </div>
+            <div class="mb-3">
+                <button *ngIf="fc._id.value" type="button" (click)="clear()" class="btn btn-primary mr-2">Clear</button>
+                <button type="submit " class="btn btn-primary ">Save</button>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal-body" *ngIf="exerciseList.length > 0">
+    <div>
+        <h4 class="ml-3">Exercises</h4>
+    </div>
+    <div class="panel-group accordion" id="accordionExercise">
+        <div class="panel panel-default" *ngFor='let x of exerciseList;index as i'>
+            <div class="card">
+                <h6 class="card-header">
+                    <a data-toggle="collapse" data-parent="#accordionExercise" href="#collapseExercise{{i}}">{{x.exerciseName}}({{x.points}} pts.) - {{x.exercise_status}}</a>
+                </h6>
+                <div id="collapseExercise{{i}}" class="panel-collapse collapse in">
+                    <div class="card-body">
+                        <div>
+                            <strong>Instructions</strong> : {{x.instructions}}
+                        </div>
+                        <div>
+                            <strong>Exercise</strong> : {{x.exerciseDetails}}
+                        </div>
+                        <div class="mt-2 d-flex flex-row-reverse">
+                            <button type="button" class="btn btn-primary fa fa-pencil-square-o  mr-2" (click)=selectExercise(x) aria-label="update"></button>
+                            <button type="button" (click)="deactivate(x)" routerLinkActive="router-link-active" class="btn btn-outline-danger fa fa-ban" *ngIf="x.exercise_status === 'active'" data-bs-toggle="tooltip" data-bs-placement="top" title="Deactivate"></button>
+                            <button type="button" (click)="activate(x)" routerLinkActive="router-link-active" class="btn btn-outline-success fa fa-check" *ngIf="x.exercise_status === 'deactivated'" data-bs-toggle="tooltip" data-bs-placement="top" title="Activate"></button>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

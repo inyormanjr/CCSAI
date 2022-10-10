@@ -1,8 +1,11 @@
+import { AddAssessmentComponent } from './assessment/add-assessment/add-assessment.component';
+import { ExerciseMainViewComponent } from './exercise/exercise-main-view/exercise-main-view.component';
 import { CourseEffects } from './effects/course.effects';
 import { EffectsModule } from '@ngrx/effects';
 import { courseFeatureKey, courseReducer } from './reducer/course.reducer';
 import { StoreModule } from '@ngrx/store';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -19,6 +22,14 @@ import { ModuleViewComponent } from './module-view/module-view.component';
 import { ModuleViewReferenceTabComponent } from './components/module-view-reference-tab/module-view-reference-tab.component';
 import { AddDiscussionModalComponent } from './discussion/add-discussion-modal/add-discussion-modal.component';
 import { UpdateDiscussionModalComponent } from './discussion/update-discussion-modal/update-discussion-modal.component';
+import { AssessmentListComponent } from './assessment/assessment-list/assessment-list.component';
+import { UpdateAssessmentComponent } from './assessment/update-assessment/update-assessment.component';
+import { ExerciseListComponent } from './exercise/exercise-list/exercise-list.component';
+import { UpdateSelectedExerciseComponent } from './exercise/update-selected-exercise/update-selected-exercise.component';
+
+
+
+
 
 
 @NgModule({
@@ -32,7 +43,13 @@ import { UpdateDiscussionModalComponent } from './discussion/update-discussion-m
     ModuleViewComponent,
     ModuleViewReferenceTabComponent,
     AddDiscussionModalComponent,
-    UpdateDiscussionModalComponent
+    UpdateDiscussionModalComponent,
+    ExerciseMainViewComponent,
+    AssessmentListComponent,
+    AddAssessmentComponent,
+    UpdateAssessmentComponent,
+    ExerciseListComponent,
+    UpdateSelectedExerciseComponent
   ],
   imports: [
     CommonModule,
@@ -42,7 +59,7 @@ import { UpdateDiscussionModalComponent } from './discussion/update-discussion-m
     NgxDatatableModule,
     FormsModule,
     StoreModule.forFeature(courseFeatureKey,courseReducer),
-    EffectsModule.forFeature([CourseEffects])
+    EffectsModule.forFeature([CourseEffects]),
   ]
 })
 export class CourseModule { }

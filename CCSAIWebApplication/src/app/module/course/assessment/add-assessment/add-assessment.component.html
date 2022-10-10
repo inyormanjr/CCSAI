@@ -1,0 +1,87 @@
+<div class="modal-header">
+    <h4 class="modal-title">New Assessment</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModalAdd.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<form [formGroup]="assessmentForm" (ngSubmit)="addNewAssessment() ">
+    <div class="modal-body ">
+        <div class="mb-3 ">
+            <label for="assessmentName" class="form-label ">Assessment Name</label>
+            <input type="text " class="form-control " id="assessmentName" formControlName="assessmentName">
+        </div>
+        <div>
+            <button type="button" (click)="addAssessmentGroup()" class="btn btn-primary ">Add Group</button>
+        </div>
+        <div class="m-3 row" formArrayName="assessmentGroup">
+            <div class="card col-12" style="width: 18rem;" *ngFor="let assessmentGroup of assessmentGroup().controls;let assessmentGroupIndex=index">
+                <div [formGroupName]="assessmentGroupIndex">
+                    <div class="container-fluid mt-3">
+                        <div class="row justify-content-between">
+                            <strong>Group {{assessmentGroupIndex+1}}</strong>
+                            <button class="btn btn-danger fa fa-trash " (click)="removeAssessmentGroup(assessmentGroupIndex) "></button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <label for="groupName{{assessmentGroupIndex}}" class="form-label "><strong>Group Name</strong> : </label>
+                        <input type="text " class="form-control " id="groupName{{assessmentGroupIndex}}" formControlName="groupName">
+                    </div>
+                    <div>
+
+                    </div>
+
+                    <div class="m-3 " formArrayName="questions">
+                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                            <li *ngFor="let question of questions(assessmentGroupIndex).controls;let questionIndex=index" class="nav-item" role="presentation">
+                                <a class="nav-link " [id]="'q'+(questionIndex + 1) + 'tab'" data-toggle="tab" [attr.href]=" '#q'+ (questionIndex + 1)" role="tab" [attr.aria-controls]="'q'+questionIndex + 1" aria-selected="true">Question {{questionIndex + 1}}</a>
+                            </li>
+                            <li class="nav-item " role="presentation">
+                                <a class="nav-link text-success" id="contact-tab" (click)="addQuestion(assessmentGroupIndex)" data-toggle="tab" href="#" role="tab" aria-controls="contact" aria-selected="false">Add Question <i class="fa fa-plus"></i> </a>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="myTabContent">
+                            <div *ngFor="let question of questions(assessmentGroupIndex).controls;let questionIndex=index" class="tab-pane fade show " [id]="'q'+(questionIndex + 1)" role="tabpanel" [attr.aria-labelledby]="'q'+(questionIndex + 1)">
+                                <div class="card col-12">
+                                    <div [formGroupName]="questionIndex">
+                                        <div class="card-body">
+                                            <div class="row justify-content-end">
+                                                <button type="button" class="close" (click)="removeQuestion(assessmentGroupIndex,questionIndex)" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                            </div>
+                                            <div class="mb-2">
+                                                <label for=" points " class="form-label ">Points</label>
+                                                <input type="number " class="form-control " id="points " formControlName="points">
+                                            </div>
+                                            <div class="mb-2 ">
+                                                <label for="instructions " class="form-label ">Instructions</label>
+                                                <textarea name=" " id=" " cols="30 " rows="1 " class="form-control " id="instructions " formControlName="instructions"></textarea>
+                                            </div>
+                                            <label for="questionDetail{{questionIndex}} " class="form-label ">Question : </label>
+                                            <textarea name=" " id=" " cols="30 " rows="2 " class="form-control " id="questionDetail{{questionIndex}} " formControlName="questionDetail" style="background-color: black;color:yellow "></textarea>
+                                            <label class="form-label "><i>Note : Type <strong>"[q-blank] "</strong></i> before each question words.</label>
+                                        </div>
+
+                                        <!-- <div class="card-footer d-flex-reverse ">
+                                <button class="btn btn-danger fa fa-trash "
+                                  (click)="removeQuestion(assessmentGroupIndex,questionIndex) "></button>
+                              </div> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- <div class="card-footer d-flex-reverse ">
+                        <button class="btn btn-danger fa fa-trash " (click)="removeAssessmentGroup(assessmentGroupIndex) "></button>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer ">
+        <button type="submit " class="btn btn-primary ">Create</button>
+    </div>
+</form>

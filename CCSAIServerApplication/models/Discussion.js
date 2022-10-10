@@ -15,7 +15,7 @@ const DiscussionSchema = new mongoose.Schema({
         ref: 'Module',
         required: true
     },
-
+    discussion_status : { type: String, required: true , default : "active" },
 });
 
 module.exports = mongoose.model('Discussion', DiscussionSchema);
