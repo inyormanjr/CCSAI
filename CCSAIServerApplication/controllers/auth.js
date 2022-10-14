@@ -61,7 +61,8 @@ exports.register = asyncHandler(async(req, res, next) => {
 // @desc      Get current logged user
 // @route     GET /api/v1/auth/authuser
 // @access    Private
-exports.authUser = asyncHandler(async(req, res, next) => {
+exports.authUser = asyncHandler(async (req, res, next) => {
+    console.log(req);
     const user = await User.findById(req.loggedUser._id);
     if (!user) {
         return next(new ErrorResponse('Invalid authentication', 401));

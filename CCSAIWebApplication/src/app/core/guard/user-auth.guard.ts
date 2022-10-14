@@ -23,7 +23,7 @@ export class UserAuthGuard implements CanActivate {
         (res: any) => {
           if (res.success) {
             return this.checkUserLogin(route);
-          
+
           }
           this.router.navigate(['/login']);
           return false;
@@ -36,13 +36,13 @@ export class UserAuthGuard implements CanActivate {
 
   checkUserLogin(route: ActivatedRouteSnapshot): boolean {
       const userRole = this.tokenStorage.getDecodedUserToken().role;
-    
+    console.log(userRole);
       if (route.data.role && route.data.role.indexOf(userRole) === -1) {
         this.alertify.error('User not allowed to access the url.')
         this.router.navigate(['/login']);
         return false;
       }
-      return true;   
+      return true;
   }
-  
+
 }

@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
     return this.loginForm.controls;
   }
 
-  
+
   onSubmit() {
     let user = this.loginForm.value as UserLogin;
 
@@ -41,15 +41,16 @@ export class LoginComponent implements OnInit {
     }else{
       this.alertify.error('Please complete form.');
     }
-    
+
   }
 
   login(user : UserLogin){
     this.authenticationService.loginUser(user).subscribe(
       res => {
-        if(res.success){
+        if (res.success) {
+          console.log('test');
           this.tokenStorage.saveUser(res.token);
-          this.router.navigate(['/mainview/dashboard']);
+          this.router.navigate(['./mainview']);
         }
       },
       error=>{

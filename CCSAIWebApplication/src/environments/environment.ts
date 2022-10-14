@@ -6,6 +6,9 @@ export const environment = {
   production: false,
   socket_uri: 'http://localhost:5001/',
   api_uri: 'http://localhost:5001/api/v1',
+
+  allowedDomain: 'localhost:5001',
+  disallowedRoutes: 'localhost:5001/api/v1/auth',
 };
 
 /*

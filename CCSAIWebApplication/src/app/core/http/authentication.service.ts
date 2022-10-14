@@ -12,18 +12,18 @@ export class AuthenticationService {
   constructor(private httpClient: HttpClient) { }
 
   loginUser(user : UserLogin) : Observable<any>{
-    let header = new HttpHeaders().set("Authorization", 'Bearer ' + window.localStorage.getItem('auth-user'));
-    return this.httpClient.post<UserLogin>(`${environment.api_uri}/auth/login`,user,{'headers' : header});
+
+    return this.httpClient.post<UserLogin>(`${environment.api_uri}/auth/login`,user);
   }
-  
+
   authUser(){
-    let header = new HttpHeaders().set("Authorization", 'Bearer ' + window.localStorage.getItem('auth-user'));
-    return this.httpClient.get(`${environment.api_uri}/auth/authuser`,{'headers' : header});
+
+    return this.httpClient.get(`${environment.api_uri}/auth/authuser`);
   }
 
   registerUser(user : RegisterUser) : Observable<any>{
-    let header = new HttpHeaders().set("Authorization", 'Bearer ' + window.localStorage.getItem('auth-user'));
-    return this.httpClient.post<RegisterUser>(`${environment.api_uri}/auth/register`,user,{'headers' : header});
+
+    return this.httpClient.post<RegisterUser>(`${environment.api_uri}/auth/register`,user);
   }
 
 }
