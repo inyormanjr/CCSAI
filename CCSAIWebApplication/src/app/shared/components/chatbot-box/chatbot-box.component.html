@@ -3,8 +3,8 @@
     <div class="card d-flex flex-column bg-light">
       <div class="card-header d-flex flex-row justify-content-between align-items-center">
         <div class="leading d-flex flex-row justify-content-center align-items-end">
-        <img class="rounded-circle border mr-2" src="../../../../assets/bot-icon.png" height="44" width="44" alt="" srcset="">
-        <h5>CCSAI Chatbot</h5>
+        <img class="rounded-circle border mr-2" src="../../../../assets/ccs_logo.png" height="44" width="44" alt="" srcset="">
+        <h5>CCSCAI Chatbot</h5>
         </div>
         <a (click)="showHideBotChat()">
           <i class="fa fa-window-minimize"></i>
@@ -12,7 +12,7 @@
       </div>
       <div class="card-content flex flex-fill bg-white p-3 pl-1 pr-1" >
           <div class="greetings text-center">
-            <h5>Welcome to CCSAI Bot Chat</h5>
+            <h5>Welcome to CCSCAI Bot Chat</h5>
             <div [hidden]="gotStarted">
                 <p>To continue click the "Get Started" Button</p>
                 <a class="btn btn-white btn-lg shadow active" style="border-radius: 25px;" role="button"
@@ -34,7 +34,7 @@
                 <app-chat-icon-message
                 [isUser]="false"
                 [message]="message.SenderMessage"
-                [iconUrl]="'../../../../assets/bot-icon.png'">
+                [iconUrl]="'../../../../assets/ccs_logo.png'">
                 </app-chat-icon-message>
               </ng-template>
             </div>
@@ -54,7 +54,7 @@
 
   <div id="chatboxbot-icon-head" [hidden]="!hidden">
     <a (click)="showHideBotChat()">
-      <img class="rounded-circle border" src="../../../../assets/bot-icon.png" height="80" width="80" alt="" srcset="">
+      <img class="rounded-circle border" src="../../../../assets/ccs_logo.png" height="80" width="80" alt="" srcset="">
     </a>
   </div>
 </div>

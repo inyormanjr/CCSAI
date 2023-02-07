@@ -1,0 +1,37 @@
+<div class="row mb-2">
+    <div class="col-md-12">
+    <h1>Admin Dashboard </h1>
+    </div>
+  </div>
+  <div class="row ">
+    <div class="col-md-9 p-2 g-0 ">     
+      <app-dashboard-card [cardTitle]="'New Courses'">
+        <app-activity-count-line-item content></app-activity-count-line-item>
+        <app-activity-count-line-item content></app-activity-count-line-item>  
+        <app-activity-count-line-item content></app-activity-count-line-item>
+      </app-dashboard-card>
+    </div>
+    <div class="col-md-3 p-2 g-0 ">
+        <app-dashboard-card [cardTitle]="'Summary'">
+          <app-summary-count content [trailing]= "'Users'" [countContent] = "100"></app-summary-count>
+          <app-summary-count content [trailing]= "'Courses'" [countContent] = "70"></app-summary-count>
+          <app-summary-count content [trailing]= "'Enrollment'" [countContent] = "250"></app-summary-count>
+        </app-dashboard-card>
+      </div>
+    <div class="col-md-9 p-2 g-0 ">
+        <app-dashboard-card [cardTitle]="'New Enrollment'">
+          <app-activity-count-line-item content></app-activity-count-line-item>
+          <app-activity-count-line-item content></app-activity-count-line-item>
+          <app-activity-count-line-item content></app-activity-count-line-item>
+        </app-dashboard-card>
+      </div>
+      <div class="col-md-3 p-2 g-0 ">
+        <app-dashboard-card [cardTitle]="'Users'">
+          <app-summary-count content [trailing]= "'Administrators'" [countContent] = "100"></app-summary-count>
+          <app-summary-count content [trailing]= "'Instructors'" [countContent] = "70"></app-summary-count>
+          <app-summary-count content [trailing]= "'Students'" [countContent] = "250"></app-summary-count>
+        </app-dashboard-card>
+      </div>
+    
+  </div>
+  

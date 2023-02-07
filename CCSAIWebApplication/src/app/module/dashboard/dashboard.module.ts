@@ -9,6 +9,7 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './dashboard.component';
 import { ProgressLineItemComponent } from './components/progress-line-item/progress-line-item.component';
 import { DashboardCardComponent } from './components/dashboard-card/dashboard-card.component';
+import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
 import { StudentDashboardComponent } from './components/student-dashboard/student-dashboard.component';
 import { InstructorDashboardComponent } from './components/instructor-dashboard/instructor-dashboard.component';
 import { ActivityCountLineItemComponent } from './components/activity-count-line-item/activity-count-line-item.component';
@@ -16,18 +17,21 @@ import { DashboardCoursesCardComponent } from './components/dashboard-courses-ca
 import { DashboardCoursesContainerComponent } from './components/dashboard-courses-container/dashboard-courses-container.component';
 import { AnouncementItemComponent } from './components/anouncement-item/anouncement-item.component';
 import { DashboardEffects } from './effect/dashboard.effects';
+import { SummaryCountComponent } from './components/summary-count/summary-count.component';
 
 @NgModule({
   declarations: [
     DashboardComponent,
     ProgressLineItemComponent,
     DashboardCardComponent,
+    AdminDashboardComponent,
     StudentDashboardComponent,
     InstructorDashboardComponent,
     ActivityCountLineItemComponent,
     DashboardCoursesCardComponent,
     DashboardCoursesContainerComponent,
     AnouncementItemComponent,
+    SummaryCountComponent,
   ],
   imports: [
     CommonModule,

@@ -1,8 +1,8 @@
 <ng-container *ngIf="isUser; else elseTemplate">
   <div class="user-message-container d-flex flex-row  justify-content-end align-items-start p-2">
 
-    <div class="message-bubble bg-light p-3" style="max-width: 70%; border-radius: 25px;">
-      <pre class="align-self-end p-0 m-0 text-wrap ">{{message}}</pre>
+    <div class="message-bubble bg-info p-3" style="max-width: 70%; border-radius: 25px; ">
+      <pre class="align-self-end p-0 m-0 text-wrap text-white">{{message}}</pre>
     </div>
     <img class="rounded-circle border mr-2" [src]="iconUrl" height="35" width="35" alt="" srcset="">
   </div>

@@ -8,6 +8,8 @@ const User = require('./models/User');
 const Course = require('./models/Course');
 const Term = require('./models/Term');
 const Enrollment = require('./models/Enrollment');
+const Discussion = require('./models/Discussion');
+const Assessment = require('./models/Assessment');
 
 dotenv.config({
     path: './config/config.env'
@@ -46,6 +48,8 @@ const deleteData = async() => {
         await Course.deleteMany();
         await Term.deleteMany();
         await Enrollment.deleteMany();
+        await Discussion.deleteMany();
+
         console.log('Data destroyed...'.red.inverse);
         process.exit();
     } catch (err) {

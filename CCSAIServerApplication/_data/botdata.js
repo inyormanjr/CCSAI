@@ -23,6 +23,7 @@ const trigger = [
   ['what should i eat today'],
   ['bro'],
   ['what', 'why', 'how', 'where', 'when'],
+  ['topics', 'discussions', 'modules'],
 ];
 
 // These are bot responses, paired in order with the above 'trigger' phrases
@@ -55,7 +56,12 @@ const reply = [
   ['Sushi', 'Pizza'],
   ['Bro!'],
   ['Yes?'],
+  [
+    'Please specify what topic you want to access.', 
+    'Please select from the following topics:'
+  ],
 ];
+
 
 // This is a small set of basically random 'catch alls' for anything that the user enters outside of the possible trigger phrases
 
