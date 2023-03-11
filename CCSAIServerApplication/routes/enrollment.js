@@ -11,19 +11,19 @@ const { protectUser, authorize } = require('../middleware/auth');
 
 router.route('/')
     .post(protectUser,
-        authorize('admin'),
+        authorize('admin', 'instructor'),
         createEnrollment);
 router.route('/:id')
     .put(protectUser,
-        authorize('admin'),
+        authorize('admin', 'instructor'),
         updateEnrollment);
 
 router.route('/')
     .get(protectUser,
-        authorize('admin'), getAllEnrollment);
+        authorize('admin', 'instructor'), getAllEnrollment);
 
 router.route('/:id')
     .get(protectUser,
-        authorize('admin'), getEnrollmentById);
+        authorize('admin', 'instructor'), getEnrollmentById);
 
 module.exports = router;

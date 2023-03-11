@@ -15,7 +15,7 @@ const { protectUser, authorize } = require('../middleware/auth');
 
 router.route('/')
     .post(protectUser,
-        authorize('admin'),
+        authorize('admin', 'instructor'),
         createCourse);
 
 router.route('/')
@@ -28,17 +28,17 @@ router.route('/active')
 
 router.route('/activate/:id')
     .put(protectUser,
-        authorize('admin'),
+        authorize('admin', 'instructor'),
         activateCourse);
 
 router.route('/deactivate/:id')
     .put(protectUser,
-        authorize('admin'),
+        authorize('admin', 'instructor'),
         deactivateCourse);
 
 router.route('/:id')
     .put(protectUser,
-        authorize('admin'),
+        authorize('admin', 'instructor'),
         updateCourse);
 
 router.route('/:id')
