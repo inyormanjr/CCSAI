@@ -41,7 +41,7 @@ const routes: Routes = [
         path: 'enrollment',
         canActivate: [UserAuthGuard],
         data: {
-          role: ['admin']
+          role: ['admin', 'instructor']
         },
         loadChildren: () => import('../enrollment/enrollment.module').then(m => m.EnrollmentModule)
       },
