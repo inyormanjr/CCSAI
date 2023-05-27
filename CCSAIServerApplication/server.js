@@ -17,12 +17,13 @@ const cors = require('cors');
 dotenv.config({ path: './config/config.env' });
 connectDB();
 const app = express();
+
+app.use(cors());
 app.use(express.json());
 
 //routes manager
 setRoutes(app);
 
-app.use(cors());
 app.use(express.static(path.join(__dirname, 'dist/')));
 
 app.get('/*', function (req, res) {
