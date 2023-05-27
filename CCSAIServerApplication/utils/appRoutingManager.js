@@ -15,7 +15,7 @@ const apiRouteV1 = '/api/v1/';
 
 
 function setRoutes(app) {
-    
+
     app.use(apiRouteV1 + 'auth', auth);
     app.use(apiRouteV1 + 'users', users);
     app.use(apiRouteV1 + 'courses', courses);
@@ -28,7 +28,7 @@ function setRoutes(app) {
     app.use(apiRouteV1 + 'anouncement', anouncement);
     app.use(apiRouteV1 + 'exercises', exercises);
     app.use(apiRouteV1 + 'assessment', assessments);
-    app.use(apiRouteV1 + 'student', studentRoute);
+    app.use(apiRouteV1 + 'students', studentRoute);
 
 }
 

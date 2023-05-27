@@ -7,7 +7,6 @@ const { protectUser, authorize } = require('../middleware/auth');
 router.get(
   '/:studentId/courses',
   protectUser,
-  authorize('student'),
   getCoursesByStudentId
 );
 
