@@ -24,8 +24,9 @@ export class TokenStorageService {
   }
 
   public getDecodedUserToken(): any {
-    const userToken = window.localStorage.getItem(USER_KEY) || "";
-    try {   
+    const userToken = localStorage.getItem(USER_KEY) || "";
+    console.log(userToken);
+    try {
       return jwt_decode(userToken);
     }
     catch (Error) {

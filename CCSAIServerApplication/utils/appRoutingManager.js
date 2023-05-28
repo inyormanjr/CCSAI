@@ -10,10 +10,12 @@ const dashboard = require('../routes/dashboard');
 const anouncement = require('../routes/anouncement');
 const exercises = require('../routes/exercise');
 const assessments = require('../routes/assessment');
+const studentRoute = require('../routes/studentRoute');
 const apiRouteV1 = '/api/v1/';
 
 
 function setRoutes(app) {
+
     app.use(apiRouteV1 + 'auth', auth);
     app.use(apiRouteV1 + 'users', users);
     app.use(apiRouteV1 + 'courses', courses);
@@ -24,8 +26,10 @@ function setRoutes(app) {
     app.use(apiRouteV1 + 'discussions', discussions);
     app.use(apiRouteV1 + 'dashboard', dashboard);
     app.use(apiRouteV1 + 'anouncement', anouncement);
-    app.use(apiRouteV1 + 'exercises', exercises)
-    app.use(apiRouteV1 + 'assessment', assessments)
+    app.use(apiRouteV1 + 'exercises', exercises);
+    app.use(apiRouteV1 + 'assessment', assessments);
+    app.use(apiRouteV1 + 'students', studentRoute);
+
 }
 
 module.exports = { setRoutes };

@@ -17,12 +17,17 @@ import { mainReducerFeatureKey, reducer } from './reducer/main-reducer.reducer';
 import { environment } from 'src/environments/environment';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { BotSocketService } from './core/services/socketservice/bot-socket.service';
+import { JwtModule } from '@auth0/angular-jwt';
 
 
-
+export function tokenGetter() {
+  const token = localStorage.getItem('auth-user');
+  console.log(token);
+  return token;
+}
 
 @NgModule({
-  declarations: [AppComponent, PageNotFoundComponent, LoginComponent, ],
+  declarations: [AppComponent, PageNotFoundComponent, LoginComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -31,6 +36,15 @@ import { BotSocketService } from './core/services/socketservice/bot-socket.servi
     NgbModule,
     HttpClientModule,
     DataTablesModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter,
+        allowedDomains: [environment.allowedDomain],
+        disallowedRoutes: [
+          environment.disallowedRoutes,
+        ],
+      },
+    }),
     StoreModule.forRoot({}),
     StoreModule.forFeature(mainReducerFeatureKey, reducer),
     !environment.production
@@ -39,12 +53,11 @@ import { BotSocketService } from './core/services/socketservice/bot-socket.servi
           logOnly: environment.production,
         })
       : [],
-    EffectsModule.forRoot()
+    EffectsModule.forRoot(),
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-    BotSocketService
+    BotSocketService,
   ],
   bootstrap: [AppComponent],
 })
