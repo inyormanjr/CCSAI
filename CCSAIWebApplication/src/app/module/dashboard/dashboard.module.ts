@@ -16,6 +16,7 @@ import { DashboardCoursesCardComponent } from './components/dashboard-courses-ca
 import { DashboardCoursesContainerComponent } from './components/dashboard-courses-container/dashboard-courses-container.component';
 import { AnouncementItemComponent } from './components/anouncement-item/anouncement-item.component';
 import { DashboardEffects } from './effect/dashboard.effects';
+import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { DashboardEffects } from './effect/dashboard.effects';
     DashboardCoursesCardComponent,
     DashboardCoursesContainerComponent,
     AnouncementItemComponent,
+    AdminDashboardComponent,
   ],
   imports: [
     CommonModule,
