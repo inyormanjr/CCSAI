@@ -11,15 +11,15 @@ const { protectUser, authorize } = require('../middleware/auth');
 
 router.route('/')
     .post(protectUser,
-        authorize('admin'),
+        authorize('admin', 'instructor'),
         createEnrollmentDetail);
 
 router.route('/getbyenrollmentid/:id')
     .get(protectUser,
-        authorize('admin'), getEnrollmentDetailByEnrollmentId);
+        authorize('admin', 'instructor'), getEnrollmentDetailByEnrollmentId);
 
 router.route('/:id')
     .delete(protectUser,
-        authorize('admin'), deleteEnrollmentDetailById);
+        authorize('admin', 'instructor'), deleteEnrollmentDetailById);
 
 module.exports = router;
