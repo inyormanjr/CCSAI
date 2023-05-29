@@ -7,6 +7,7 @@ const { Assessment } = require('../models/Assessment');
 const Course = require('../models/Course');
 const User = require('../models/User');
 const Module = require('../models/Module');
+const Exercise = require('../models/Exercise');
 
 
 exports.getCoursesByStudentId = asyncHandler(async (req, res) => {
@@ -162,33 +163,21 @@ exports.getCourseByIdAndStudentId = asyncHandler(async (req, res) => {
 
 
 
-// GET /students/:studentId/modules
-exports.getModulesByStudentId = asyncHandler(async (req, res) => {
-  const studentId = req.loggedUser._id;
-
-  // Find enrollment details for the student and populate the 'enrollmentId' field along with the 'courseId' and 'instructorId' fields
-  const enrollmentDetails = await EnrollmentDetail.find({ studentId }).populate(
-    {
-      path: 'enrollmentId',
-      populate: [
-        { path: 'courseId', model: Course },
-        { path: 'instructorId', model: User },
-      ],
-    }
-  );
-
-  const modules = await Promise.all(
-    enrollmentDetails.map(async (detail) => {
-      const enrollment = detail.enrollmentId;
-      const { moduleId, module } = await Module.findOne({
-        courseId: enrollment.courseId,
-      });
-
-      const discussions = await Discussion.find({ moduleId });
-      const assessments = await Assessment.find({ moduleId });
-
+// GET /students/:courseId/modules
+exports.getModulesByCourse = asyncHandler(async (req, res) => {
+  const courseId = req.params.courseId;
+  const module = await Module.find({
+    courseId,
+  });
+  const __moduleMappedPopulate = await Promise.all(
+    module.map(async (detail) => {
+      const { _id, module } = detail;
+      const discussions = await Discussion.find({ moduleId: _id }).select('_id, title');
+      const assessments = await Assessment.find({ moduleId: _id }).select(
+        '_id, assessmentName'
+      );
       return {
-        moduleId,
+        _id,
         module,
         discussions,
         assessments,
@@ -196,5 +185,13 @@ exports.getModulesByStudentId = asyncHandler(async (req, res) => {
     })
   );
 
-  res.status(200).json(modules);
+  const reversedModules = __moduleMappedPopulate.reverse();
+  res.status(200).json(reversedModules);
+});
+
+
+exports.getExerciseByDiscussionId = asyncHandler(async (req, res) => {
+  const discussionId = req.params.id;
+  const exercise = await Exercise.findOne({ discussionId });
+  res.status(200).json(exercise);
 });

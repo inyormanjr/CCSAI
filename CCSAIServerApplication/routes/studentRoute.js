@@ -3,7 +3,8 @@ const {
   getCoursesByStudentId,
   getCoursesByStudentIdWithParams,
   getCourseByIdAndStudentId,
-  getModulesByStudentId
+  getModulesByCourse,
+  getExerciseByDiscussionId
 } = require('../controllers/studentController');
 
 const router = express.Router();
@@ -19,8 +20,8 @@ router.get(
   getCourseByIdAndStudentId
 );
 
-// GET /students/:studentId/modules
-router.get('/modules', protectUser, getModulesByStudentId);
+router.get('/course/:courseId/modules', protectUser, getModulesByCourse);
 
+router.get('/course/discussion/:id/exercise', protectUser, getExerciseByDiscussionId);
 
 module.exports = router;
