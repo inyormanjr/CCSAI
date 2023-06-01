@@ -4,7 +4,8 @@ const {
   getCoursesByStudentIdWithParams,
   getCourseByIdAndStudentId,
   getModulesByCourse,
-  getExerciseByDiscussionId
+  getExerciseByDiscussionId,
+  getModuleDiscussionByPage
 } = require('../controllers/studentController');
 
 const router = express.Router();
@@ -23,5 +24,13 @@ router.get(
 router.get('/course/:courseId/modules', protectUser, getModulesByCourse);
 
 router.get('/course/discussion/:id/exercise', protectUser, getExerciseByDiscussionId);
+
+router.get(
+  '/course/module/:moduleId/discussion/page/:page',
+  protectUser,
+  getModuleDiscussionByPage
+);
+
+
 
 module.exports = router;

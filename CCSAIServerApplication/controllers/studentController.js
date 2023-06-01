@@ -166,32 +166,151 @@ exports.getCourseByIdAndStudentId = asyncHandler(async (req, res) => {
 // GET /students/:courseId/modules
 exports.getModulesByCourse = asyncHandler(async (req, res) => {
   const courseId = req.params.courseId;
-  const module = await Module.find({
-    courseId,
-  });
-  const __moduleMappedPopulate = await Promise.all(
-    module.map(async (detail) => {
-      const { _id, module } = detail;
-      const discussions = await Discussion.find({ moduleId: _id }).select('_id, title');
-      const assessments = await Assessment.find({ moduleId: _id }).select(
-        '_id, assessmentName'
-      );
-      return {
-        _id,
-        module,
-        discussions,
-        assessments,
-      };
-    })
-  );
+  const modules = await Module.find({ courseId });
 
-  const reversedModules = __moduleMappedPopulate.reverse();
+  const modulePromises = modules.map(async (module) => {
+    const { _id, module: moduleName } = module;
+    const discussions = await Discussion.find({ moduleId: _id }).select(
+      '_id title'
+    );
+    const perPage = 1; // Number of discussions per page
+
+    const discussionsWithPage = discussions.map((discussion, index) => {
+      const pageNumber = Math.ceil((index + 1) / perPage);
+      return { ...discussion.toObject(), page: pageNumber };
+    });
+
+    const assessments = await Assessment.find({ moduleId: _id }).select(
+      '_id assessmentName'
+    );
+
+    return {
+      _id,
+      module: moduleName,
+      discussions: discussionsWithPage,
+      assessments,
+    };
+  });
+
+  const modulesWithDiscussions = await Promise.all(modulePromises);
+  const reversedModules = modulesWithDiscussions.reverse();
+
   res.status(200).json(reversedModules);
 });
 
 
+exports.getModuleDiscussionByPage = asyncHandler(async (req, res) => {
+  const moduleId = req.params.moduleId;
+  const pageIndex = req.params.page;
+
+  const module = await Module.findById(moduleId);
+
+  if (!module) {
+    return res.status(404).json({ error: 'Module not found' });
+  }
+
+  const course = await Course.findById(module.courseId);
+
+  if (!course) {
+    return res.status(404).json({ error: 'Course not found' });
+  }
+
+  const discussions = await Discussion.find({ moduleId }).sort('_id');
+
+  const totalPages = discussions.length;
+  const requestedPageIndex = parseInt(pageIndex, 10);
+
+  if (requestedPageIndex < 1 || requestedPageIndex > totalPages) {
+    return res.status(400).json({ error: 'Invalid page index' });
+  }
+
+  const discussionIndex = requestedPageIndex - 1;
+  const selectedDiscussion = discussions[discussionIndex];
+
+  if (!selectedDiscussion) {
+    return res.status(404).json({ error: 'Discussion not found' });
+  }
+
+  const previousPage = requestedPageIndex > 1 ? requestedPageIndex - 1 : null;
+  const nextPage =
+    requestedPageIndex < totalPages ? requestedPageIndex + 1 : null;
+
+  const moduleDiscussionResult = {
+    courseId: course._id,
+    courseName: course.course,
+    moduleId: module._id,
+    moduleName: module.module,
+    discussion: selectedDiscussion,
+    totalPages,
+    currentPage: requestedPageIndex,
+    previousPage,
+    nextPage,
+  };
+
+  res.status(200).json(moduleDiscussionResult);
+});
+
+
+
+
+
+
+
+exports.getModuleByIdWithDiscussionPage = asyncHandler(async (req, res) => {
+  const moduleId = req.params.moduleId;
+  const discussionId = req.params.discussionId;
+  const page = req.params.page;
+  const perPage = 1; // Number of discussions per page
+
+  const module = await Module.findById(moduleId);
+  if (!module) {
+    res.status(404).json({ error: 'Module not found' });
+    return;
+  }
+
+  const discussionsCount = await Discussion.countDocuments({ moduleId });
+  const totalPages = Math.ceil(discussionsCount / perPage);
+
+  if (page < 1 || page > totalPages) {
+    res.status(400).json({ error: 'Invalid page number' });
+    return;
+  }
+
+  const skip = (page - 1) * perPage;
+  const discussions = await Discussion.find({ moduleId })
+    .sort({ createdAt: 1 })
+    .skip(skip)
+    .limit(perPage);
+
+  if (discussions.length === 0) {
+    res.status(404).json({ error: 'Discussion not found' });
+    return;
+  }
+
+  const discussion = discussions[0];
+  const exercise = await Exercise.findOne({ discussionId: discussion._id });
+
+  const result = {
+    moduleId: module._id,
+    module: module.module,
+    discussion: {
+      _id: discussion._id,
+      title: discussion.title,
+      content: discussion.content,
+      exercise,
+    },
+    totalPages,
+    currentPage: page,
+  };
+
+  res.status(200).json(result);
+});
+
+
+
+
 exports.getExerciseByDiscussionId = asyncHandler(async (req, res) => {
   const discussionId = req.params.id;
-  const exercise = await Exercise.findOne({ discussionId });
+  const exercise = await Exercise.findOne({ discussionId }).populate('moduleId');
   res.status(200).json(exercise);
 });
