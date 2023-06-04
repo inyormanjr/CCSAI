@@ -8,6 +8,7 @@ const Course = require('../models/Course');
 const User = require('../models/User');
 const Module = require('../models/Module');
 const Exercise = require('../models/Exercise');
+const ExerciseAnswer = require('../models/ExerciseAnswer');
 
 
 exports.getCoursesByStudentId = asyncHandler(async (req, res) => {
@@ -170,25 +171,28 @@ exports.getModulesByCourse = asyncHandler(async (req, res) => {
 
   const modulePromises = modules.map(async (module) => {
     const { _id, module: moduleName } = module;
-    const discussions = await Discussion.find({ moduleId: _id }).select(
-      '_id title'
-    );
+    const discussions = await Discussion.find({ moduleId: _id })
+      .select('_id title')
+      .sort('_id');;
     const perPage = 1; // Number of discussions per page
+
+    const totalPages = Math.ceil(discussions.length / perPage);
 
     const discussionsWithPage = discussions.map((discussion, index) => {
       const pageNumber = Math.ceil((index + 1) / perPage);
       return { ...discussion.toObject(), page: pageNumber };
     });
 
-    const assessments = await Assessment.find({ moduleId: _id }).select(
-      '_id assessmentName'
-    );
+    const assessments = await Assessment.find({ moduleId: _id })
+      .select('_id assessmentName')
+      .sort('_id');
 
     return {
       _id,
       module: moduleName,
       discussions: discussionsWithPage,
       assessments,
+      totalPages,
     };
   });
 
@@ -197,6 +201,8 @@ exports.getModulesByCourse = asyncHandler(async (req, res) => {
 
   res.status(200).json(reversedModules);
 });
+
+
 
 
 exports.getModuleDiscussionByPage = asyncHandler(async (req, res) => {
@@ -231,6 +237,10 @@ exports.getModuleDiscussionByPage = asyncHandler(async (req, res) => {
     return res.status(404).json({ error: 'Discussion not found' });
   }
 
+  const exercise = await Exercise.findOne({
+    discussionId: selectedDiscussion._id,
+  });
+
   const previousPage = requestedPageIndex > 1 ? requestedPageIndex - 1 : null;
   const nextPage =
     requestedPageIndex < totalPages ? requestedPageIndex + 1 : null;
@@ -240,7 +250,7 @@ exports.getModuleDiscussionByPage = asyncHandler(async (req, res) => {
     courseName: course.course,
     moduleId: module._id,
     moduleName: module.module,
-    discussion: selectedDiscussion,
+    discussion: { ...selectedDiscussion.toObject() , exercise: exercise},
     totalPages,
     currentPage: requestedPageIndex,
     previousPage,
@@ -256,61 +266,38 @@ exports.getModuleDiscussionByPage = asyncHandler(async (req, res) => {
 
 
 
-exports.getModuleByIdWithDiscussionPage = asyncHandler(async (req, res) => {
-  const moduleId = req.params.moduleId;
-  const discussionId = req.params.discussionId;
-  const page = req.params.page;
-  const perPage = 1; // Number of discussions per page
 
-  const module = await Module.findById(moduleId);
-  if (!module) {
-    res.status(404).json({ error: 'Module not found' });
-    return;
+
+exports.getExerciseByDiscussionIdandStudentId = asyncHandler(
+  async (req, res) => {
+    console.log(req.params.id);
+    const discussionId = req.params.id;
+    const studentId = req.loggedUser.id; // Assuming you have the authenticated user's ID
+
+    const exercise = await Exercise.findOne({
+      discussionId: discussionId,
+    }).populate('moduleId');
+
+    console.log(exercise);
+    let exerciseAnswer;
+
+    if (studentId) {
+      exerciseAnswer = await ExerciseAnswer.findOne({
+        exercise: exercise._id,
+        student: studentId,
+      });
+    }
+
+    if (exerciseAnswer) {
+      exercise.exerciseAnswer = exerciseAnswer;
+    }
+
+    res.status(200).json(exercise);
   }
-
-  const discussionsCount = await Discussion.countDocuments({ moduleId });
-  const totalPages = Math.ceil(discussionsCount / perPage);
-
-  if (page < 1 || page > totalPages) {
-    res.status(400).json({ error: 'Invalid page number' });
-    return;
-  }
-
-  const skip = (page - 1) * perPage;
-  const discussions = await Discussion.find({ moduleId })
-    .sort({ createdAt: 1 })
-    .skip(skip)
-    .limit(perPage);
-
-  if (discussions.length === 0) {
-    res.status(404).json({ error: 'Discussion not found' });
-    return;
-  }
-
-  const discussion = discussions[0];
-  const exercise = await Exercise.findOne({ discussionId: discussion._id });
-
-  const result = {
-    moduleId: module._id,
-    module: module.module,
-    discussion: {
-      _id: discussion._id,
-      title: discussion.title,
-      content: discussion.content,
-      exercise,
-    },
-    totalPages,
-    currentPage: page,
-  };
-
-  res.status(200).json(result);
-});
+);
 
 
 
+exports.submittedExerciseAnswerById = asyncHandler(async (req, res) => {
 
-exports.getExerciseByDiscussionId = asyncHandler(async (req, res) => {
-  const discussionId = req.params.id;
-  const exercise = await Exercise.findOne({ discussionId }).populate('moduleId');
-  res.status(200).json(exercise);
 });

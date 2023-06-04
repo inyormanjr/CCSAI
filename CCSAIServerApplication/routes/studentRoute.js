@@ -4,7 +4,7 @@ const {
   getCoursesByStudentIdWithParams,
   getCourseByIdAndStudentId,
   getModulesByCourse,
-  getExerciseByDiscussionId,
+  getExerciseByDiscussionIdandStudentId,
   getModuleDiscussionByPage
 } = require('../controllers/studentController');
 
@@ -23,7 +23,11 @@ router.get(
 
 router.get('/course/:courseId/modules', protectUser, getModulesByCourse);
 
-router.get('/course/discussion/:id/exercise', protectUser, getExerciseByDiscussionId);
+router.get(
+  '/course/discussion/:id/exercise',
+  protectUser,
+  getExerciseByDiscussionIdandStudentId
+);
 
 router.get(
   '/course/module/:moduleId/discussion/page/:page',
