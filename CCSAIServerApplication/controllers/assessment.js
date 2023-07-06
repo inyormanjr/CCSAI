@@ -1,6 +1,6 @@
 const ErrorResponse = require('../utils/errorResponse');
 const asyncHandler = require('../middleware/async');
-const Assessment = require('../models/Assessment');
+const {Assessment} = require('../models/Assessment');
 var ObjectId = require('mongoose').Types.ObjectId;
 
 // @desc      Create assessment
