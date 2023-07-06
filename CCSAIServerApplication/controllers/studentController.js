@@ -197,7 +197,7 @@ exports.getModulesByCourse = asyncHandler(async (req, res) => {
   });
 
   const modulesWithDiscussions = await Promise.all(modulePromises);
-  const reversedModules = modulesWithDiscussions.reverse();
+  const reversedModules = modulesWithDiscussions;
 
   res.status(200).json(reversedModules);
 });
