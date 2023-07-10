@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/b8665bc3-c0ff-4699-ab97-adbeedca1c6a/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/ccscai",
+    "appService.deploySubpath": "CCSAIServerApplication"
+}
